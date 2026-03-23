@@ -28,8 +28,8 @@
 - [ ] `question_detector.py` — Haiku-based question classification
 - [ ] `audio_capture.py` — Dual stream capture (system + mic)
 - [ ] `transcription.py` — faster-whisper wrapper
-- [ ] `orchestrator.py` — Wire everything together
-- [ ] `main.py` — FastAPI app with REST + WebSocket endpoints
+- [x] `orchestrator.py` — Wire everything together — 2026-03-23, Codex
+- [x] `main.py` — FastAPI app with REST + WebSocket endpoints — 2026-03-23, Codex
 - [ ] `session.py` (router) — Session CRUD endpoints
 - [ ] `devices.py` (router) — Audio device listing endpoint
 
