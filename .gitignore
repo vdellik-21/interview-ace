@@ -1,0 +1,42 @@
+# Environment
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+backend/venv/
+*.egg-info/
+dist/
+
+# Node
+node_modules/
+frontend/dist/
+electron/dist/
+
+# Whisper models (downloaded at runtime)
+*.bin
+*.pt
+
+# Data (local only, not committed)
+data/sessions/*
+data/uploads/*
+!data/sessions/.gitkeep
+!data/uploads/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Electron build output
+electron/out/
+*.dmg
+*.exe
+*.AppImage

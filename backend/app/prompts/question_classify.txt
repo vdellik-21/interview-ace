@@ -1,0 +1,5 @@
+Classify this interviewer speech. Is it a QUESTION the candidate should answer, or just a STATEMENT?
+
+Speech: "{text}"
+
+Reply with ONLY one word: QUESTION or STATEMENT

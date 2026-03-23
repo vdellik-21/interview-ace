@@ -1,0 +1,36 @@
+You are a job description analyst. Extract structured requirements from the following job description.
+
+JOB DESCRIPTION:
+{jd_text}
+
+Return ONLY valid JSON with this exact structure (no markdown, no explanation):
+{{
+  "title": "Job title",
+  "company": "Company name (if mentioned)",
+  "department": "Department or team (if mentioned)",
+  "level": "Entry/Mid/Senior/Lead/Director",
+  "required_skills": [
+    {{
+      "skill": "Skill name",
+      "importance": "critical|important|nice_to_have",
+      "context": "How it's used in this role"
+    }}
+  ],
+  "responsibilities": [
+    "Key responsibility 1",
+    "Key responsibility 2"
+  ],
+  "qualifications": {{
+    "required": ["Qualification 1", "Qualification 2"],
+    "preferred": ["Nice-to-have 1", "Nice-to-have 2"]
+  }},
+  "culture_signals": [
+    "Any company culture or value signal mentioned"
+  ],
+  "interview_focus_areas": [
+    "Area the interview will likely focus on, based on the JD emphasis"
+  ],
+  "red_flags_to_prepare_for": [
+    "Potential tough questions or areas where the candidate might be challenged"
+  ]
+}}

@@ -1,0 +1,19 @@
+{
+  "name": "interview-ace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Stealth AI Interview Copilot — real-time answer suggestions invisible to screen share",
+  "scripts": {
+    "dev": "bash scripts/dev.sh",
+    "dev:backend": "cd backend && source venv/bin/activate && uvicorn app.main:app --reload --port 8000",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:electron": "cd electron && npm start",
+    "build": "bash scripts/build.sh",
+    "setup": "bash scripts/setup.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/<your-username>/interview-ace.git"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,45 @@
+You are a precise resume parser. Extract structured data from the following resume text.
+
+RESUME TEXT:
+{resume_text}
+
+Return ONLY valid JSON with this exact structure (no markdown, no explanation):
+{{
+  "name": "Candidate full name",
+  "roles": [
+    {{
+      "title": "Job Title",
+      "company": "Company Name",
+      "location": "City, State/Country",
+      "duration": "Month Year – Month Year",
+      "achievements": [
+        "Achievement 1 with specific metric if available",
+        "Achievement 2..."
+      ]
+    }}
+  ],
+  "skills": {{
+    "technical": ["skill1", "skill2"],
+    "soft": ["skill1", "skill2"],
+    "tools": ["tool1", "tool2"],
+    "certifications": ["cert1", "cert2"]
+  }},
+  "education": [
+    {{
+      "degree": "Degree name",
+      "institution": "School name",
+      "year": "Year or expected year",
+      "gpa": "GPA if mentioned",
+      "relevant_coursework": ["course1", "course2"]
+    }}
+  ],
+  "projects": [
+    {{
+      "name": "Project name",
+      "description": "What it was",
+      "outcome": "Result or metric",
+      "skills_used": ["skill1", "skill2"]
+    }}
+  ],
+  "summary": "2-3 sentence professional summary of this candidate"
+}}
