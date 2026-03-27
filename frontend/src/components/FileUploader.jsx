@@ -28,12 +28,12 @@ export default function FileUploader({ accept, label, onFile, file, multiple = f
 
     return (
         <div
-            className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition
+            className={`rounded-2xl border border-dashed p-6 text-center cursor-pointer transition
                 ${isDragging
-                    ? 'border-blue-500 bg-blue-500/10'
+                    ? 'border-cyan-400/70 bg-cyan-500/10 shadow-[0_0_0_1px_rgba(34,211,238,0.15)]'
                     : file
-                    ? 'border-green-700 bg-green-900/10'
-                    : 'border-gray-700 hover:border-gray-500 bg-gray-900/50'
+                    ? 'border-emerald-500/40 bg-emerald-500/8'
+                    : 'border-white/10 hover:border-white/20 bg-black/20'
                 }`}
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={() => setIsDragging(false)}
@@ -49,14 +49,14 @@ export default function FileUploader({ accept, label, onFile, file, multiple = f
                 onChange={handleChange}
             />
             {file ? (
-                <div className="text-green-400 text-sm">
+                <div className="text-emerald-300 text-sm">
                     ✅ {file.name}
                     <span className="text-gray-500 ml-2">
                         ({(file.size / 1024).toFixed(1)} KB)
                     </span>
                 </div>
             ) : (
-                <div className="text-gray-500 text-sm">{label}</div>
+                <div className="text-gray-400 text-sm">{label}</div>
             )}
         </div>
     );

@@ -11,6 +11,22 @@ import FileUploader from '../components/FileUploader';
 import ModelSelector from '../components/ModelSelector';
 import AudioDevicePicker from '../components/AudioDevicePicker';
 import StatusIndicator from '../components/StatusIndicator';
+import AppIcon from '../components/AppIcon';
+
+async function parseJsonResponse(res, fallbackMessage) {
+    const raw = await res.text();
+    const data = raw ? JSON.parse(raw) : null;
+
+    if (!res.ok) {
+        throw new Error(data?.message || fallbackMessage);
+    }
+
+    if (!data) {
+        throw new Error(fallbackMessage);
+    }
+
+    return data;
+}
 
 export default function PrepDashboard() {
     // File state
@@ -19,8 +35,9 @@ export default function PrepDashboard() {
     const [contextFiles, setContextFiles] = useState([]);
 
     // Config state
-    const [model, setModel] = useState('claude-sonnet-4-20250514');
+    const [model, setModel] = useState('gpt-5-mini');
     const [systemDevice, setSystemDevice] = useState('');
+    const [speakerOutput, setSpeakerOutput] = useState('');
     const [micDevice, setMicDevice] = useState('');
 
     // Session state
@@ -32,17 +49,31 @@ export default function PrepDashboard() {
     const [error, setError] = useState('');
 
     // Fetch audio devices on mount
-    const [devices, setDevices] = useState({ system_devices: [], mic_devices: [] });
+    const [devices, setDevices] = useState({
+        system_devices: [],
+        mic_devices: [],
+        output_devices: [],
+        default_output_device: '',
+        warnings: [],
+    });
 
     useEffect(() => {
         fetch('/api/devices')
-            .then((res) => res.json())
+            .then((res) => parseJsonResponse(res, 'Backend is unavailable. Please wait for the backend to finish starting.'))
             .then((data) => {
                 setDevices(data);
                 if (data.system_devices.length > 0) setSystemDevice(data.system_devices[0]);
+                if (data.default_output_device) {
+                    setSpeakerOutput(data.default_output_device);
+                } else if (data.output_devices?.length > 0) {
+                    setSpeakerOutput(data.output_devices[0]);
+                }
                 if (data.mic_devices.length > 0) setMicDevice(data.mic_devices[0]);
             })
-            .catch((err) => console.error('Failed to fetch devices:', err));
+            .catch((err) => {
+                console.error('Failed to fetch devices:', err);
+                setError(err.message || 'Failed to fetch audio devices');
+            });
     }, []);
 
     // ─── Start Session ──────────────────────────
@@ -55,10 +86,19 @@ export default function PrepDashboard() {
             setError('Please paste the job description');
             return;
         }
+        if (!systemDevice) {
+            setError('Select an interviewer capture device such as BlackHole 2ch before preparing the session. Your speakers are configured separately in Playback Output.');
+            return;
+        }
+        if (!speakerOutput) {
+            setError('Select your playback output (system speakers or headphones) before preparing the session.');
+            return;
+        }
 
         setError('');
         setSessionStatus('preparing');
-        setPrepProgress(0);
+        setPrepProgress(5);
+        setPrepStep('Uploading files and queueing prep...');
 
         try {
             const formData = new FormData();
@@ -66,6 +106,7 @@ export default function PrepDashboard() {
             formData.append('jd_text', jdText);
             formData.append('model', model);
             formData.append('system_audio_device', systemDevice);
+            formData.append('speaker_output_device', speakerOutput);
             formData.append('mic_device', micDevice);
             contextFiles.forEach((f) => formData.append('context_files', f));
 
@@ -74,7 +115,10 @@ export default function PrepDashboard() {
                 body: formData,
             });
 
-            const data = await res.json();
+            const data = await parseJsonResponse(
+                res,
+                'Backend did not return a valid session response.'
+            );
             setSessionId(data.session_id);
 
             // Connect to WebSocket for prep progress
@@ -89,10 +133,14 @@ export default function PrepDashboard() {
                     setPrepProgress(msg.percent);
                 } else if (msg.type === 'prep_complete') {
                     setSessionStatus('ready');
+                    setPrepStep('Ready!');
+                    setPrepProgress(100);
                     setPredictedQuestions(msg.predicted_questions || []);
+                    ws.close();
                 } else if (msg.type === 'error') {
                     setError(msg.message);
                     setSessionStatus('idle');
+                    ws.close();
                 }
             };
         } catch (err) {
@@ -103,35 +151,46 @@ export default function PrepDashboard() {
 
     // ─── Go Live ────────────────────────────────
     const handleGoLive = () => {
+        if (!sessionId) {
+            setError('Session is not ready yet.');
+            return;
+        }
+
         setSessionStatus('live');
         // Tell Electron to show the stealth overlay
         if (window.electronAPI) {
-            window.electronAPI.showOverlay();
+            window.electronAPI.showOverlay(sessionId);
         } else {
             // If not in Electron, open overlay in new tab
-            window.open('/overlay', '_blank');
+            window.open(`/overlay?session=${encodeURIComponent(sessionId)}`, '_blank');
         }
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 text-white">
+        <div className="min-h-screen text-white">
             {/* Header */}
-            <header className="border-b border-gray-800 px-6 py-4">
-                <div className="flex items-center justify-between max-w-4xl mx-auto">
+            <header className="px-6 py-5">
+                <div className="mx-auto flex max-w-5xl items-center justify-between rounded-[24px] border border-white/8 bg-black/25 px-5 py-4 backdrop-blur-xl">
                     <div className="flex items-center gap-3">
-                        <span className="text-2xl">🎯</span>
-                        <h1 className="text-xl font-semibold">InterviewAce</h1>
+                        <AppIcon className="h-10 w-10" />
+                        <div>
+                            <div className="text-[11px] uppercase tracking-[0.22em] text-gray-500">
+                                Stealth Workspace
+                            </div>
+                            <h1 className="text-lg font-medium text-gray-100">InterviewAce</h1>
+                        </div>
                     </div>
                     <StatusIndicator status={sessionStatus} />
                 </div>
             </header>
 
             {/* Main Content */}
-            <main className="max-w-4xl mx-auto px-6 py-8 space-y-8">
+            <main className="mx-auto max-w-5xl px-6 pb-10">
+                <div className="space-y-8 rounded-[32px] border border-white/8 bg-black/20 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl">
 
                 {/* Error Banner */}
                 {error && (
-                    <div className="bg-red-900/30 border border-red-700 text-red-300 px-4 py-3 rounded-lg">
+                    <div className="rounded-2xl border border-red-500/25 bg-red-500/10 px-4 py-3 text-red-200">
                         {error}
                         <button
                             className="ml-4 text-red-400 hover:text-red-200"
@@ -143,9 +202,9 @@ export default function PrepDashboard() {
                 )}
 
                 {/* Step 1: Upload Resume */}
-                <section>
-                    <h2 className="text-lg font-medium mb-3 flex items-center gap-2">
-                        <span className="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
+                <section className="rounded-[28px] border border-white/10 bg-white/[0.025] px-5 py-5 shadow-[0_18px_60px_rgba(0,0,0,0.28)]">
+                    <h2 className="mb-3 flex items-center gap-2 text-lg font-medium">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-sm text-white">1</span>
                         Upload Resume
                     </h2>
                     <FileUploader
@@ -157,15 +216,15 @@ export default function PrepDashboard() {
                 </section>
 
                 {/* Step 2: Job Description */}
-                <section>
-                    <h2 className="text-lg font-medium mb-3 flex items-center gap-2">
-                        <span className="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
+                <section className="rounded-[28px] border border-white/10 bg-white/[0.025] px-5 py-5 shadow-[0_18px_60px_rgba(0,0,0,0.28)]">
+                    <h2 className="mb-3 flex items-center gap-2 text-lg font-medium">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-sm text-white">2</span>
                         Paste Job Description
                     </h2>
                     <textarea
-                        className="w-full h-40 bg-gray-900 border border-gray-700 rounded-lg p-4 text-sm
-                                   text-gray-200 placeholder-gray-500 resize-y
-                                   focus:outline-none focus:border-blue-500 transition"
+                        className="h-40 w-full resize-y rounded-2xl border border-white/10 bg-slate-950/75 p-4 text-sm
+                                   text-gray-200 placeholder-gray-500
+                                   focus:outline-none focus:border-cyan-400/60 transition"
                         placeholder="Paste the full job description here..."
                         value={jdText}
                         onChange={(e) => setJdText(e.target.value)}
@@ -173,12 +232,17 @@ export default function PrepDashboard() {
                 </section>
 
                 {/* Step 3: Context Files (Optional) */}
-                <section>
-                    <h2 className="text-lg font-medium mb-3 flex items-center gap-2">
-                        <span className="bg-gray-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">3</span>
-                        Context Files
-                        <span className="text-xs text-gray-500 font-normal">(optional)</span>
-                    </h2>
+                <section className="rounded-[28px] border border-white/10 bg-white/[0.025] px-5 py-5 shadow-[0_18px_60px_rgba(0,0,0,0.28)]">
+                    <div className="mb-4 flex items-center justify-between gap-3">
+                        <h2 className="text-lg font-medium flex items-center gap-2">
+                            <span className="bg-white/10 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
+                            Context Files
+                            <span className="text-xs text-gray-500 font-normal">(optional)</span>
+                        </h2>
+                        <span className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-gray-500">
+                            Stealth Context
+                        </span>
+                    </div>
                     <FileUploader
                         accept=".pdf,.docx,.doc,.txt,.md"
                         label="Drop additional context files (notes, portfolio, STAR stories...)"
@@ -205,49 +269,84 @@ export default function PrepDashboard() {
                 </section>
 
                 {/* Step 4: Configuration */}
-                <section>
-                    <h2 className="text-lg font-medium mb-3 flex items-center gap-2">
-                        <span className="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">4</span>
-                        Configure
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <ModelSelector value={model} onChange={setModel} />
-                        <AudioDevicePicker
-                            label="System Audio (Interviewer)"
-                            devices={devices.system_devices}
-                            value={systemDevice}
-                            onChange={setSystemDevice}
-                        />
-                        <AudioDevicePicker
-                            label="Microphone (You)"
-                            devices={devices.mic_devices}
-                            value={micDevice}
-                            onChange={setMicDevice}
-                        />
+                <section className="rounded-[28px] border border-white/10 bg-gradient-to-b from-white/[0.03] to-white/[0.015] px-5 py-5 shadow-[0_18px_60px_rgba(0,0,0,0.32)]">
+                    <div className="mb-4 flex items-center justify-between gap-3">
+                        <div>
+                            <h2 className="text-lg font-medium flex items-center gap-2">
+                                <span className="bg-cyan-500/20 text-cyan-200 w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
+                                Configure
+                            </h2>
+                            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-gray-500">
+                                Low-visibility live setup
+                            </p>
+                        </div>
+                        <span className="rounded-full border border-cyan-400/20 bg-cyan-500/8 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-cyan-200/80">
+                            Stealth Mode
+                        </span>
                     </div>
+                    {devices.warnings?.length > 0 && (
+                        <div className="mb-4 rounded-2xl border border-yellow-700/40 bg-yellow-900/15 px-4 py-3 text-sm text-yellow-200">
+                            {devices.warnings.join(' ')}
+                        </div>
+                    )}
+                    <div className="rounded-[24px] border border-white/8 bg-black/20 p-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <ModelSelector value={model} onChange={setModel} />
+                            <AudioDevicePicker
+                                label="Interviewer Capture"
+                                devices={devices.system_devices}
+                                value={systemDevice}
+                                onChange={setSystemDevice}
+                            />
+                            <AudioDevicePicker
+                                label="Playback Output"
+                                devices={devices.output_devices}
+                                value={speakerOutput}
+                                onChange={setSpeakerOutput}
+                            />
+                            <AudioDevicePicker
+                                label="Microphone (optional, not recorded)"
+                                devices={devices.mic_devices}
+                                value={micDevice}
+                                onChange={setMicDevice}
+                            />
+                        </div>
+                    </div>
+                    <p className="mt-4 text-xs text-gray-500 leading-relaxed">
+                        The selected interview model now powers both preparation and live answers, so the
+                        same model builds the dossier and answers questions during the interview.
+                    </p>
+                    <p className="mt-2 text-xs text-gray-500 leading-relaxed">
+                        `Interviewer Capture` should be a loopback input like `BlackHole 2ch`.
+                        `Playback Output` is where you hear the call, such as your MacBook Air speakers,
+                        headphones, or a Multi-Output Device that includes both your speakers and BlackHole.
+                        Your microphone selection is kept for convenience, but the live transcript now listens only to interviewer audio.
+                    </p>
                 </section>
 
                 {/* Prep Progress */}
                 {sessionStatus === 'preparing' && (
-                    <section className="bg-gray-900 border border-gray-700 rounded-lg p-6">
-                        <h3 className="text-sm font-medium text-gray-400 mb-3">Preparing your session...</h3>
-                        <div className="w-full bg-gray-800 rounded-full h-2 mb-2">
+                    <section className="rounded-[24px] border border-white/10 bg-white/[0.025] p-6">
+                        <h3 className="mb-3 text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">
+                            Preparing session
+                        </h3>
+                        <div className="mb-2 h-2 w-full rounded-full bg-gray-800">
                             <div
-                                className="bg-blue-500 h-2 rounded-full transition-all duration-500"
+                                className="h-2 rounded-full bg-cyan-400 transition-all duration-500"
                                 style={{ width: `${prepProgress}%` }}
                             />
                         </div>
-                        <p className="text-xs text-gray-500">{prepStep}</p>
+                        <p className="text-sm text-gray-300">{prepStep}</p>
                     </section>
                 )}
 
                 {/* Predicted Questions Preview */}
                 {sessionStatus === 'ready' && predictedQuestions.length > 0 && (
-                    <section className="bg-gray-900 border border-green-800 rounded-lg p-6">
-                        <h3 className="text-sm font-medium text-green-400 mb-3">
+                    <section className="rounded-[24px] border border-emerald-400/20 bg-emerald-500/[0.05] p-6">
+                        <h3 className="mb-3 text-sm font-medium text-emerald-300">
                             ✅ Session Ready — {predictedQuestions.length} questions predicted
                         </h3>
-                        <div className="space-y-2 max-h-48 overflow-y-auto">
+                        <div className="max-h-48 space-y-2 overflow-y-auto">
                             {predictedQuestions.slice(0, 5).map((q, i) => (
                                 <div key={i} className="text-sm text-gray-300 flex gap-2">
                                     <span className="text-gray-500 shrink-0">{i + 1}.</span>
@@ -268,8 +367,8 @@ export default function PrepDashboard() {
                     {sessionStatus === 'idle' && (
                         <button
                             onClick={handleStartPrep}
-                            className="px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-medium
-                                       transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="rounded-2xl border border-cyan-400/20 bg-cyan-500/10 px-6 py-3 font-medium text-cyan-100
+                                       transition hover:bg-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={!resumeFile || !jdText.trim()}
                         >
                             🧠 Prepare Session
@@ -279,8 +378,8 @@ export default function PrepDashboard() {
                     {sessionStatus === 'ready' && (
                         <button
                             onClick={handleGoLive}
-                            className="px-6 py-3 bg-red-600 hover:bg-red-500 rounded-lg font-medium
-                                       transition animate-pulse"
+                            className="rounded-2xl border border-red-400/25 bg-red-500/10 px-6 py-3 font-medium text-red-100
+                                       transition hover:bg-red-500/20"
                         >
                             🔴 Go Live
                         </button>
@@ -293,6 +392,7 @@ export default function PrepDashboard() {
                         </div>
                     )}
                 </section>
+                </div>
             </main>
         </div>
     );

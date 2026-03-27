@@ -18,7 +18,7 @@ const useSessionStore = create((set) => ({
     contextFiles: [],
 
     // Config
-    model: 'claude-sonnet-4-20250514',
+    model: 'gpt-5-mini',
     systemDevice: '',
     micDevice: '',
 

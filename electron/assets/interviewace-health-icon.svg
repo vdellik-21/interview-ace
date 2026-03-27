@@ -1,0 +1,34 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1024" height="1024" rx="240" fill="url(#bg)"/>
+  <rect x="20" y="20" width="984" height="984" rx="220" stroke="#FFFFFF" stroke-opacity="0.65" stroke-width="8"/>
+  <g filter="url(#shadow)">
+    <path d="M512 812C470.667 777.333 436.833 746.333 410.5 719C384.5 691.667 362.833 667.5 345.5 646.5C328.833 625.167 317 604.333 310 584C303.333 563.333 300 542.333 300 521C300 474.333 315.833 436.333 347.5 407C379.5 377.333 418.833 362.5 465.5 362.5C493.833 362.5 520.5 368.667 545.5 381C570.5 393.333 592.667 411.333 612 435C631.667 411.333 654 393.333 679 381C704 368.667 730.667 362.5 759 362.5C805.667 362.5 844.833 377.333 876.5 407C908.5 436.333 924.5 474.333 924.5 521C924.5 542.333 921 563.333 914 584C907.333 604.333 895.5 625.167 878.5 646.5C861.833 667.5 840.167 691.667 813.5 719C787.5 746.333 753.667 777.333 712 812L586.5 917C565.833 934.333 541 943 512 943C483 943 458.167 934.333 437.5 917L512 812Z" fill="url(#heart)"/>
+  </g>
+  <path d="M402 400C433.667 372.333 473.667 358.5 522 358.5C551.333 358.5 582.333 364.5 615 376.5C590.333 392.5 569.333 412.333 552 436C532.333 413 509.5 396.167 483.5 385.5C457.833 374.5 430.667 372.667 402 380V400Z" fill="url(#highlight)" opacity="0.92"/>
+  <defs>
+    <filter id="shadow" x="210" y="272.5" width="804.5" height="760.5" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="34"/>
+      <feGaussianBlur stdDeviation="45"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.96 0 0 0 0 0.18 0 0 0 0 0.4 0 0 0 0.34 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape"/>
+    </filter>
+    <linearGradient id="bg" x1="110" y1="70" x2="862" y2="952" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFDFE"/>
+      <stop offset="0.45" stop-color="#FFF6F9"/>
+      <stop offset="1" stop-color="#FFE8F0"/>
+    </linearGradient>
+    <linearGradient id="heart" x1="316" y1="188" x2="792" y2="828" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF7FA7"/>
+      <stop offset="0.55" stop-color="#FF4F86"/>
+      <stop offset="1" stop-color="#FF2D55"/>
+    </linearGradient>
+    <linearGradient id="highlight" x1="390" y1="132" x2="704" y2="352" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

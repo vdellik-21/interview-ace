@@ -2,7 +2,7 @@
 
 > An open-source, self-hosted alternative to FinalRound.ai. Real-time AI interview assistance that's invisible to screen share.
 
-[![Built with Claude](https://img.shields.io/badge/AI-Claude%20by%20Anthropic-blueviolet)]()
+[![Built with Codex](https://img.shields.io/badge/AI-Codex%20CLI-blue)]()
 [![License](https://img.shields.io/badge/license-MIT-green)]()
 [![Status](https://img.shields.io/badge/status-In%20Development-yellow)]()
 
@@ -14,7 +14,7 @@ InterviewAce is a desktop app that acts as your invisible AI co-pilot during liv
 
 - **Listens** to both the interviewer (system audio) and you (microphone) simultaneously
 - **Transcribes** in real-time with speaker separation
-- **Generates instant answers** using Claude AI, pre-loaded with your resume + job description
+- **Generates live answers** from full resume/JD context using `gpt-5-mini`, with prep artifacts used as support context
 - **Displays suggestions** in a stealth overlay that's completely invisible during screen share
 
 **Cost:** ~$0.50 per interview vs $90+/month on FinalRound.ai
@@ -27,7 +27,7 @@ InterviewAce is a desktop app that acts as your invisible AI co-pilot during liv
 |---------|-------------|
 | 🔇 **Stealth Mode** | Overlay is invisible to Zoom/Meet/Teams screen share, screenshots, and recordings |
 | 🎙️ **Dual Audio Capture** | Separately captures interviewer (system audio) and your voice (mic) |
-| ⚡ **Instant AI Answers** | Claude streams answers — first words appear in ~1.5 seconds |
+| ⚡ **Instant AI Answers** | Prepared answer bank + optional local Ollama for fast live responses |
 | 📄 **Context-Aware** | Upload resume + JD + notes → AI uses YOUR experience in every answer |
 | 🧠 **Smart Detection** | Automatically detects when the interviewer asks a question vs just talking |
 | ⌨️ **Keyboard Shortcuts** | Panic hide, toggle visibility, regenerate, resize — all via hotkeys |
@@ -40,7 +40,7 @@ InterviewAce is a desktop app that acts as your invisible AI co-pilot during liv
 - Node.js 18+ and npm
 - Python 3.11+
 - [BlackHole 2ch](https://existential.audio/blackhole/) (Mac) or [VB-Audio Cable](https://vb-audio.com/Cable/) (Windows)
-- An Anthropic API key ([get one here](https://console.anthropic.com/))
+- OpenAI API key in `.env`
 
 ### Setup
 
@@ -62,7 +62,8 @@ cd ../electron && npm install
 
 # Configure
 cp .env.example .env
-# Add your ANTHROPIC_API_KEY and audio device names to .env
+# Add your audio device names to .env if you want to override defaults
+# Add OPENAI_API_KEY for prep + live answers
 
 # Audio routing (one-time)
 bash scripts/setup_audio_mac.sh   # Mac
@@ -82,12 +83,13 @@ Before Interview:
   Upload Resume + JD + Context Files
   → AI pre-processes and builds a master context prompt
   → Predicts likely questions, maps your skills to JD
+  → Builds an answer bank grounded in your resume and JD
 
 During Interview:
   System Audio (Interviewer) ──→ Whisper Transcription ──→ Question Detected?
   Mic Audio (You) ─────────────→ Whisper Transcription     │
                                                             ▼ YES
-                                                    Claude API (Streaming)
+                                      Prepared Answer Bank / gpt-5-mini / Codex
                                                             │
                                                             ▼
                                                     Stealth Overlay
@@ -123,7 +125,7 @@ This is currently a private build for our friend group, but the repo is public f
 - **Electron** — Desktop shell with stealth window (`setContentProtection`)
 - **React + Vite + Tailwind** — UI (prep dashboard + stealth overlay)
 - **Python + FastAPI** — Backend server with WebSocket support
-- **Claude API (Anthropic)** — AI answer generation with streaming
+- **OpenAI Responses API (`gpt-5-mini`)** — prep pipeline + live answers
 - **faster-whisper** — Local speech-to-text (free, no API cost)
 - **BlackHole / VB-Cable** — Virtual audio routing for system audio capture
 

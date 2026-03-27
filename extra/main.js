@@ -1,28 +1,21 @@
 /**
  * InterviewAce — Electron Main Process
  * Creates and manages the stealth overlay window.
- * FULL STEALTH: Hides backend terminal, tray, dock, and dashboard during live interviews.
  *
  * Owner: Dev 3
  * Key API: setContentProtection(true) — makes window invisible to screen share
  */
 
 const { app, BrowserWindow, screen, Tray, Menu, globalShortcut, ipcMain } = require('electron');
-const { spawn } = require('child_process');
 const path = require('path');
 
-let mainWindow = null;       // Prep dashboard (normal window)
-let stealthWindow = null;    // Interview overlay (stealth window)
+let mainWindow = null;     // Prep dashboard (normal window)
+let stealthWindow = null;  // Interview overlay (stealth window)
 let tray = null;
-let backendProcess = null;   // Python backend — runs silently, no terminal
-let frontendProcess = null;  // Vite dev server — runs silently, no terminal
-let isLive = false;          // Track if we're in full stealth mode
 
 const FRONTEND_URL = 'http://localhost:5173';
-const BACKEND_PORT = 8000;
 const OVERLAY_MIN_WIDTH = 340;
 const OVERLAY_MIN_HEIGHT = 420;
-const APP_ICON_PATH = path.join(__dirname, 'assets', 'interviewace-health-icon.png');
 
 function log(message, extra) {
     const timestamp = new Date().toISOString();
@@ -33,96 +26,6 @@ function log(message, extra) {
     console.log(`[${timestamp}] [electron] ${message}`, extra);
 }
 
-function applyAppIcon() {
-    if (process.platform === 'darwin' && app.dock) {
-        app.dock.setIcon(APP_ICON_PATH);
-    }
-}
-
-// ─── SILENT SERVER LAUNCHERS ─────────────────────
-// These start the backend and frontend WITHOUT opening any terminal windows.
-// The user double-clicks the app — no terminals ever appear.
-
-function startBackendSilently() {
-    /**
-     * Launches the Python FastAPI server as a hidden child process.
-     * No terminal window opens. No visible output.
-     * When Electron quits, the backend dies with it.
-     */
-    const backendDir = path.join(__dirname, '..', 'backend');
-    const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
-
-    backendProcess = spawn(
-        pythonCmd,
-        ['-m', 'uvicorn', 'app.main:app', '--host', '127.0.0.1', '--port', String(BACKEND_PORT)],
-        {
-            cwd: backendDir,
-            stdio: 'ignore',       // No terminal output at all
-            detached: false,       // Dies when Electron closes
-            windowsHide: true,     // Hide console window on Windows
-            env: {
-                ...process.env,
-                PYTHONDONTWRITEBYTECODE: '1',
-            },
-        }
-    );
-
-    backendProcess.on('error', (err) => {
-        log('Backend failed to start: ' + err.message);
-    });
-
-    backendProcess.on('exit', (code) => {
-        log('Backend exited with code ' + code);
-        backendProcess = null;
-    });
-
-    log('Backend started silently on port ' + BACKEND_PORT);
-}
-
-function startFrontendSilently() {
-    /**
-     * Launches the Vite dev server as a hidden child process.
-     * No terminal window opens.
-     */
-    const frontendDir = path.join(__dirname, '..', 'frontend');
-    const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-
-    frontendProcess = spawn(
-        npmCmd,
-        ['run', 'dev'],
-        {
-            cwd: frontendDir,
-            stdio: 'ignore',       // No terminal output
-            detached: false,       // Dies when Electron closes
-            windowsHide: true,     // Hide on Windows
-            env: process.env,
-        }
-    );
-
-    frontendProcess.on('error', (err) => {
-        log('Frontend failed to start: ' + err.message);
-    });
-
-    log('Frontend started silently on port 5173');
-}
-
-function killSilentProcesses() {
-    /**
-     * Clean up background processes when app quits.
-     */
-    if (backendProcess) {
-        backendProcess.kill();
-        backendProcess = null;
-        log('Backend process killed');
-    }
-    if (frontendProcess) {
-        frontendProcess.kill();
-        frontendProcess = null;
-        log('Frontend process killed');
-    }
-}
-
-
 // ─── Prep Dashboard Window ──────────────────────
 function createMainWindow() {
     log('Creating main dashboard window');
@@ -130,16 +33,12 @@ function createMainWindow() {
         width: 900,
         height: 700,
         title: 'InterviewAce',
-        icon: APP_ICON_PATH,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
             preload: path.join(__dirname, 'preload.js'),
         },
     });
-
-    // Dashboard is ALSO invisible to screen share
-    mainWindow.setContentProtection(true);
 
     mainWindow.loadURL(FRONTEND_URL);
     log(`Main dashboard loading ${FRONTEND_URL}`);
@@ -173,7 +72,6 @@ function createStealthWindow() {
         movable: true,             // User can move
         minWidth: OVERLAY_MIN_WIDTH,
         minHeight: OVERLAY_MIN_HEIGHT,
-        icon: APP_ICON_PATH,
 
         webPreferences: {
             nodeIntegration: false,
@@ -187,6 +85,7 @@ function createStealthWindow() {
     // to screen share, screenshots, and screen recording
     // ═══════════════════════════════════════════════════
     stealthWindow.setContentProtection(true);
+    mainWindow.setContentProtection(true);
 
     // Not visible in Mission Control / Alt-Tab / App Switcher
     stealthWindow.setVisibleOnAllWorkspaces(true, {
@@ -206,71 +105,6 @@ function createStealthWindow() {
         stealthWindow = null;
     });
 }
-
-// ─── FULL STEALTH MODE ──────────────────────────
-// When "Go Live" is clicked, EVERYTHING disappears except the overlay.
-// From the outside it looks like no app is running at all.
-
-function enterFullStealth() {
-    /**
-     * Activated when the interview starts. Hides:
-     * 1. Dashboard window → hidden
-     * 2. Tray icon → destroyed (nothing in menu bar)
-     * 3. Dock icon (Mac) → hidden
-     * 4. Only the invisible overlay remains
-     */
-    isLive = true;
-
-    // 1. Hide the prep dashboard
-    if (mainWindow) {
-        mainWindow.hide();
-    }
-
-    // 2. Destroy tray icon — nothing visible in menu bar
-    if (tray) {
-        tray.destroy();
-        tray = null;
-    }
-
-    // 3. Mac: hide from Dock completely
-    if (process.platform === 'darwin' && app.dock) {
-        app.dock.hide();
-    }
-
-    // 4. Show the stealth overlay (invisible to screen share)
-    if (stealthWindow) {
-        stealthWindow.show();
-    }
-
-    log('FULL STEALTH MODE ACTIVE — app is completely invisible');
-}
-
-function exitFullStealth() {
-    /**
-     * When the interview ends, restore everything:
-     * Dashboard, tray, and dock all come back.
-     */
-    isLive = false;
-
-    // Restore Dock on Mac
-    if (process.platform === 'darwin' && app.dock) {
-        app.dock.show();
-    }
-
-    // Recreate tray icon
-    createTray();
-
-    // Hide overlay, show dashboard
-    if (stealthWindow) {
-        stealthWindow.hide();
-    }
-    if (mainWindow) {
-        mainWindow.show();
-    }
-
-    log('Stealth mode deactivated — app restored');
-}
-
 
 function clampOverlayBounds(bounds) {
     const display = stealthWindow
@@ -452,21 +286,6 @@ function setupIPC() {
         if (stealthWindow) stealthWindow.hide();
     });
 
-    // ─── FULL STEALTH: Go Live / End Session ────
-    ipcMain.on('go-live', (_event, sessionId) => {
-        log('IPC received: go-live — entering full stealth');
-        if (stealthWindow && sessionId) {
-            const overlayUrl = `${FRONTEND_URL}/overlay?session=${encodeURIComponent(sessionId)}`;
-            stealthWindow.loadURL(overlayUrl);
-        }
-        enterFullStealth();
-    });
-
-    ipcMain.on('end-session', () => {
-        log('IPC received: end-session — exiting stealth');
-        exitFullStealth();
-    });
-
     ipcMain.handle('overlay:get-bounds', () => {
         if (!stealthWindow) return null;
         return stealthWindow.getBounds();
@@ -493,25 +312,16 @@ function setupIPC() {
 
 // ─── App Lifecycle ──────────────────────────────
 app.whenReady().then(() => {
-    applyAppIcon();
+    createMainWindow();
+    createStealthWindow();
+    registerShortcuts();
+    createTray();
+    setupIPC();
 
-    // Start backend and frontend silently — no terminals open
-    startBackendSilently();
-    startFrontendSilently();
-
-    // Wait a moment for servers to start, then create windows
-    setTimeout(() => {
-        createMainWindow();
-        createStealthWindow();
-        registerShortcuts();
-        createTray();
-        setupIPC();
-
-        log('InterviewAce started — all servers running silently');
-        log('Shortcut help: Ctrl+Shift+A force answer now');
-        log('Shortcut help: Ctrl+Shift+H toggle overlay');
-        log('Shortcut help: Ctrl+Shift+P panic hide');
-    }, 2000); // 2 second delay for servers to be ready
+    log('InterviewAce Electron app started');
+    log('Shortcut help: Ctrl+Shift+A force answer now');
+    log('Shortcut help: Ctrl+Shift+H toggle overlay');
+    log('Shortcut help: Ctrl+Shift+P panic hide');
 });
 
 app.on('window-all-closed', () => {
@@ -529,7 +339,6 @@ app.on('activate', () => {
 });
 
 app.on('will-quit', () => {
-    log('Electron will quit; cleaning up');
+    log('Electron will quit; unregistering shortcuts');
     globalShortcut.unregisterAll();
-    killSilentProcesses();
 });

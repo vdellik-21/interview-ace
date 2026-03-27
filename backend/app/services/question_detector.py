@@ -2,31 +2,19 @@
 InterviewAce — Question Detector
 Determines if interviewer speech is a question requiring an answer
 or just a statement/explanation.
-
-Owner: Dev 2
-Status: STUB — heuristic + Haiku hybrid implemented
 """
 
-from pathlib import Path
+import logging
 
-import anthropic
-
-from ..config import settings
-
-
-PROMPTS_DIR = Path(__file__).parent.parent / "prompts"
+logger = logging.getLogger("interviewace.question_detector")
 
 
 class QuestionDetector:
     """
-    Two-stage question detection:
-    1. Fast heuristic check (instant, free)
-    2. If ambiguous → Claude Haiku classification (fast, cheap)
+    Fast heuristic question detection for interviewer speech.
+    We keep this local so the reusable OpenAI answer conversation is not polluted
+    with meta-classification turns.
     """
-
-    def __init__(self):
-        self.client = anthropic.AsyncAnthropic(api_key=settings.anthropic_api_key)
-        self.classify_prompt = (PROMPTS_DIR / "question_classify.txt").read_text()
 
     async def is_question(self, text: str) -> bool:
         """
@@ -38,13 +26,16 @@ class QuestionDetector:
         Returns:
             True if this needs an answer, False if it's just a statement
         """
+        logger.info("Question detection started | chars=%s", len(text))
         # Stage 1: Fast heuristic
         heuristic = self._heuristic_check(text)
         if heuristic is not None:
+            logger.info("Question detection resolved by heuristic | is_question=%s", heuristic)
             return heuristic
 
-        # Stage 2: Haiku classification (for ambiguous cases)
-        return await self._haiku_classify(text)
+        result = self._fallback_bias(text)
+        logger.info("Question detection resolved by fallback bias | is_question=%s", result)
+        return result
 
     def _heuristic_check(self, text: str) -> bool | None:
         """
@@ -52,16 +43,40 @@ class QuestionDetector:
         
         Definite questions: ends with "?", starts with question words
         Definite not questions: very short, filler phrases
-        Ambiguous: everything else → defer to Haiku
+        Ambiguous: everything else → defer to a local fallback bias
         """
         text_clean = text.strip().lower()
+        text_padded = f" {text_clean} "
+        words = text_clean.split()
 
         # Too short to be a meaningful question
-        if len(text_clean.split()) < 4:
+        if len(words) < 4:
             return False
 
         # Obvious question markers
         if text_clean.endswith("?"):
+            return True
+
+        # Common question markers can appear anywhere in live transcripts.
+        inline_question_markers = [
+            " can you ",
+            " could you ",
+            " would you ",
+            " will you ",
+            " do you ",
+            " have you ",
+            " are you ",
+            " tell me ",
+            " walk me through ",
+            " explain ",
+            " what ",
+            " why ",
+            " how ",
+            " when ",
+            " where ",
+            " please let me know ",
+        ]
+        if any(marker in text_padded for marker in inline_question_markers):
             return True
 
         # Common interview question starters
@@ -111,24 +126,33 @@ class QuestionDetector:
             if text_clean.startswith(phrase):
                 return False
 
-        # Ambiguous — defer to Haiku
+        # In live interviews, longer interviewer utterances are more useful to
+        # answer than to ignore, so bias ambiguous long speech toward True.
+        if len(words) >= 10:
+            return True
+
+        if len(words) <= 6:
+            return False
+
+        # Ambiguous — defer to local fallback bias
         return None
 
-    async def _haiku_classify(self, text: str) -> bool:
+    def _fallback_bias(self, text: str) -> bool:
         """
-        Use Claude Haiku for fast question classification.
-        ~50-100ms response time.
+        Favor answering ambiguous interviewer speech instead of missing a prompt.
         """
-        try:
-            prompt = self.classify_prompt.format(text=text)
-            response = await self.client.messages.create(
-                model="claude-haiku-4-5-20251001",
-                max_tokens=10,
-                messages=[{"role": "user", "content": prompt}],
-            )
-            result = response.content[0].text.strip().upper()
-            return "QUESTION" in result
-        except Exception as e:
-            print(f"[QuestionDetector] Haiku error: {e}. Defaulting to True.")
-            # If Haiku fails, assume it's a question (better to show an answer than miss one)
+        text_clean = text.strip().lower()
+        words = text_clean.split()
+
+        conversational_prompts = [
+            "share",
+            "talk to me about",
+            "help me understand",
+            "let's say",
+            "suppose",
+            "imagine",
+        ]
+        if any(phrase in text_clean for phrase in conversational_prompts):
             return True
+
+        return len(words) >= 7

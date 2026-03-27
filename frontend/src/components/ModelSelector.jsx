@@ -1,37 +1,35 @@
 /**
  * InterviewAce — Model Selector Component
- * Dropdown to pick which Claude model to use.
+ * Dropdown to pick which model powers both prep and live answers.
  *
  * Owner: Dev 3
  */
 
 const MODELS = [
     {
-        id: 'claude-sonnet-4-20250514',
-        name: 'Sonnet 4',
-        desc: 'Fast + Smart (recommended)',
+        id: 'gpt-5-mini',
+        name: 'GPT-5 mini',
+        desc: 'OpenAI model used for prep and live answers',
     },
     {
-        id: 'claude-opus-4-20250514',
-        name: 'Opus 4',
-        desc: 'Smartest (slightly slower)',
-    },
-    {
-        id: 'claude-haiku-4-5-20251001',
-        name: 'Haiku 4.5',
-        desc: 'Fastest (lighter answers)',
+        id: 'claude-haiku-4-5',
+        name: 'Claude Haiku 4.5',
+        desc: 'Anthropic model used for prep and live answers',
     },
 ];
 
 export default function ModelSelector({ value, onChange }) {
     return (
         <div>
-            <label className="block text-xs text-gray-400 mb-1.5">Claude Model</label>
+            <label className="mb-2 block text-[11px] uppercase tracking-[0.18em] text-gray-500">
+                Interview Model
+            </label>
             <select
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2.5
-                           text-sm text-gray-200 focus:outline-none focus:border-blue-500 transition"
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/85 px-4 py-3
+                           text-sm text-gray-100 focus:outline-none focus:border-cyan-400/60
+                           focus:bg-slate-900 transition"
             >
                 {MODELS.map((m) => (
                     <option key={m.id} value={m.id}>

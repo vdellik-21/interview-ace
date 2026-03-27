@@ -8,8 +8,10 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
     // Overlay controls
-    showOverlay: () => ipcRenderer.send('show-overlay'),
+    showOverlay: (sessionId) => ipcRenderer.send('show-overlay', sessionId),
     hideOverlay: () => ipcRenderer.send('hide-overlay'),
+    getOverlayBounds: () => ipcRenderer.invoke('overlay:get-bounds'),
+    setOverlayBounds: (bounds) => ipcRenderer.invoke('overlay:set-bounds', bounds),
 
     // Listen for actions from keyboard shortcuts
     onAction: (callback) => {

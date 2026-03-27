@@ -7,6 +7,11 @@ body {
     padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
+    background:
+        radial-gradient(circle at top left, rgba(34, 211, 238, 0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(99, 102, 241, 0.08), transparent 22%),
+        linear-gradient(180deg, #030712 0%, #020617 100%);
+    color: #e5e7eb;
 }
 
 /* For the stealth overlay — no background */

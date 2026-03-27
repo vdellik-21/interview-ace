@@ -6,10 +6,16 @@ Owner: Dev 2
 Status: STUB — core logic implemented, needs latency testing
 """
 
+import asyncio
+import logging
+import time
+
 import numpy as np
 from faster_whisper import WhisperModel
 
 from ..config import settings
+
+logger = logging.getLogger("interviewace.transcription")
 
 
 class TranscriptionService:
@@ -39,13 +45,18 @@ class TranscriptionService:
         # Use int8 quantization for speed on CPU
         compute_type = "int8" if device == "cpu" else "float16"
 
-        print(f"[Transcription] Loading Whisper model: {model_size} on {device} ({compute_type})")
+        logger.info(
+            "Loading Whisper model | model=%s | device=%s | compute_type=%s",
+            model_size,
+            device,
+            compute_type,
+        )
         self.model = WhisperModel(
             model_size,
             device=device,
             compute_type=compute_type,
         )
-        print(f"[Transcription] Model loaded successfully")
+        logger.info("Whisper model loaded successfully")
 
     async def transcribe(self, audio: np.ndarray) -> str:
         """
@@ -65,16 +76,21 @@ class TranscriptionService:
         if audio.dtype != np.float32:
             audio = audio.astype(np.float32)
 
-        # Run Whisper transcription
-        segments, info = self.model.transcribe(
-            audio,
-            beam_size=1,             # Fastest decoding
-            language="en",           # English only (faster than auto-detect)
-            vad_filter=True,         # Filter non-speech segments
-            vad_parameters=dict(
-                min_silence_duration_ms=500,
-            ),
-        )
+        started_at = time.perf_counter()
+
+        # Whisper inference is CPU-heavy, so keep it off the event loop.
+        def _transcribe_sync():
+            return self.model.transcribe(
+                audio,
+                beam_size=1,             # Fastest decoding
+                language="en",           # English only (faster than auto-detect)
+                vad_filter=True,         # Filter non-speech segments
+                vad_parameters=dict(
+                    min_silence_duration_ms=250,
+                ),
+            )
+
+        segments, info = await asyncio.to_thread(_transcribe_sync)
 
         # Collect all segment texts
         text_parts = []
@@ -89,4 +105,9 @@ class TranscriptionService:
         if len(result) < 3:
             return ""
 
+        logger.info(
+            "Transcription completed | chars=%s | duration_ms=%.0f",
+            len(result),
+            (time.perf_counter() - started_at) * 1000,
+        )
         return result

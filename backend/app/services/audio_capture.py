@@ -19,6 +19,8 @@ from typing import Callable, Awaitable, Optional
 import numpy as np
 import sounddevice as sd
 
+from ..config import settings
+
 
 class DualAudioCapture:
     """
@@ -31,10 +33,10 @@ class DualAudioCapture:
     def __init__(
         self,
         system_device: str,
-        mic_device: str,
+        mic_device: Optional[str],
         sample_rate: int = 16000,
-        silence_threshold: float = 0.01,
-        silence_duration: float = 1.5,
+        silence_threshold: float | None = None,
+        silence_duration: float | None = None,
     ):
         """
         Args:
@@ -45,11 +47,15 @@ class DualAudioCapture:
             silence_duration: Seconds of silence to mark end of utterance
         """
         self.system_device_idx = self._find_device(system_device)
-        self.mic_device_idx = self._find_device(mic_device)
+        self.mic_device_idx = self._find_device(mic_device) if mic_device else None
         self.sample_rate = sample_rate
-        self.silence_threshold = silence_threshold
-        self.silence_duration = silence_duration
-        self.chunk_duration = 0.5  # 500ms chunks
+        self.silence_threshold = (
+            settings.silence_threshold if silence_threshold is None else silence_threshold
+        )
+        self.silence_duration = (
+            settings.silence_duration if silence_duration is None else silence_duration
+        )
+        self.chunk_duration = 0.25  # 250ms chunks for faster segment detection
         self.is_running = False
 
     def _find_device(self, name: str) -> int:
@@ -90,10 +96,15 @@ class DualAudioCapture:
         """
         self.is_running = True
 
-        await asyncio.gather(
+        tasks = [
             self._capture_stream("interviewer", self.system_device_idx, on_speech_segment),
-            self._capture_stream("candidate", self.mic_device_idx, on_speech_segment),
-        )
+        ]
+        if self.mic_device_idx is not None:
+            tasks.append(
+                self._capture_stream("candidate", self.mic_device_idx, on_speech_segment)
+            )
+
+        await asyncio.gather(*tasks)
 
     async def _capture_stream(
         self,
@@ -110,8 +121,8 @@ class DualAudioCapture:
 
         TODO (Dev 2): Test and tune these parameters:
         - silence_threshold: May need adjustment per mic/environment
-        - silence_duration: 1.5s works for most interviews
-        - chunk_duration: 0.5s gives good balance of responsiveness vs overhead
+        - silence_duration: shorter values improve responsiveness
+        - chunk_duration: 0.25s keeps latency lower for live use
         """
         speech_started = False
         silence_time = 0.0
@@ -180,11 +191,15 @@ class DualAudioCapture:
         Returns:
             {
                 "all": [list of all devices],
-                "input": [list of input-capable devices with names and indices]
+                "input": [list of input-capable devices with names and indices],
+                "output": [list of output-capable devices with names and indices],
+                "default_input": "Default input device name or empty string",
+                "default_output": "Default output device name or empty string",
             }
         """
         devices = sd.query_devices()
         input_devices = []
+        output_devices = []
         for i, d in enumerate(devices):
             if d.get("max_input_channels", 0) > 0:
                 input_devices.append({
@@ -193,7 +208,29 @@ class DualAudioCapture:
                     "channels": d["max_input_channels"],
                     "sample_rate": d["default_samplerate"],
                 })
+            if d.get("max_output_channels", 0) > 0:
+                output_devices.append({
+                    "index": i,
+                    "name": d["name"],
+                    "channels": d["max_output_channels"],
+                    "sample_rate": d["default_samplerate"],
+                })
+
+        default_input_name = ""
+        default_output_name = ""
+        try:
+            default_input_idx, default_output_idx = sd.default.device
+            if isinstance(default_input_idx, int) and default_input_idx >= 0:
+                default_input_name = devices[default_input_idx]["name"]
+            if isinstance(default_output_idx, int) and default_output_idx >= 0:
+                default_output_name = devices[default_output_idx]["name"]
+        except Exception:
+            pass
+
         return {
             "all": [d["name"] for d in devices],
             "input": input_devices,
+            "output": output_devices,
+            "default_input": default_input_name,
+            "default_output": default_output_name,
         }
