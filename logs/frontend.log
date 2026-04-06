@@ -584,3 +584,407 @@
 [23:17:24] [frontend] 
 [23:17:24] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
 [23:17:24] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[13:07:25] [frontend] 
+[13:07:25] [frontend] > interview-ace-frontend@0.1.0 dev
+[13:07:25] [frontend] > vite
+[13:07:25] [frontend] 
+[13:07:25] [frontend] 
+[13:07:25] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m218[22m[2m[0m ms[22m
+[13:07:25] [frontend] 
+[13:07:25] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[13:07:25] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[17:23:52] [frontend] 
+[17:23:52] [frontend] > interview-ace-frontend@0.1.0 dev
+[17:23:52] [frontend] > vite
+[17:23:52] [frontend] 
+[17:23:52] [frontend] 
+[17:23:52] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m263[22m[2m[0m ms[22m
+[17:23:52] [frontend] 
+[17:23:52] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[17:23:52] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[17:47:37] [frontend] 
+[17:47:37] [frontend] > interview-ace-frontend@0.1.0 dev
+[17:47:37] [frontend] > vite
+[17:47:37] [frontend] 
+[17:47:37] [frontend] 
+[17:47:37] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m233[22m[2m[0m ms[22m
+[17:47:37] [frontend] 
+[17:47:37] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[17:47:37] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[18:00:17] [frontend] 
+[18:00:17] [frontend] > interview-ace-frontend@0.1.0 dev
+[18:00:17] [frontend] > vite
+[18:00:17] [frontend] 
+[18:00:18] [frontend] 
+[18:00:18] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m227[22m[2m[0m ms[22m
+[18:00:18] [frontend] 
+[18:00:18] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[18:00:18] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[18:08:15] [frontend] 
+[18:08:15] [frontend] > interview-ace-frontend@0.1.0 dev
+[18:08:15] [frontend] > vite
+[18:08:15] [frontend] 
+[18:08:16] [frontend] 
+[18:08:16] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m218[22m[2m[0m ms[22m
+[18:08:16] [frontend] 
+[18:08:16] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[18:08:16] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[18:31:09] [frontend] [2m6:31:09 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[18:32:07] [frontend] 
+[18:32:07] [frontend] > interview-ace-frontend@0.1.0 dev
+[18:32:07] [frontend] > vite
+[18:32:07] [frontend] 
+[18:32:07] [frontend] 
+[18:32:07] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m221[22m[2m[0m ms[22m
+[18:32:07] [frontend] 
+[18:32:07] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[18:32:07] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[19:36:24] [frontend] [2m7:36:24 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AnswerPanel.jsx, /src/index.css[22m
+[19:38:44] [frontend] 
+[19:38:44] [frontend] > interview-ace-frontend@0.1.0 dev
+[19:38:44] [frontend] > vite
+[19:38:44] [frontend] 
+[19:38:44] [frontend] 
+[19:38:44] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m478[22m[2m[0m ms[22m
+[19:38:44] [frontend] 
+[19:38:44] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[19:38:44] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[19:57:53] [frontend] 
+[19:57:53] [frontend] > interview-ace-frontend@0.1.0 dev
+[19:57:53] [frontend] > vite
+[19:57:53] [frontend] 
+[19:57:54] [frontend] 
+[19:57:54] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m226[22m[2m[0m ms[22m
+[19:57:54] [frontend] 
+[19:57:54] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[19:57:54] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[20:12:26] [frontend] 
+[20:12:26] [frontend] > interview-ace-frontend@0.1.0 dev
+[20:12:26] [frontend] > vite
+[20:12:26] [frontend] 
+[20:12:26] [frontend] 
+[20:12:26] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m211[22m[2m[0m ms[22m
+[20:12:26] [frontend] 
+[20:12:26] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[20:12:26] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[20:23:34] [frontend] 
+[20:23:34] [frontend] > interview-ace-frontend@0.1.0 dev
+[20:23:34] [frontend] > vite
+[20:23:34] [frontend] 
+[20:23:35] [frontend] 
+[20:23:35] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m226[22m[2m[0m ms[22m
+[20:23:35] [frontend] 
+[20:23:35] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[20:23:35] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[20:59:59] [frontend] [2m8:59:59 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUploader.jsx, /src/index.css[22m
+[21:00:10] [frontend] [2m9:00:10 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ModelSelector.jsx, /src/index.css[22m
+[21:00:22] [frontend] [2m9:00:22 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AudioDevicePicker.jsx, /src/index.css[22m
+[21:00:32] [frontend] [2m9:00:32 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/StatusIndicator.jsx, /src/index.css[22m
+[21:00:48] [frontend] [2m9:00:48 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TranscriptFeed.jsx, /src/index.css[22m
+[21:01:08] [frontend] [2m9:01:08 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AnswerPanel.jsx, /src/index.css[22m
+[21:02:15] [frontend] [2m9:02:15 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrepDashboard.jsx, /src/index.css[22m
+[21:03:29] [frontend] [2m9:03:29 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[21:03:39] [frontend] [2m9:03:39 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[21:03:49] [frontend] [2m9:03:49 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[21:04:02] [frontend] [2m9:04:02 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[21:04:17] [frontend] [2m9:04:17 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[21:04:30] [frontend] [2m9:04:30 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[21:11:57] [frontend] 
+[21:11:57] [frontend] > interview-ace-frontend@0.1.0 dev
+[21:11:57] [frontend] > vite
+[21:11:57] [frontend] 
+[21:11:57] [frontend] 
+[21:11:57] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m202[22m[2m[0m ms[22m
+[21:11:57] [frontend] 
+[21:11:57] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[21:11:57] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[21:16:45] [frontend] 
+[21:16:45] [frontend] > interview-ace-frontend@0.1.0 dev
+[21:16:45] [frontend] > vite
+[21:16:45] [frontend] 
+[21:16:45] [frontend] 
+[21:16:45] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m221[22m[2m[0m ms[22m
+[21:16:45] [frontend] 
+[21:16:45] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[21:16:45] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[21:18:33] [frontend] [2m9:18:33 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/PrepDashboard.jsx, /src/pages/StealthOverlay.jsx[22m
+[21:18:46] [frontend] [2m9:18:46 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[21:18:55] [frontend] [2m9:18:55 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TranscriptFeed.jsx, /src/index.css[22m
+[21:19:09] [frontend] [2m9:19:09 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AnswerPanel.jsx, /src/index.css[22m
+[21:19:20] [frontend] [2m9:19:20 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[21:20:01] [frontend] 
+[21:20:01] [frontend] > interview-ace-frontend@0.1.0 dev
+[21:20:01] [frontend] > vite
+[21:20:01] [frontend] 
+[21:20:01] [frontend] 
+[21:20:01] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m162[22m[2m[0m ms[22m
+[21:20:01] [frontend] 
+[21:20:01] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[21:20:01] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[21:23:01] [frontend] [2m9:23:01 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[21:23:14] [frontend] [2m9:23:14 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TranscriptFeed.jsx, /src/index.css[22m
+[21:23:30] [frontend] [2m9:23:30 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AnswerPanel.jsx, /src/index.css[22m
+[21:25:37] [frontend] [2m9:25:37 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AnswerPanel.jsx, /src/index.css[22m
+[21:25:46] [frontend] [2m9:25:46 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TranscriptFeed.jsx, /src/index.css[22m
+[21:25:58] [frontend] [2m9:25:58 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[21:27:38] [frontend] 
+[21:27:38] [frontend] > interview-ace-frontend@0.1.0 dev
+[21:27:38] [frontend] > vite
+[21:27:38] [frontend] 
+[21:27:38] [frontend] 
+[21:27:38] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m176[22m[2m[0m ms[22m
+[21:27:38] [frontend] 
+[21:27:38] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[21:27:38] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[21:35:47] [frontend] 
+[21:35:47] [frontend] > interview-ace-frontend@0.1.0 dev
+[21:35:47] [frontend] > vite
+[21:35:47] [frontend] 
+[21:35:47] [frontend] 
+[21:35:47] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m207[22m[2m[0m ms[22m
+[21:35:47] [frontend] 
+[21:35:47] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[21:35:47] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[21:44:00] [frontend] 
+[21:44:00] [frontend] > interview-ace-frontend@0.1.0 dev
+[21:44:00] [frontend] > vite
+[21:44:00] [frontend] 
+[21:44:01] [frontend] 
+[21:44:01] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m195[22m[2m[0m ms[22m
+[21:44:01] [frontend] 
+[21:44:01] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[21:44:01] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[21:53:03] [frontend] 
+[21:53:03] [frontend] > interview-ace-frontend@0.1.0 dev
+[21:53:03] [frontend] > vite
+[21:53:03] [frontend] 
+[21:53:03] [frontend] 
+[21:53:03] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m220[22m[2m[0m ms[22m
+[21:53:03] [frontend] 
+[21:53:03] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[21:53:03] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[21:56:55] [frontend] [2m9:56:55 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[21:57:04] [frontend] [2m9:57:04 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TranscriptFeed.jsx, /src/index.css[22m
+[21:57:16] [frontend] [2m9:57:16 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AnswerPanel.jsx, /src/index.css[22m
+[21:58:10] [frontend] 
+[21:58:10] [frontend] > interview-ace-frontend@0.1.0 dev
+[21:58:10] [frontend] > vite
+[21:58:10] [frontend] 
+[21:58:10] [frontend] 
+[21:58:10] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m165[22m[2m[0m ms[22m
+[21:58:10] [frontend] 
+[21:58:10] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[21:58:10] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[22:02:39] [frontend] 
+[22:02:39] [frontend] > interview-ace-frontend@0.1.0 dev
+[22:02:39] [frontend] > vite
+[22:02:39] [frontend] 
+[22:02:40] [frontend] 
+[22:02:40] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m195[22m[2m[0m ms[22m
+[22:02:40] [frontend] 
+[22:02:40] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[22:02:40] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[22:07:12] [frontend] [2m10:07:12 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[22:07:25] [frontend] [2m10:07:25 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TranscriptFeed.jsx, /src/index.css[22m
+[22:07:43] [frontend] [2m10:07:43 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AnswerPanel.jsx, /src/index.css[22m
+[22:08:20] [frontend] [2m10:08:20 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[22:08:20] [frontend] [2m10:08:20 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TranscriptFeed.jsx, /src/index.css[22m
+[22:08:20] [frontend] [2m10:08:20 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AnswerPanel.jsx, /src/index.css[22m
+[22:10:12] [frontend] [2m10:10:12 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrepDashboard.jsx, /src/index.css[22m
+[22:10:23] [frontend] [2m10:10:23 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[22:10:41] [frontend] [2m10:10:41 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AnswerPanel.jsx, /src/index.css[22m
+[22:10:49] [frontend] [2m10:10:49 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TranscriptFeed.jsx, /src/index.css[22m
+[22:11:28] [frontend] 
+[22:11:28] [frontend] > interview-ace-frontend@0.1.0 dev
+[22:11:28] [frontend] > vite
+[22:11:28] [frontend] 
+[22:11:29] [frontend] 
+[22:11:29] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m409[22m[2m[0m ms[22m
+[22:11:29] [frontend] 
+[22:11:29] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[22:11:29] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[22:13:07] [frontend] 
+[22:13:07] [frontend] > interview-ace-frontend@0.1.0 dev
+[22:13:07] [frontend] > vite
+[22:13:07] [frontend] 
+[22:13:07] [frontend] 
+[22:13:07] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m250[22m[2m[0m ms[22m
+[22:13:07] [frontend] 
+[22:13:07] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[22:13:07] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[22:14:53] [frontend] 
+[22:14:53] [frontend] > interview-ace-frontend@0.1.0 dev
+[22:14:53] [frontend] > vite
+[22:14:53] [frontend] 
+[22:14:54] [frontend] 
+[22:14:54] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m232[22m[2m[0m ms[22m
+[22:14:54] [frontend] 
+[22:14:54] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[22:14:54] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[22:17:28] [frontend] [2m10:17:28 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TranscriptFeed.jsx, /src/index.css[22m
+[22:17:45] [frontend] [2m10:17:45 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AnswerPanel.jsx, /src/index.css[22m
+[22:19:03] [frontend] 
+[22:19:03] [frontend] > interview-ace-frontend@0.1.0 dev
+[22:19:03] [frontend] > vite
+[22:19:03] [frontend] 
+[22:19:04] [frontend] 
+[22:19:04] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m165[22m[2m[0m ms[22m
+[22:19:04] [frontend] 
+[22:19:04] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[22:19:04] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[22:22:52] [frontend] 
+[22:22:52] [frontend] > interview-ace-frontend@0.1.0 dev
+[22:22:52] [frontend] > vite
+[22:22:52] [frontend] 
+[22:22:53] [frontend] 
+[22:22:53] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m210[22m[2m[0m ms[22m
+[22:22:53] [frontend] 
+[22:22:53] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[22:22:53] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[22:28:05] [frontend] [2m10:28:05 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/StealthOverlay.jsx, /src/index.css[22m
+[22:28:22] [frontend] [2m10:28:22 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AnswerPanel.jsx, /src/index.css[22m
+[22:28:34] [frontend] [2m10:28:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TranscriptFeed.jsx, /src/index.css[22m
+[22:29:42] [frontend] 
+[22:29:42] [frontend] > interview-ace-frontend@0.1.0 dev
+[22:29:42] [frontend] > vite
+[22:29:42] [frontend] 
+[22:29:43] [frontend] 
+[22:29:43] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m165[22m[2m[0m ms[22m
+[22:29:43] [frontend] 
+[22:29:43] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[22:29:43] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[23:08:59] [frontend] 
+[23:08:59] [frontend] > interview-ace-frontend@0.1.0 dev
+[23:08:59] [frontend] > vite
+[23:08:59] [frontend] 
+[23:08:59] [frontend] 
+[23:08:59] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m219[22m[2m[0m ms[22m
+[23:08:59] [frontend] 
+[23:08:59] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[23:08:59] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[23:15:55] [frontend] 
+[23:15:55] [frontend] > interview-ace-frontend@0.1.0 dev
+[23:15:55] [frontend] > vite
+[23:15:55] [frontend] 
+[23:15:56] [frontend] 
+[23:15:56] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m545[22m[2m[0m ms[22m
+[23:15:56] [frontend] 
+[23:15:56] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[23:15:56] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[09:53:13] [frontend] 
+[09:53:13] [frontend] > interview-ace-frontend@0.1.0 dev
+[09:53:13] [frontend] > vite
+[09:53:13] [frontend] 
+[09:53:14] [frontend] 
+[09:53:14] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m335[22m[2m[0m ms[22m
+[09:53:14] [frontend] 
+[09:53:14] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[09:53:14] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[10:02:37] [frontend] 
+[10:02:37] [frontend] > interview-ace-frontend@0.1.0 dev
+[10:02:37] [frontend] > vite
+[10:02:37] [frontend] 
+[10:02:37] [frontend] 
+[10:02:37] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m132[22m[2m[0m ms[22m
+[10:02:37] [frontend] 
+[10:02:37] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[10:02:37] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[10:12:55] [frontend] 
+[10:12:55] [frontend] > interview-ace-frontend@0.1.0 dev
+[10:12:55] [frontend] > vite
+[10:12:55] [frontend] 
+[10:12:55] [frontend] 
+[10:12:55] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m331[22m[2m[0m ms[22m
+[10:12:55] [frontend] 
+[10:12:55] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[10:12:55] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[10:51:07] [frontend] 
+[10:51:07] [frontend] > interview-ace-frontend@0.1.0 dev
+[10:51:07] [frontend] > vite
+[10:51:07] [frontend] 
+[10:51:07] [frontend] 
+[10:51:07] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m179[22m[2m[0m ms[22m
+[10:51:07] [frontend] 
+[10:51:07] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[10:51:07] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[11:02:23] [frontend] 
+[11:02:23] [frontend] > interview-ace-frontend@0.1.0 dev
+[11:02:23] [frontend] > vite
+[11:02:23] [frontend] 
+[11:02:23] [frontend] 
+[11:02:23] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m217[22m[2m[0m ms[22m
+[11:02:24] [frontend] 
+[11:02:24] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[11:02:24] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[12:33:27] [frontend] 
+[12:33:27] [frontend] > interview-ace-frontend@0.1.0 dev
+[12:33:27] [frontend] > vite
+[12:33:27] [frontend] 
+[12:33:28] [frontend] 
+[12:33:28] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m491[22m[2m[0m ms[22m
+[12:33:28] [frontend] 
+[12:33:28] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[12:33:28] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[13:03:31] [frontend] 
+[13:03:31] [frontend] > interview-ace-frontend@0.1.0 dev
+[13:03:31] [frontend] > vite
+[13:03:31] [frontend] 
+[13:03:32] [frontend] 
+[13:03:32] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m218[22m[2m[0m ms[22m
+[13:03:32] [frontend] 
+[13:03:32] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[13:03:32] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[20:45:30] [frontend] 
+[20:45:30] [frontend] > interview-ace-frontend@0.1.0 dev
+[20:45:30] [frontend] > vite
+[20:45:30] [frontend] 
+[20:45:30] [frontend] 
+[20:45:30] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m212[22m[2m[0m ms[22m
+[20:45:30] [frontend] 
+[20:45:30] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[20:45:30] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[21:09:31] [frontend] 
+[21:09:31] [frontend] > interview-ace-frontend@0.1.0 dev
+[21:09:31] [frontend] > vite
+[21:09:31] [frontend] 
+[21:09:31] [frontend] 
+[21:09:31] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m242[22m[2m[0m ms[22m
+[21:09:31] [frontend] 
+[21:09:31] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[21:09:31] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[21:29:34] [frontend] 
+[21:29:34] [frontend] > interview-ace-frontend@0.1.0 dev
+[21:29:34] [frontend] > vite
+[21:29:34] [frontend] 
+[21:29:34] [frontend] 
+[21:29:34] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m216[22m[2m[0m ms[22m
+[21:29:34] [frontend] 
+[21:29:34] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[21:29:34] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[22:12:34] [frontend] 
+[22:12:34] [frontend] > interview-ace-frontend@0.1.0 dev
+[22:12:34] [frontend] > vite
+[22:12:34] [frontend] 
+[22:12:34] [frontend] 
+[22:12:34] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m229[22m[2m[0m ms[22m
+[22:12:34] [frontend] 
+[22:12:34] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[22:12:34] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[23:15:08] [frontend] 
+[23:15:08] [frontend] > interview-ace-frontend@0.1.0 dev
+[23:15:08] [frontend] > vite
+[23:15:08] [frontend] 
+[23:15:09] [frontend] 
+[23:15:09] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m258[22m[2m[0m ms[22m
+[23:15:09] [frontend] 
+[23:15:09] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[23:15:09] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[11:27:27] [frontend] 
+[11:27:27] [frontend] > interview-ace-frontend@0.1.0 dev
+[11:27:27] [frontend] > vite
+[11:27:27] [frontend] 
+[11:27:27] [frontend] 
+[11:27:27] [frontend]   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m247[22m[2m[0m ms[22m
+[11:27:27] [frontend] 
+[11:27:27] [frontend]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[11:27:27] [frontend] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m

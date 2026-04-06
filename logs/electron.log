@@ -844,3 +844,994 @@
 [23:34:58] [electron] [2026-03-27T04:34:58.270Z] [electron] Electron will quit; cleaning up
 [23:34:58] [electron] [2026-03-27T04:34:58.273Z] [electron] Frontend process killed
 [23:34:58] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[13:07:28] [electron] 
+[13:07:28] [electron] > interview-ace-electron@0.1.0 start
+[13:07:28] [electron] > electron .
+[13:07:28] [electron] 
+[13:07:29] [electron] [2026-03-27T18:07:29.031Z] [electron] Backend started silently on port 8000
+[13:07:29] [electron] [2026-03-27T18:07:29.039Z] [electron] Frontend started silently on port 5173
+[13:07:29] [electron] [2026-03-27T18:07:29.784Z] [electron] Backend exited with code 1
+[13:07:31] [electron] [2026-03-27T18:07:31.045Z] [electron] Creating main dashboard window
+[13:07:31] [electron] [2026-03-27T18:07:31.296Z] [electron] Main dashboard loading http://localhost:5173
+[13:07:31] [electron] [2026-03-27T18:07:31.296Z] [electron] Creating stealth overlay window { width: 1470, height: 860 }
+[13:07:31] [electron] [2026-03-27T18:07:31.334Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[13:07:31] [electron] [2026-03-27T18:07:31.335Z] [electron] Stealth overlay created hidden
+[13:07:31] [electron] [2026-03-27T18:07:31.335Z] [electron] Registering global shortcuts
+[13:07:31] [electron] [2026-03-27T18:07:31.356Z] [electron] InterviewAce started — all servers running silently
+[13:07:31] [electron] [2026-03-27T18:07:31.356Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[13:07:31] [electron] [2026-03-27T18:07:31.356Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[13:07:31] [electron] [2026-03-27T18:07:31.356Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[13:09:00] [electron] [2026-03-27T18:08:59.999Z] [electron] IPC received: show-overlay
+[13:09:00] [electron] [2026-03-27T18:09:00.007Z] [electron] Loading overlay session 856a3b13-950b-466a-b6dc-17cc9f2bc726
+[13:35:12] [electron] [2026-03-27T18:35:12.842Z] [electron] IPC received: hide-overlay
+[13:36:23] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[17:23:55] [electron] 
+[17:23:55] [electron] > interview-ace-electron@0.1.0 start
+[17:23:55] [electron] > electron .
+[17:23:55] [electron] 
+[17:23:56] [electron] [2026-03-29T22:23:56.396Z] [electron] Backend started silently on port 8000
+[17:23:56] [electron] [2026-03-29T22:23:56.404Z] [electron] Frontend started silently on port 5173
+[17:23:57] [electron] [2026-03-29T22:23:57.238Z] [electron] Backend exited with code 1
+[17:23:58] [electron] [2026-03-29T22:23:58.410Z] [electron] Creating main dashboard window
+[17:23:58] [electron] [2026-03-29T22:23:58.622Z] [electron] Main dashboard loading http://localhost:5173
+[17:23:58] [electron] [2026-03-29T22:23:58.622Z] [electron] Creating stealth overlay window { width: 1470, height: 860 }
+[17:23:58] [electron] [2026-03-29T22:23:58.666Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[17:23:58] [electron] [2026-03-29T22:23:58.668Z] [electron] Stealth overlay created hidden
+[17:23:58] [electron] [2026-03-29T22:23:58.668Z] [electron] Registering global shortcuts
+[17:23:58] [electron] [2026-03-29T22:23:58.694Z] [electron] InterviewAce started — all servers running silently
+[17:23:58] [electron] [2026-03-29T22:23:58.694Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[17:23:58] [electron] [2026-03-29T22:23:58.694Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[17:23:58] [electron] [2026-03-29T22:23:58.694Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[17:25:40] [electron] [2026-03-29T22:25:40.434Z] [electron] IPC received: show-overlay
+[17:25:40] [electron] [2026-03-29T22:25:40.440Z] [electron] Loading overlay session 633ffcf2-5f8c-496d-aecc-0afd2b4881b8
+[17:27:33] [electron] [2026-03-29T22:27:33.673Z] [electron] IPC received: hide-overlay
+[17:27:41] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[17:47:40] [electron] 
+[17:47:40] [electron] > interview-ace-electron@0.1.0 start
+[17:47:40] [electron] > electron .
+[17:47:40] [electron] 
+[17:47:41] [electron] [2026-03-29T22:47:41.353Z] [electron] Backend started silently on port 8000
+[17:47:41] [electron] [2026-03-29T22:47:41.361Z] [electron] Frontend started silently on port 5173
+[17:47:42] [electron] [2026-03-29T22:47:42.100Z] [electron] Backend exited with code 1
+[17:47:43] [electron] [2026-03-29T22:47:43.367Z] [electron] Creating main dashboard window
+[17:47:43] [electron] [2026-03-29T22:47:43.608Z] [electron] Main dashboard loading http://localhost:5173
+[17:47:43] [electron] [2026-03-29T22:47:43.609Z] [electron] Creating stealth overlay window { width: 1470, height: 860 }
+[17:47:43] [electron] [2026-03-29T22:47:43.641Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[17:47:43] [electron] [2026-03-29T22:47:43.643Z] [electron] Stealth overlay created hidden
+[17:47:43] [electron] [2026-03-29T22:47:43.643Z] [electron] Registering global shortcuts
+[17:47:43] [electron] [2026-03-29T22:47:43.656Z] [electron] InterviewAce started — all servers running silently
+[17:47:43] [electron] [2026-03-29T22:47:43.656Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[17:47:43] [electron] [2026-03-29T22:47:43.656Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[17:47:43] [electron] [2026-03-29T22:47:43.657Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[17:49:34] [electron] [2026-03-29T22:49:34.837Z] [electron] IPC received: show-overlay
+[17:49:34] [electron] [2026-03-29T22:49:34.842Z] [electron] Loading overlay session 593c7c91-20bc-4eec-8788-f2d1ab671289
+[17:54:44] [electron] [2026-03-29T22:54:44.423Z] [electron] IPC received: hide-overlay
+[17:54:44] [electron] [2026-03-29T22:54:44.436Z] [electron] IPC received: hide-overlay
+[17:54:51] [electron] [2026-03-29T22:54:51.550Z] [electron] Main dashboard window closed
+[17:54:57] [electron] [2026-03-29T22:54:57.808Z] [electron] Stealth overlay window closed
+[17:54:57] [electron] [2026-03-29T22:54:57.808Z] [electron] Electron will quit; cleaning up
+[17:54:57] [electron] [2026-03-29T22:54:57.811Z] [electron] Frontend process killed
+[17:54:57] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[18:00:20] [electron] 
+[18:00:20] [electron] > interview-ace-electron@0.1.0 start
+[18:00:20] [electron] > electron .
+[18:00:20] [electron] 
+[18:00:21] [electron] [2026-03-29T23:00:21.937Z] [electron] Backend started silently on port 8000
+[18:00:21] [electron] [2026-03-29T23:00:21.954Z] [electron] Frontend started silently on port 5173
+[18:00:23] [electron] [2026-03-29T23:00:23.080Z] [electron] Backend exited with code 1
+[18:00:23] [electron] [2026-03-29T23:00:23.960Z] [electron] Creating main dashboard window
+[18:00:24] [electron] [2026-03-29T23:00:24.124Z] [electron] Main dashboard loading http://localhost:5173
+[18:00:24] [electron] [2026-03-29T23:00:24.125Z] [electron] Creating stealth overlay window { width: 1470, height: 860 }
+[18:00:24] [electron] [2026-03-29T23:00:24.156Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[18:00:24] [electron] [2026-03-29T23:00:24.157Z] [electron] Stealth overlay created hidden
+[18:00:24] [electron] [2026-03-29T23:00:24.157Z] [electron] Registering global shortcuts
+[18:00:24] [electron] [2026-03-29T23:00:24.170Z] [electron] InterviewAce started — all servers running silently
+[18:00:24] [electron] [2026-03-29T23:00:24.170Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[18:00:24] [electron] [2026-03-29T23:00:24.170Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[18:00:24] [electron] [2026-03-29T23:00:24.170Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[18:01:23] [electron] [2026-03-29T23:01:23.183Z] [electron] IPC received: show-overlay
+[18:01:23] [electron] [2026-03-29T23:01:23.187Z] [electron] Loading overlay session 57f6acaf-ca47-4980-ab53-c724ccd109e1
+[18:02:42] [electron] [2026-03-29T23:02:42.722Z] [electron] IPC received: hide-overlay
+[18:02:42] [electron] [2026-03-29T23:02:42.759Z] [electron] IPC received: hide-overlay
+[18:02:52] [electron] [2026-03-29T23:02:52.725Z] [electron] Main dashboard window closed
+[18:02:57] [electron] [2026-03-29T23:02:57.094Z] [electron] Stealth overlay window closed
+[18:02:57] [electron] [2026-03-29T23:02:57.095Z] [electron] Electron will quit; cleaning up
+[18:02:57] [electron] [2026-03-29T23:02:57.097Z] [electron] Frontend process killed
+[18:02:57] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[18:08:18] [electron] 
+[18:08:18] [electron] > interview-ace-electron@0.1.0 start
+[18:08:18] [electron] > electron .
+[18:08:18] [electron] 
+[18:08:19] [electron] [2026-03-29T23:08:19.630Z] [electron] Backend started silently on port 8000
+[18:08:19] [electron] [2026-03-29T23:08:19.638Z] [electron] Frontend started silently on port 5173
+[18:08:20] [electron] [2026-03-29T23:08:20.381Z] [electron] Backend exited with code 1
+[18:08:21] [electron] [2026-03-29T23:08:21.644Z] [electron] Creating main dashboard window
+[18:08:21] [electron] [2026-03-29T23:08:21.899Z] [electron] Main dashboard loading http://localhost:5173
+[18:08:21] [electron] [2026-03-29T23:08:21.900Z] [electron] Creating stealth overlay window { width: 1470, height: 860 }
+[18:08:21] [electron] [2026-03-29T23:08:21.939Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[18:08:21] [electron] [2026-03-29T23:08:21.941Z] [electron] Stealth overlay created hidden
+[18:08:21] [electron] [2026-03-29T23:08:21.941Z] [electron] Registering global shortcuts
+[18:08:21] [electron] [2026-03-29T23:08:21.960Z] [electron] InterviewAce started — all servers running silently
+[18:08:21] [electron] [2026-03-29T23:08:21.960Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[18:08:21] [electron] [2026-03-29T23:08:21.960Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[18:08:21] [electron] [2026-03-29T23:08:21.960Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[18:10:04] [electron] [2026-03-29T23:10:04.249Z] [electron] IPC received: show-overlay
+[18:10:04] [electron] [2026-03-29T23:10:04.254Z] [electron] Loading overlay session 4bb8d031-7ddf-41e8-b08f-0a78bc987008
+[18:32:04] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[18:32:10] [electron] 
+[18:32:10] [electron] > interview-ace-electron@0.1.0 start
+[18:32:10] [electron] > electron .
+[18:32:10] [electron] 
+[18:32:11] [electron] [2026-03-29T23:32:11.502Z] [electron] Backend started silently on port 8000
+[18:32:11] [electron] [2026-03-29T23:32:11.509Z] [electron] Frontend started silently on port 5173
+[18:32:12] [electron] [2026-03-29T23:32:12.431Z] [electron] Backend exited with code 1
+[18:32:13] [electron] [2026-03-29T23:32:13.516Z] [electron] Creating main dashboard window
+[18:32:13] [electron] [2026-03-29T23:32:13.710Z] [electron] Main dashboard loading http://localhost:5173
+[18:32:13] [electron] [2026-03-29T23:32:13.711Z] [electron] Creating stealth overlay window { width: 1470, height: 861 }
+[18:32:13] [electron] [2026-03-29T23:32:13.737Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[18:32:13] [electron] [2026-03-29T23:32:13.740Z] [electron] Stealth overlay created hidden
+[18:32:13] [electron] [2026-03-29T23:32:13.740Z] [electron] Registering global shortcuts
+[18:32:13] [electron] [2026-03-29T23:32:13.754Z] [electron] InterviewAce started — all servers running silently
+[18:32:13] [electron] [2026-03-29T23:32:13.754Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[18:32:13] [electron] [2026-03-29T23:32:13.754Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[18:32:13] [electron] [2026-03-29T23:32:13.754Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[18:43:38] [electron] [2026-03-29T23:43:38.779Z] [electron] IPC received: show-overlay
+[18:43:38] [electron] [2026-03-29T23:43:38.786Z] [electron] Loading overlay session c68ea474-810c-4ae8-9fc0-d219eb416543
+[19:21:27] [electron] [2026-03-30T00:21:27.889Z] [electron] IPC received: hide-overlay
+[19:38:32] [electron] [2026-03-30T00:38:32.683Z] [electron] Main dashboard window closed
+[19:38:41] [electron] [2026-03-30T00:38:41.377Z] [electron] Stealth overlay window closed
+[19:38:41] [electron] [2026-03-30T00:38:41.378Z] [electron] Electron will quit; cleaning up
+[19:38:41] [electron] [2026-03-30T00:38:41.380Z] [electron] Frontend process killed
+[19:38:41] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[19:38:47] [electron] 
+[19:38:47] [electron] > interview-ace-electron@0.1.0 start
+[19:38:47] [electron] > electron .
+[19:38:47] [electron] 
+[19:38:48] [electron] [2026-03-30T00:38:48.001Z] [electron] Backend started silently on port 8000
+[19:38:48] [electron] [2026-03-30T00:38:48.007Z] [electron] Frontend started silently on port 5173
+[19:38:48] [electron] [2026-03-30T00:38:48.736Z] [electron] Backend exited with code 1
+[19:38:50] [electron] [2026-03-30T00:38:50.013Z] [electron] Creating main dashboard window
+[19:38:50] [electron] [2026-03-30T00:38:50.216Z] [electron] Main dashboard loading http://localhost:5173
+[19:38:50] [electron] [2026-03-30T00:38:50.217Z] [electron] Creating stealth overlay window { width: 1470, height: 860 }
+[19:38:50] [electron] [2026-03-30T00:38:50.251Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[19:38:50] [electron] [2026-03-30T00:38:50.253Z] [electron] Stealth overlay created hidden
+[19:38:50] [electron] [2026-03-30T00:38:50.253Z] [electron] Registering global shortcuts
+[19:38:50] [electron] [2026-03-30T00:38:50.267Z] [electron] InterviewAce started — all servers running silently
+[19:38:50] [electron] [2026-03-30T00:38:50.267Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[19:38:50] [electron] [2026-03-30T00:38:50.267Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[19:38:50] [electron] [2026-03-30T00:38:50.267Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[19:40:52] [electron] [2026-03-30T00:40:51.995Z] [electron] IPC received: show-overlay
+[19:40:52] [electron] [2026-03-30T00:40:52.001Z] [electron] Loading overlay session f2b706b0-a790-4707-8e03-dc84de5da15d
+[19:55:49] [electron] [2026-03-30T00:55:49.519Z] [electron] IPC received: hide-overlay
+[19:55:54] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[19:57:56] [electron] 
+[19:57:56] [electron] > interview-ace-electron@0.1.0 start
+[19:57:56] [electron] > electron .
+[19:57:56] [electron] 
+[19:57:57] [electron] [2026-03-30T00:57:57.547Z] [electron] Backend started silently on port 8000
+[19:57:57] [electron] [2026-03-30T00:57:57.555Z] [electron] Frontend started silently on port 5173
+[19:57:58] [electron] [2026-03-30T00:57:58.282Z] [electron] Backend exited with code 1
+[19:57:59] [electron] [2026-03-30T00:57:59.561Z] [electron] Creating main dashboard window
+[19:57:59] [electron] [2026-03-30T00:57:59.780Z] [electron] Main dashboard loading http://localhost:5173
+[19:57:59] [electron] [2026-03-30T00:57:59.780Z] [electron] Creating stealth overlay window { width: 1470, height: 860 }
+[19:57:59] [electron] [2026-03-30T00:57:59.814Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[19:57:59] [electron] [2026-03-30T00:57:59.816Z] [electron] Stealth overlay created hidden
+[19:57:59] [electron] [2026-03-30T00:57:59.817Z] [electron] Registering global shortcuts
+[19:57:59] [electron] [2026-03-30T00:57:59.830Z] [electron] InterviewAce started — all servers running silently
+[19:57:59] [electron] [2026-03-30T00:57:59.830Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[19:57:59] [electron] [2026-03-30T00:57:59.830Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[19:57:59] [electron] [2026-03-30T00:57:59.830Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[20:01:00] [electron] [2026-03-30T01:01:00.535Z] [electron] IPC received: show-overlay
+[20:01:00] [electron] [2026-03-30T01:01:00.540Z] [electron] Loading overlay session 654989e8-6f2c-4e6f-b6f3-c43e28658fd7
+[20:10:50] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[20:12:29] [electron] 
+[20:12:29] [electron] > interview-ace-electron@0.1.0 start
+[20:12:29] [electron] > electron .
+[20:12:29] [electron] 
+[20:12:30] [electron] [2026-03-30T01:12:30.439Z] [electron] Backend started silently on port 8000
+[20:12:30] [electron] [2026-03-30T01:12:30.448Z] [electron] Frontend started silently on port 5173
+[20:12:31] [electron] [2026-03-30T01:12:31.172Z] [electron] Backend exited with code 1
+[20:12:32] [electron] [2026-03-30T01:12:32.454Z] [electron] Creating main dashboard window
+[20:12:32] [electron] [2026-03-30T01:12:32.655Z] [electron] Main dashboard loading http://localhost:5173
+[20:12:32] [electron] [2026-03-30T01:12:32.655Z] [electron] Creating stealth overlay window { width: 1470, height: 860 }
+[20:12:32] [electron] [2026-03-30T01:12:32.690Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[20:12:32] [electron] [2026-03-30T01:12:32.691Z] [electron] Stealth overlay created hidden
+[20:12:32] [electron] [2026-03-30T01:12:32.691Z] [electron] Registering global shortcuts
+[20:12:32] [electron] [2026-03-30T01:12:32.705Z] [electron] InterviewAce started — all servers running silently
+[20:12:32] [electron] [2026-03-30T01:12:32.705Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[20:12:32] [electron] [2026-03-30T01:12:32.705Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[20:12:32] [electron] [2026-03-30T01:12:32.705Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[20:13:12] [electron] [2026-03-30T01:13:12.828Z] [electron] IPC received: show-overlay
+[20:13:12] [electron] [2026-03-30T01:13:12.830Z] [electron] Loading overlay session 0c73f12f-5c23-4e7f-a133-2f3de4fbb5ae
+[20:16:44] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[20:23:37] [electron] 
+[20:23:37] [electron] > interview-ace-electron@0.1.0 start
+[20:23:37] [electron] > electron .
+[20:23:37] [electron] 
+[20:23:38] [electron] [2026-03-30T01:23:38.574Z] [electron] Backend started silently on port 8000
+[20:23:38] [electron] [2026-03-30T01:23:38.581Z] [electron] Frontend started silently on port 5173
+[20:23:39] [electron] [2026-03-30T01:23:39.310Z] [electron] Backend exited with code 1
+[20:23:40] [electron] [2026-03-30T01:23:40.588Z] [electron] Creating main dashboard window
+[20:23:40] [electron] [2026-03-30T01:23:40.818Z] [electron] Main dashboard loading http://localhost:5173
+[20:23:40] [electron] [2026-03-30T01:23:40.819Z] [electron] Creating stealth overlay window { width: 1470, height: 860 }
+[20:23:40] [electron] [2026-03-30T01:23:40.853Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[20:23:40] [electron] [2026-03-30T01:23:40.854Z] [electron] Stealth overlay created hidden
+[20:23:40] [electron] [2026-03-30T01:23:40.854Z] [electron] Registering global shortcuts
+[20:23:40] [electron] [2026-03-30T01:23:40.869Z] [electron] InterviewAce started — all servers running silently
+[20:23:40] [electron] [2026-03-30T01:23:40.869Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[20:23:40] [electron] [2026-03-30T01:23:40.869Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[20:23:40] [electron] [2026-03-30T01:23:40.869Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[20:28:23] [electron] [2026-03-30T01:28:23.517Z] [electron] IPC received: show-overlay
+[20:28:23] [electron] [2026-03-30T01:28:23.523Z] [electron] Loading overlay session 9e8d4e80-6930-4ff4-9e10-1d2a941cfd80
+[20:49:03] [electron] [2026-03-30T01:49:03.805Z] [electron] IPC received: hide-overlay
+[20:49:03] [electron] [2026-03-30T01:49:03.814Z] [electron] IPC received: hide-overlay
+[21:05:08] [electron] [2026-03-30T02:05:08.545Z] [electron] Main dashboard window closed
+[21:05:12] [electron] [2026-03-30T02:05:12.388Z] [electron] Stealth overlay window closed
+[21:05:12] [electron] [2026-03-30T02:05:12.390Z] [electron] Electron will quit; cleaning up
+[21:05:12] [electron] [2026-03-30T02:05:12.393Z] [electron] Frontend process killed
+[21:05:12] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[21:12:00] [electron] 
+[21:12:00] [electron] > interview-ace-electron@0.1.0 start
+[21:12:00] [electron] > electron .
+[21:12:00] [electron] 
+[21:12:01] [electron] [2026-03-30T02:12:01.223Z] [electron] Backend started silently on port 8000
+[21:12:01] [electron] [2026-03-30T02:12:01.232Z] [electron] Frontend started silently on port 5173
+[21:12:01] [electron] [2026-03-30T02:12:01.959Z] [electron] Backend exited with code 1
+[21:12:03] [electron] [2026-03-30T02:12:03.238Z] [electron] Creating main dashboard window
+[21:12:03] [electron] [2026-03-30T02:12:03.457Z] [electron] Main dashboard loading http://localhost:5173
+[21:12:03] [electron] [2026-03-30T02:12:03.457Z] [electron] Creating stealth overlay window { width: 1470, height: 860 }
+[21:12:03] [electron] [2026-03-30T02:12:03.491Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[21:12:03] [electron] [2026-03-30T02:12:03.493Z] [electron] Stealth overlay created hidden
+[21:12:03] [electron] [2026-03-30T02:12:03.493Z] [electron] Registering global shortcuts
+[21:12:03] [electron] [2026-03-30T02:12:03.509Z] [electron] InterviewAce started — all servers running silently
+[21:12:03] [electron] [2026-03-30T02:12:03.509Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[21:12:03] [electron] [2026-03-30T02:12:03.509Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[21:12:03] [electron] [2026-03-30T02:12:03.509Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[21:16:43] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[21:16:48] [electron] 
+[21:16:48] [electron] > interview-ace-electron@0.1.0 start
+[21:16:48] [electron] > electron .
+[21:16:48] [electron] 
+[21:16:49] [electron] [2026-03-30T02:16:49.127Z] [electron] Backend started silently on port 8000
+[21:16:49] [electron] [2026-03-30T02:16:49.138Z] [electron] Frontend started silently on port 5173
+[21:16:49] [electron] [2026-03-30T02:16:49.881Z] [electron] Backend exited with code 1
+[21:16:51] [electron] [2026-03-30T02:16:51.145Z] [electron] Creating main dashboard window
+[21:16:51] [electron] [2026-03-30T02:16:51.347Z] [electron] Main dashboard loading http://localhost:5173
+[21:16:51] [electron] [2026-03-30T02:16:51.347Z] [electron] Creating stealth overlay window { width: 1470, height: 860 }
+[21:16:51] [electron] [2026-03-30T02:16:51.384Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[21:16:51] [electron] [2026-03-30T02:16:51.385Z] [electron] Stealth overlay created hidden
+[21:16:51] [electron] [2026-03-30T02:16:51.385Z] [electron] Registering global shortcuts
+[21:16:51] [electron] [2026-03-30T02:16:51.399Z] [electron] InterviewAce started — all servers running silently
+[21:16:51] [electron] [2026-03-30T02:16:51.399Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[21:16:51] [electron] [2026-03-30T02:16:51.399Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[21:16:51] [electron] [2026-03-30T02:16:51.399Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[21:19:59] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[21:20:04] [electron] 
+[21:20:04] [electron] > interview-ace-electron@0.1.0 start
+[21:20:04] [electron] > electron .
+[21:20:04] [electron] 
+[21:20:04] [electron] [2026-03-30T02:20:04.876Z] [electron] Backend started silently on port 8000
+[21:20:04] [electron] [2026-03-30T02:20:04.883Z] [electron] Frontend started silently on port 5173
+[21:20:05] [electron] [2026-03-30T02:20:05.709Z] [electron] Backend exited with code 1
+[21:20:06] [electron] [2026-03-30T02:20:06.889Z] [electron] Creating main dashboard window
+[21:20:07] [electron] [2026-03-30T02:20:07.045Z] [electron] Main dashboard loading http://localhost:5173
+[21:20:07] [electron] [2026-03-30T02:20:07.045Z] [electron] Creating stealth overlay window { width: 1470, height: 861 }
+[21:20:07] [electron] [2026-03-30T02:20:07.069Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[21:20:07] [electron] [2026-03-30T02:20:07.071Z] [electron] Stealth overlay created hidden
+[21:20:07] [electron] [2026-03-30T02:20:07.072Z] [electron] Registering global shortcuts
+[21:20:07] [electron] [2026-03-30T02:20:07.085Z] [electron] InterviewAce started — all servers running silently
+[21:20:07] [electron] [2026-03-30T02:20:07.085Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[21:20:07] [electron] [2026-03-30T02:20:07.085Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[21:20:07] [electron] [2026-03-30T02:20:07.085Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[21:27:35] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[21:27:41] [electron] 
+[21:27:41] [electron] > interview-ace-electron@0.1.0 start
+[21:27:41] [electron] > electron .
+[21:27:41] [electron] 
+[21:27:42] [electron] [2026-03-30T02:27:42.372Z] [electron] Backend started silently on port 8000
+[21:27:42] [electron] [2026-03-30T02:27:42.380Z] [electron] Frontend started silently on port 5173
+[21:27:43] [electron] [2026-03-30T02:27:43.203Z] [electron] Backend exited with code 1
+[21:27:44] [electron] [2026-03-30T02:27:44.387Z] [electron] Creating main dashboard window
+[21:27:44] [electron] [2026-03-30T02:27:44.555Z] [electron] Main dashboard loading http://localhost:5173
+[21:27:44] [electron] [2026-03-30T02:27:44.555Z] [electron] Creating stealth overlay window { width: 1470, height: 861 }
+[21:27:44] [electron] [2026-03-30T02:27:44.583Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[21:27:44] [electron] [2026-03-30T02:27:44.586Z] [electron] Stealth overlay created hidden
+[21:27:44] [electron] [2026-03-30T02:27:44.586Z] [electron] Registering global shortcuts
+[21:27:44] [electron] [2026-03-30T02:27:44.602Z] [electron] InterviewAce started — all servers running silently
+[21:27:44] [electron] [2026-03-30T02:27:44.602Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[21:27:44] [electron] [2026-03-30T02:27:44.602Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[21:27:44] [electron] [2026-03-30T02:27:44.602Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[21:29:11] [electron] [2026-03-30T02:29:11.630Z] [electron] IPC received: show-overlay
+[21:29:11] [electron] [2026-03-30T02:29:11.640Z] [electron] Loading overlay session 2a63c1b7-e398-44bc-bdf0-b2699d151138
+[21:29:29] [electron] [2026-03-30T02:29:29.972Z] [electron] IPC received: hide-overlay
+[21:29:29] [electron] [2026-03-30T02:29:29.984Z] [electron] IPC received: hide-overlay
+[21:29:33] [electron] [2026-03-30T02:29:33.333Z] [electron] Main dashboard window closed
+[21:29:37] [electron] [2026-03-30T02:29:37.086Z] [electron] Stealth overlay window closed
+[21:29:37] [electron] [2026-03-30T02:29:37.086Z] [electron] Electron will quit; cleaning up
+[21:29:37] [electron] [2026-03-30T02:29:37.089Z] [electron] Frontend process killed
+[21:29:37] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[21:35:50] [electron] 
+[21:35:50] [electron] > interview-ace-electron@0.1.0 start
+[21:35:50] [electron] > electron .
+[21:35:50] [electron] 
+[21:35:51] [electron] [2026-03-30T02:35:51.326Z] [electron] Backend started silently on port 8000
+[21:35:51] [electron] [2026-03-30T02:35:51.333Z] [electron] Frontend started silently on port 5173
+[21:35:52] [electron] [2026-03-30T02:35:52.054Z] [electron] Backend exited with code 1
+[21:35:53] [electron] [2026-03-30T02:35:53.337Z] [electron] Creating main dashboard window
+[21:35:53] [electron] [2026-03-30T02:35:53.524Z] [electron] Main dashboard loading http://localhost:5173
+[21:35:53] [electron] [2026-03-30T02:35:53.524Z] [electron] Creating stealth overlay window { width: 1470, height: 860 }
+[21:35:53] [electron] [2026-03-30T02:35:53.554Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[21:35:53] [electron] [2026-03-30T02:35:53.555Z] [electron] Stealth overlay created hidden
+[21:35:53] [electron] [2026-03-30T02:35:53.555Z] [electron] Registering global shortcuts
+[21:35:53] [electron] [2026-03-30T02:35:53.569Z] [electron] InterviewAce started — all servers running silently
+[21:35:53] [electron] [2026-03-30T02:35:53.569Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[21:35:53] [electron] [2026-03-30T02:35:53.569Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[21:35:53] [electron] [2026-03-30T02:35:53.569Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[21:36:44] [electron] [2026-03-30T02:36:44.013Z] [electron] IPC received: show-overlay
+[21:36:44] [electron] [2026-03-30T02:36:44.019Z] [electron] Loading overlay session 3e2d268e-3048-4d64-8458-473bd248b107
+[21:36:58] [electron] [2026-03-30T02:36:58.212Z] [electron] Overlay click-through enabled
+[21:38:33] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[21:44:03] [electron] 
+[21:44:03] [electron] > interview-ace-electron@0.1.0 start
+[21:44:03] [electron] > electron .
+[21:44:03] [electron] 
+[21:44:04] [electron] [2026-03-30T02:44:04.583Z] [electron] Backend started silently on port 8000
+[21:44:04] [electron] [2026-03-30T02:44:04.591Z] [electron] Frontend started silently on port 5173
+[21:44:05] [electron] [2026-03-30T02:44:05.320Z] [electron] Backend exited with code 1
+[21:44:06] [electron] [2026-03-30T02:44:06.597Z] [electron] Creating main dashboard window
+[21:44:06] [electron] [2026-03-30T02:44:06.777Z] [electron] Main dashboard loading http://localhost:5173
+[21:44:06] [electron] [2026-03-30T02:44:06.777Z] [electron] Creating stealth overlay window { width: 1470, height: 862 }
+[21:44:06] [electron] [2026-03-30T02:44:06.812Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[21:44:06] [electron] [2026-03-30T02:44:06.813Z] [electron] Stealth overlay created hidden
+[21:44:06] [electron] [2026-03-30T02:44:06.813Z] [electron] Registering global shortcuts
+[21:44:06] [electron] [2026-03-30T02:44:06.826Z] [electron] InterviewAce started — all servers running silently
+[21:44:06] [electron] [2026-03-30T02:44:06.826Z] [electron] Shortcut help: Esc toggle click-through
+[21:44:06] [electron] [2026-03-30T02:44:06.826Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[21:44:06] [electron] [2026-03-30T02:44:06.826Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[21:44:06] [electron] [2026-03-30T02:44:06.826Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[21:44:48] [electron] [2026-03-30T02:44:48.428Z] [electron] IPC received: go-live — entering full stealth
+[21:44:48] [electron] [2026-03-30T02:44:48.453Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[21:44:58] [electron] [2026-03-30T02:44:58.932Z] [electron] IPC received: end-session — exiting stealth
+[21:44:58] [electron] [2026-03-30T02:44:58.958Z] [electron] Stealth mode deactivated — app restored
+[21:45:02] [electron] [2026-03-30T02:45:02.594Z] [electron] IPC received: go-live — entering full stealth
+[21:45:02] [electron] [2026-03-30T02:45:02.614Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[21:45:09] [electron] [2026-03-30T02:45:09.517Z] [electron] IPC received: end-session — exiting stealth
+[21:45:09] [electron] [2026-03-30T02:45:09.546Z] [electron] Stealth mode deactivated — app restored
+[21:47:57] [electron] [2026-03-30T02:47:57.344Z] [electron] IPC received: go-live — entering full stealth
+[21:47:57] [electron] [2026-03-30T02:47:57.420Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[21:48:11] [electron] [2026-03-30T02:48:11.733Z] [electron] Shortcut triggered: toggle click-through
+[21:48:11] [electron] [2026-03-30T02:48:11.733Z] [electron] Overlay click-through enabled
+[21:48:16] [electron] [2026-03-30T02:48:16.653Z] [electron] Shortcut triggered: toggle click-through
+[21:48:16] [electron] [2026-03-30T02:48:16.659Z] [electron] Overlay click-through disabled
+[21:48:19] [electron] [2026-03-30T02:48:19.659Z] [electron] IPC received: hide-overlay
+[21:49:16] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[21:53:06] [electron] 
+[21:53:06] [electron] > interview-ace-electron@0.1.0 start
+[21:53:06] [electron] > electron .
+[21:53:06] [electron] 
+[21:53:07] [electron] [2026-03-30T02:53:07.301Z] [electron] Backend started silently on port 8000
+[21:53:07] [electron] [2026-03-30T02:53:07.308Z] [electron] Frontend started silently on port 5173
+[21:53:08] [electron] [2026-03-30T02:53:08.042Z] [electron] Backend exited with code 1
+[21:53:09] [electron] [2026-03-30T02:53:09.315Z] [electron] Creating main dashboard window
+[21:53:09] [electron] [2026-03-30T02:53:09.506Z] [electron] Main dashboard loading http://localhost:5173
+[21:53:09] [electron] [2026-03-30T02:53:09.506Z] [electron] Creating stealth overlay window { width: 1470, height: 861 }
+[21:53:09] [electron] [2026-03-30T02:53:09.537Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[21:53:09] [electron] [2026-03-30T02:53:09.540Z] [electron] Stealth overlay created hidden
+[21:53:09] [electron] [2026-03-30T02:53:09.540Z] [electron] Registering global shortcuts
+[21:53:09] [electron] [2026-03-30T02:53:09.554Z] [electron] InterviewAce started — all servers running silently
+[21:53:09] [electron] [2026-03-30T02:53:09.554Z] [electron] Shortcut help: Esc toggle click-through
+[21:53:09] [electron] [2026-03-30T02:53:09.554Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[21:53:09] [electron] [2026-03-30T02:53:09.554Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[21:53:09] [electron] [2026-03-30T02:53:09.554Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[21:53:46] [electron] [2026-03-30T02:53:46.361Z] [electron] IPC received: go-live — entering full stealth
+[21:53:46] [electron] [2026-03-30T02:53:46.381Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[21:53:49] [electron] [2026-03-30T02:53:49.225Z] [electron] IPC received: hide-overlay
+[21:53:53] [electron] [2026-03-30T02:53:53.080Z] [electron] Shortcut triggered: show overlay
+[21:53:55] [electron] [2026-03-30T02:53:55.059Z] [electron] IPC received: hide-overlay
+[21:55:01] [electron] [2026-03-30T02:55:01.530Z] [electron] Shortcut triggered: show overlay
+[21:57:08] [electron] [2026-03-30T02:57:08.129Z] [electron] IPC received: end-session — exiting stealth
+[21:57:08] [electron] [2026-03-30T02:57:08.159Z] [electron] Stealth mode deactivated — app restored
+[21:58:01] [electron] [2026-03-30T02:58:01.120Z] [electron] Main dashboard window closed
+[21:58:06] [electron] [2026-03-30T02:58:06.445Z] [electron] Stealth overlay window closed
+[21:58:06] [electron] [2026-03-30T02:58:06.446Z] [electron] Electron will quit; cleaning up
+[21:58:06] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[21:58:13] [electron] 
+[21:58:13] [electron] > interview-ace-electron@0.1.0 start
+[21:58:13] [electron] > electron .
+[21:58:13] [electron] 
+[21:58:14] [electron] [2026-03-30T02:58:14.349Z] [electron] Backend started silently on port 8000
+[21:58:14] [electron] [2026-03-30T02:58:14.356Z] [electron] Frontend started silently on port 5173
+[21:58:15] [electron] [2026-03-30T02:58:15.082Z] [electron] Backend exited with code 1
+[21:58:16] [electron] [2026-03-30T02:58:16.362Z] [electron] Creating main dashboard window
+[21:58:16] [electron] [2026-03-30T02:58:16.509Z] [electron] Main dashboard loading http://localhost:5173
+[21:58:16] [electron] [2026-03-30T02:58:16.509Z] [electron] Creating stealth overlay window { width: 1470, height: 862 }
+[21:58:16] [electron] [2026-03-30T02:58:16.543Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[21:58:16] [electron] [2026-03-30T02:58:16.544Z] [electron] Stealth overlay created hidden
+[21:58:16] [electron] [2026-03-30T02:58:16.544Z] [electron] Registering global shortcuts
+[21:58:16] [electron] [2026-03-30T02:58:16.556Z] [electron] InterviewAce started — all servers running silently
+[21:58:16] [electron] [2026-03-30T02:58:16.556Z] [electron] Shortcut help: Esc toggle click-through
+[21:58:16] [electron] [2026-03-30T02:58:16.556Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[21:58:16] [electron] [2026-03-30T02:58:16.556Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[21:58:16] [electron] [2026-03-30T02:58:16.556Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[21:58:49] [electron] [2026-03-30T02:58:49.592Z] [electron] IPC received: go-live — entering full stealth
+[21:58:49] [electron] [2026-03-30T02:58:49.604Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[22:01:09] [electron] [2026-03-30T03:01:09.059Z] [electron] IPC received: hide-overlay
+[22:01:10] [electron] [2026-03-30T03:01:10.608Z] [electron] Shortcut triggered: show overlay
+[22:01:12] [electron] [2026-03-30T03:01:12.799Z] [electron] IPC received: end-session — exiting stealth
+[22:01:12] [electron] [2026-03-30T03:01:12.834Z] [electron] Stealth mode deactivated — app restored
+[22:02:21] [electron] [2026-03-30T03:02:21.585Z] [electron] Main dashboard window closed
+[22:02:24] [electron] [2026-03-30T03:02:24.052Z] [electron] Electron activate event received
+[22:02:24] [electron] [2026-03-30T03:02:24.052Z] [electron] Creating main dashboard window
+[22:02:24] [electron] [2026-03-30T03:02:24.104Z] [electron] Main dashboard loading http://localhost:5173
+[22:02:28] [electron] [2026-03-30T03:02:28.091Z] [electron] Main dashboard window closed
+[22:02:37] [electron] [2026-03-30T03:02:37.293Z] [electron] Stealth overlay window closed
+[22:02:37] [electron] [2026-03-30T03:02:37.294Z] [electron] Electron will quit; cleaning up
+[22:02:37] [electron] [2026-03-30T03:02:37.295Z] [electron] Frontend process killed
+[22:02:37] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[22:02:42] [electron] 
+[22:02:42] [electron] > interview-ace-electron@0.1.0 start
+[22:02:42] [electron] > electron .
+[22:02:42] [electron] 
+[22:02:43] [electron] [2026-03-30T03:02:43.245Z] [electron] Backend started silently on port 8000
+[22:02:43] [electron] [2026-03-30T03:02:43.251Z] [electron] Frontend started silently on port 5173
+[22:02:43] [electron] [2026-03-30T03:02:43.992Z] [electron] Backend exited with code 1
+[22:02:45] [electron] [2026-03-30T03:02:45.256Z] [electron] Creating main dashboard window
+[22:02:45] [electron] [2026-03-30T03:02:45.402Z] [electron] Main dashboard loading http://localhost:5173
+[22:02:45] [electron] [2026-03-30T03:02:45.402Z] [electron] Creating stealth overlay window { width: 1470, height: 862 }
+[22:02:45] [electron] [2026-03-30T03:02:45.434Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[22:02:45] [electron] [2026-03-30T03:02:45.435Z] [electron] Stealth overlay created hidden
+[22:02:45] [electron] [2026-03-30T03:02:45.435Z] [electron] Registering global shortcuts
+[22:02:45] [electron] [2026-03-30T03:02:45.448Z] [electron] InterviewAce started — all servers running silently
+[22:02:45] [electron] [2026-03-30T03:02:45.448Z] [electron] Shortcut help: Esc toggle click-through
+[22:02:45] [electron] [2026-03-30T03:02:45.448Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[22:02:45] [electron] [2026-03-30T03:02:45.448Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[22:02:45] [electron] [2026-03-30T03:02:45.448Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[22:03:25] [electron] [2026-03-30T03:03:25.758Z] [electron] IPC received: go-live — entering full stealth
+[22:03:25] [electron] [2026-03-30T03:03:25.770Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[22:04:01] [electron] [2026-03-30T03:04:01.147Z] [electron] IPC received: end-session — exiting stealth
+[22:04:01] [electron] [2026-03-30T03:04:01.168Z] [electron] Stealth mode deactivated — app restored
+[22:04:02] [electron] [2026-03-30T03:04:02.290Z] [electron] IPC received: go-live — entering full stealth
+[22:04:02] [electron] [2026-03-30T03:04:02.314Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[22:04:34] [electron] [2026-03-30T03:04:34.514Z] [electron] IPC received: end-session — exiting stealth
+[22:04:34] [electron] [2026-03-30T03:04:34.538Z] [electron] Stealth mode deactivated — app restored
+[22:04:36] [electron] [2026-03-30T03:04:36.725Z] [electron] IPC received: go-live — entering full stealth
+[22:04:36] [electron] [2026-03-30T03:04:36.743Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[22:05:07] [electron] [2026-03-30T03:05:07.643Z] [electron] IPC received: hide-overlay
+[22:11:26] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[22:11:31] [electron] 
+[22:11:31] [electron] > interview-ace-electron@0.1.0 start
+[22:11:31] [electron] > electron .
+[22:11:31] [electron] 
+[22:11:32] [electron] [2026-03-30T03:11:32.429Z] [electron] Backend started silently on port 8000
+[22:11:32] [electron] [2026-03-30T03:11:32.436Z] [electron] Frontend started silently on port 5173
+[22:11:33] [electron] [2026-03-30T03:11:33.208Z] [electron] Backend exited with code 1
+[22:11:34] [electron] [2026-03-30T03:11:34.443Z] [electron] Creating main dashboard window
+[22:11:47] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[22:13:10] [electron] 
+[22:13:10] [electron] > interview-ace-electron@0.1.0 start
+[22:13:10] [electron] > electron .
+[22:13:10] [electron] 
+[22:13:11] [electron] [2026-03-30T03:13:11.058Z] [electron] Backend started silently on port 8000
+[22:13:11] [electron] [2026-03-30T03:13:11.066Z] [electron] Frontend started silently on port 5173
+[22:13:11] [electron] [2026-03-30T03:13:11.796Z] [electron] Backend exited with code 1
+[22:13:13] [electron] [2026-03-30T03:13:13.072Z] [electron] Creating main dashboard window
+[22:14:51] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[22:14:56] [electron] 
+[22:14:56] [electron] > interview-ace-electron@0.1.0 start
+[22:14:56] [electron] > electron .
+[22:14:56] [electron] 
+[22:14:57] [electron] [2026-03-30T03:14:57.477Z] [electron] Backend started silently on port 8000
+[22:14:57] [electron] [2026-03-30T03:14:57.486Z] [electron] Frontend started silently on port 5173
+[22:14:58] [electron] [2026-03-30T03:14:58.217Z] [electron] Backend exited with code 1
+[22:14:59] [electron] [2026-03-30T03:14:59.492Z] [electron] Creating main dashboard window
+[22:14:59] [electron] [2026-03-30T03:14:59.677Z] [electron] Main dashboard loading http://localhost:5173
+[22:14:59] [electron] [2026-03-30T03:14:59.677Z] [electron] Creating stealth overlay window { width: 1470, height: 861 }
+[22:14:59] [electron] [2026-03-30T03:14:59.706Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[22:14:59] [electron] [2026-03-30T03:14:59.708Z] [electron] Stealth overlay created hidden
+[22:14:59] [electron] [2026-03-30T03:14:59.709Z] [electron] Registering global shortcuts
+[22:14:59] [electron] [2026-03-30T03:14:59.725Z] [electron] InterviewAce started — all servers running silently
+[22:14:59] [electron] [2026-03-30T03:14:59.725Z] [electron] Shortcut help: Esc toggle click-through
+[22:14:59] [electron] [2026-03-30T03:14:59.725Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[22:14:59] [electron] [2026-03-30T03:14:59.725Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[22:14:59] [electron] [2026-03-30T03:14:59.725Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[22:15:45] [electron] [2026-03-30T03:15:45.483Z] [electron] IPC received: go-live — entering full stealth
+[22:15:45] [electron] [2026-03-30T03:15:45.511Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[22:16:16] [electron] [2026-03-30T03:16:16.548Z] [electron] IPC received: hide-overlay
+[22:19:01] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[22:19:06] [electron] 
+[22:19:06] [electron] > interview-ace-electron@0.1.0 start
+[22:19:06] [electron] > electron .
+[22:19:06] [electron] 
+[22:19:07] [electron] [2026-03-30T03:19:07.815Z] [electron] Backend started silently on port 8000
+[22:19:07] [electron] [2026-03-30T03:19:07.823Z] [electron] Frontend started silently on port 5173
+[22:19:08] [electron] [2026-03-30T03:19:08.981Z] [electron] Backend exited with code 1
+[22:19:09] [electron] [2026-03-30T03:19:09.829Z] [electron] Creating main dashboard window
+[22:19:10] [electron] [2026-03-30T03:19:10.072Z] [electron] Main dashboard loading http://localhost:5173
+[22:19:10] [electron] [2026-03-30T03:19:10.073Z] [electron] Creating stealth overlay window { width: 1470, height: 861 }
+[22:19:10] [electron] [2026-03-30T03:19:10.106Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[22:19:10] [electron] [2026-03-30T03:19:10.109Z] [electron] Stealth overlay created hidden
+[22:19:10] [electron] [2026-03-30T03:19:10.109Z] [electron] Registering global shortcuts
+[22:19:10] [electron] [2026-03-30T03:19:10.125Z] [electron] InterviewAce started — all servers running silently
+[22:19:10] [electron] [2026-03-30T03:19:10.126Z] [electron] Shortcut help: Esc toggle click-through
+[22:19:10] [electron] [2026-03-30T03:19:10.126Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[22:19:10] [electron] [2026-03-30T03:19:10.126Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[22:19:10] [electron] [2026-03-30T03:19:10.126Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[22:19:31] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[22:22:55] [electron] 
+[22:22:55] [electron] > interview-ace-electron@0.1.0 start
+[22:22:55] [electron] > electron .
+[22:22:55] [electron] 
+[22:22:56] [electron] [2026-03-30T03:22:56.564Z] [electron] Backend started silently on port 8000
+[22:22:56] [electron] [2026-03-30T03:22:56.571Z] [electron] Frontend started silently on port 5173
+[22:22:57] [electron] [2026-03-30T03:22:57.305Z] [electron] Backend exited with code 1
+[22:22:58] [electron] [2026-03-30T03:22:58.578Z] [electron] Creating main dashboard window
+[22:22:58] [electron] [2026-03-30T03:22:58.763Z] [electron] Main dashboard loading http://localhost:5173
+[22:22:58] [electron] [2026-03-30T03:22:58.763Z] [electron] Creating stealth overlay window { width: 1470, height: 861 }
+[22:22:58] [electron] [2026-03-30T03:22:58.791Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[22:22:58] [electron] [2026-03-30T03:22:58.792Z] [electron] Stealth overlay created hidden
+[22:22:58] [electron] [2026-03-30T03:22:58.793Z] [electron] Registering global shortcuts
+[22:22:58] [electron] [2026-03-30T03:22:58.806Z] [electron] InterviewAce started — all servers running silently
+[22:22:58] [electron] [2026-03-30T03:22:58.807Z] [electron] Shortcut help: Esc toggle click-through
+[22:22:58] [electron] [2026-03-30T03:22:58.807Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[22:22:58] [electron] [2026-03-30T03:22:58.807Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[22:22:58] [electron] [2026-03-30T03:22:58.807Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[22:23:52] [electron] [2026-03-30T03:23:52.583Z] [electron] IPC received: go-live — entering full stealth
+[22:23:52] [electron] [2026-03-30T03:23:52.612Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[22:25:13] [electron] [2026-03-30T03:25:13.507Z] [electron] IPC received: end-session — exiting stealth
+[22:25:13] [electron] [2026-03-30T03:25:13.539Z] [electron] Stealth mode deactivated — app restored
+[22:29:40] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[22:29:45] [electron] 
+[22:29:45] [electron] > interview-ace-electron@0.1.0 start
+[22:29:45] [electron] > electron .
+[22:29:45] [electron] 
+[22:29:46] [electron] [2026-03-30T03:29:46.504Z] [electron] Backend started silently on port 8000
+[22:29:46] [electron] [2026-03-30T03:29:46.512Z] [electron] Frontend started silently on port 5173
+[22:29:47] [electron] [2026-03-30T03:29:47.243Z] [electron] Backend exited with code 1
+[22:29:48] [electron] [2026-03-30T03:29:48.518Z] [electron] Creating main dashboard window
+[22:29:48] [electron] [2026-03-30T03:29:48.711Z] [electron] Main dashboard loading http://localhost:5173
+[22:29:48] [electron] [2026-03-30T03:29:48.711Z] [electron] Creating stealth overlay window { width: 1470, height: 862 }
+[22:29:48] [electron] [2026-03-30T03:29:48.742Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[22:29:48] [electron] [2026-03-30T03:29:48.743Z] [electron] Stealth overlay created hidden
+[22:29:48] [electron] [2026-03-30T03:29:48.743Z] [electron] Registering global shortcuts
+[22:29:48] [electron] [2026-03-30T03:29:48.756Z] [electron] InterviewAce started — all servers running silently
+[22:29:48] [electron] [2026-03-30T03:29:48.756Z] [electron] Shortcut help: Esc toggle click-through
+[22:29:48] [electron] [2026-03-30T03:29:48.756Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[22:29:48] [electron] [2026-03-30T03:29:48.756Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[22:29:48] [electron] [2026-03-30T03:29:48.756Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[22:30:15] [electron] [2026-03-30T03:30:15.936Z] [electron] IPC received: go-live — entering full stealth
+[22:30:15] [electron] [2026-03-30T03:30:15.955Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[22:30:34] [electron] [2026-03-30T03:30:34.898Z] [electron] Shortcut triggered: toggle click-through
+[22:30:34] [electron] [2026-03-30T03:30:34.900Z] [electron] Overlay click-through enabled
+[22:30:44] [electron] [2026-03-30T03:30:44.918Z] [electron] Shortcut triggered: toggle click-through
+[22:30:44] [electron] [2026-03-30T03:30:44.924Z] [electron] Overlay click-through disabled
+[22:30:47] [electron] [2026-03-30T03:30:47.858Z] [electron] IPC received: end-session — exiting stealth
+[22:30:47] [electron] [2026-03-30T03:30:47.879Z] [electron] Stealth mode deactivated — app restored
+[22:31:07] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[23:09:02] [electron] 
+[23:09:02] [electron] > interview-ace-electron@0.1.0 start
+[23:09:02] [electron] > electron .
+[23:09:02] [electron] 
+[23:09:03] [electron] [2026-03-30T04:09:03.291Z] [electron] Backend started silently on port 8000
+[23:09:03] [electron] [2026-03-30T04:09:03.301Z] [electron] Frontend started silently on port 5173
+[23:09:04] [electron] [2026-03-30T04:09:04.112Z] [electron] Backend exited with code 1
+[23:09:05] [electron] [2026-03-30T04:09:05.308Z] [electron] Creating main dashboard window
+[23:09:05] [electron] [2026-03-30T04:09:05.564Z] [electron] Main dashboard loading http://localhost:5173
+[23:09:05] [electron] [2026-03-30T04:09:05.564Z] [electron] Creating stealth overlay window { width: 1470, height: 862 }
+[23:09:05] [electron] [2026-03-30T04:09:05.599Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[23:09:05] [electron] [2026-03-30T04:09:05.601Z] [electron] Stealth overlay created hidden
+[23:09:05] [electron] [2026-03-30T04:09:05.601Z] [electron] Registering global shortcuts
+[23:09:05] [electron] [2026-03-30T04:09:05.615Z] [electron] InterviewAce started — all servers running silently
+[23:09:05] [electron] [2026-03-30T04:09:05.615Z] [electron] Shortcut help: Esc toggle click-through
+[23:09:05] [electron] [2026-03-30T04:09:05.615Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[23:09:05] [electron] [2026-03-30T04:09:05.615Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[23:09:05] [electron] [2026-03-30T04:09:05.615Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[23:10:06] [electron] [2026-03-30T04:10:06.739Z] [electron] IPC received: go-live — entering full stealth
+[23:10:06] [electron] [2026-03-30T04:10:06.761Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[23:11:06] [electron] [2026-03-30T04:11:06.508Z] [electron] IPC received: end-session — exiting stealth
+[23:11:06] [electron] [2026-03-30T04:11:06.540Z] [electron] Stealth mode deactivated — app restored
+[23:11:13] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[23:15:58] [electron] 
+[23:15:58] [electron] > interview-ace-electron@0.1.0 start
+[23:15:58] [electron] > electron .
+[23:15:58] [electron] 
+[23:15:59] [electron] [2026-03-30T04:15:59.656Z] [electron] Backend started silently on port 8000
+[23:15:59] [electron] [2026-03-30T04:15:59.664Z] [electron] Frontend started silently on port 5173
+[23:16:00] [electron] [2026-03-30T04:16:00.489Z] [electron] Backend exited with code 1
+[23:16:01] [electron] [2026-03-30T04:16:01.670Z] [electron] Creating main dashboard window
+[23:16:01] [electron] [2026-03-30T04:16:01.918Z] [electron] Main dashboard loading http://localhost:5173
+[23:16:01] [electron] [2026-03-30T04:16:01.919Z] [electron] Creating stealth overlay window { width: 1470, height: 862 }
+[23:16:01] [electron] [2026-03-30T04:16:01.950Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[23:16:01] [electron] [2026-03-30T04:16:01.954Z] [electron] Stealth overlay created hidden
+[23:16:01] [electron] [2026-03-30T04:16:01.954Z] [electron] Registering global shortcuts
+[23:16:01] [electron] [2026-03-30T04:16:01.976Z] [electron] InterviewAce started — all servers running silently
+[23:16:01] [electron] [2026-03-30T04:16:01.976Z] [electron] Shortcut help: Esc toggle click-through
+[23:16:01] [electron] [2026-03-30T04:16:01.976Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[23:16:01] [electron] [2026-03-30T04:16:01.976Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[23:16:01] [electron] [2026-03-30T04:16:01.976Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[23:16:22] [electron] [2026-03-30T04:16:22.448Z] [electron] Shortcut triggered: toggle click-through
+[23:16:22] [electron] [2026-03-30T04:16:22.454Z] [electron] Overlay click-through enabled
+[23:18:30] [electron] [2026-03-30T04:18:30.462Z] [electron] IPC received: go-live — entering full stealth
+[23:18:30] [electron] [2026-03-30T04:18:30.489Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[23:18:40] [electron] [2026-03-30T04:18:40.353Z] [electron] Shortcut triggered: toggle click-through
+[23:18:40] [electron] [2026-03-30T04:18:40.363Z] [electron] Overlay click-through disabled
+[23:18:46] [electron] [2026-03-30T04:18:46.009Z] [electron] Shortcut triggered: toggle click-through
+[23:18:46] [electron] [2026-03-30T04:18:46.009Z] [electron] Overlay click-through enabled
+[23:18:47] [electron] [2026-03-30T04:18:47.079Z] [electron] Shortcut triggered: toggle click-through
+[23:18:47] [electron] [2026-03-30T04:18:47.081Z] [electron] Overlay click-through disabled
+[23:19:29] [electron] [2026-03-30T04:19:29.479Z] [electron] IPC received: hide-overlay
+[23:20:58] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[09:53:16] [electron] 
+[09:53:16] [electron] > interview-ace-electron@0.1.0 start
+[09:53:16] [electron] > electron .
+[09:53:16] [electron] 
+[09:53:17] [electron] [2026-03-30T14:53:17.299Z] [electron] Backend started silently on port 8000
+[09:53:17] [electron] [2026-03-30T14:53:17.305Z] [electron] Frontend started silently on port 5173
+[09:53:17] [electron] [2026-03-30T14:53:17.813Z] [electron] Backend exited with code 1
+[09:53:19] [electron] [2026-03-30T14:53:19.312Z] [electron] Creating main dashboard window
+[09:53:19] [electron] [2026-03-30T14:53:19.529Z] [electron] Main dashboard loading http://localhost:5173
+[09:53:19] [electron] [2026-03-30T14:53:19.529Z] [electron] Creating stealth overlay window { width: 1470, height: 862 }
+[09:53:19] [electron] [2026-03-30T14:53:19.550Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[09:53:19] [electron] [2026-03-30T14:53:19.551Z] [electron] Stealth overlay created hidden
+[09:53:19] [electron] [2026-03-30T14:53:19.551Z] [electron] Registering global shortcuts
+[09:53:19] [electron] [2026-03-30T14:53:19.562Z] [electron] InterviewAce started — all servers running silently
+[09:53:19] [electron] [2026-03-30T14:53:19.562Z] [electron] Shortcut help: Esc toggle click-through
+[09:53:19] [electron] [2026-03-30T14:53:19.562Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[09:53:19] [electron] [2026-03-30T14:53:19.562Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[09:53:19] [electron] [2026-03-30T14:53:19.562Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[09:54:37] [electron] [2026-03-30T14:54:37.078Z] [electron] IPC received: go-live — entering full stealth
+[09:54:37] [electron] [2026-03-30T14:54:37.104Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[09:55:11] [electron] [2026-03-30T14:55:11.040Z] [electron] Shortcut triggered: toggle click-through
+[09:55:11] [electron] [2026-03-30T14:55:11.043Z] [electron] Overlay click-through enabled
+[09:55:14] [electron] [2026-03-30T14:55:14.066Z] [electron] Shortcut triggered: toggle click-through
+[09:55:14] [electron] [2026-03-30T14:55:14.072Z] [electron] Overlay click-through disabled
+[09:55:25] [electron] [2026-03-30T14:55:25.604Z] [electron] IPC received: hide-overlay
+[09:56:27] [electron] [2026-03-30T14:56:27.235Z] [electron] Shortcut triggered: show overlay
+[09:56:29] [electron] [2026-03-30T14:56:29.346Z] [electron] IPC received: end-session — exiting stealth
+[09:56:29] [electron] [2026-03-30T14:56:29.373Z] [electron] Stealth mode deactivated — app restored
+[09:56:37] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[10:02:40] [electron] 
+[10:02:40] [electron] > interview-ace-electron@0.1.0 start
+[10:02:40] [electron] > electron .
+[10:02:40] [electron] 
+[10:02:40] [electron] [2026-03-30T15:02:40.973Z] [electron] Backend started silently on port 8000
+[10:02:40] [electron] [2026-03-30T15:02:40.980Z] [electron] Frontend started silently on port 5173
+[10:02:41] [electron] [2026-03-30T15:02:41.414Z] [electron] Backend exited with code 1
+[10:02:42] [electron] [2026-03-30T15:02:42.988Z] [electron] Creating main dashboard window
+[10:02:43] [electron] [2026-03-30T15:02:43.132Z] [electron] Main dashboard loading http://localhost:5173
+[10:02:43] [electron] [2026-03-30T15:02:43.132Z] [electron] Creating stealth overlay window { width: 1470, height: 863 }
+[10:02:43] [electron] [2026-03-30T15:02:43.151Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[10:02:43] [electron] [2026-03-30T15:02:43.151Z] [electron] Stealth overlay created hidden
+[10:02:43] [electron] [2026-03-30T15:02:43.152Z] [electron] Registering global shortcuts
+[10:02:43] [electron] [2026-03-30T15:02:43.160Z] [electron] InterviewAce started — all servers running silently
+[10:02:43] [electron] [2026-03-30T15:02:43.160Z] [electron] Shortcut help: Esc toggle click-through
+[10:02:43] [electron] [2026-03-30T15:02:43.160Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[10:02:43] [electron] [2026-03-30T15:02:43.160Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[10:02:43] [electron] [2026-03-30T15:02:43.160Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[10:03:20] [electron] [2026-03-30T15:03:20.175Z] [electron] IPC received: go-live — entering full stealth
+[10:03:20] [electron] [2026-03-30T15:03:20.201Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[10:10:24] [electron] [2026-03-30T15:10:24.586Z] [electron] IPC received: hide-overlay
+[10:10:29] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[10:12:58] [electron] 
+[10:12:58] [electron] > interview-ace-electron@0.1.0 start
+[10:12:58] [electron] > electron .
+[10:12:58] [electron] 
+[10:12:58] [electron] [2026-03-30T15:12:58.687Z] [electron] Backend started silently on port 8000
+[10:12:58] [electron] [2026-03-30T15:12:58.695Z] [electron] Frontend started silently on port 5173
+[10:12:59] [electron] [2026-03-30T15:12:59.128Z] [electron] Backend exited with code 1
+[10:13:00] [electron] [2026-03-30T15:13:00.702Z] [electron] Creating main dashboard window
+[10:13:00] [electron] [2026-03-30T15:13:00.881Z] [electron] Main dashboard loading http://localhost:5173
+[10:13:00] [electron] [2026-03-30T15:13:00.881Z] [electron] Creating stealth overlay window { width: 1470, height: 862 }
+[10:13:00] [electron] [2026-03-30T15:13:00.902Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[10:13:00] [electron] [2026-03-30T15:13:00.902Z] [electron] Stealth overlay created hidden
+[10:13:00] [electron] [2026-03-30T15:13:00.902Z] [electron] Registering global shortcuts
+[10:13:00] [electron] [2026-03-30T15:13:00.910Z] [electron] InterviewAce started — all servers running silently
+[10:13:00] [electron] [2026-03-30T15:13:00.910Z] [electron] Shortcut help: Esc toggle click-through
+[10:13:00] [electron] [2026-03-30T15:13:00.910Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[10:13:00] [electron] [2026-03-30T15:13:00.910Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[10:13:00] [electron] [2026-03-30T15:13:00.910Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[10:14:29] [electron] [2026-03-30T15:14:29.276Z] [electron] IPC received: go-live — entering full stealth
+[10:14:29] [electron] [2026-03-30T15:14:29.307Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[10:14:59] [electron] [2026-03-30T15:14:59.090Z] [electron] IPC received: end-session — exiting stealth
+[10:14:59] [electron] [2026-03-30T15:14:59.172Z] [electron] Stealth mode deactivated — app restored
+[10:15:16] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[10:51:10] [electron] 
+[10:51:10] [electron] > interview-ace-electron@0.1.0 start
+[10:51:10] [electron] > electron .
+[10:51:10] [electron] 
+[10:51:11] [electron] [2026-03-30T15:51:11.220Z] [electron] Backend started silently on port 8000
+[10:51:11] [electron] [2026-03-30T15:51:11.226Z] [electron] Frontend started silently on port 5173
+[10:51:11] [electron] [2026-03-30T15:51:11.678Z] [electron] Backend exited with code 1
+[10:51:13] [electron] [2026-03-30T15:51:13.233Z] [electron] Creating main dashboard window
+[10:51:13] [electron] [2026-03-30T15:51:13.440Z] [electron] Main dashboard loading http://localhost:5173
+[10:51:13] [electron] [2026-03-30T15:51:13.440Z] [electron] Creating stealth overlay window { width: 1470, height: 863 }
+[10:51:13] [electron] [2026-03-30T15:51:13.462Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[10:51:13] [electron] [2026-03-30T15:51:13.465Z] [electron] Stealth overlay created hidden
+[10:51:13] [electron] [2026-03-30T15:51:13.465Z] [electron] Registering global shortcuts
+[10:51:13] [electron] [2026-03-30T15:51:13.476Z] [electron] InterviewAce started — all servers running silently
+[10:51:13] [electron] [2026-03-30T15:51:13.476Z] [electron] Shortcut help: Esc toggle click-through
+[10:51:13] [electron] [2026-03-30T15:51:13.476Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[10:51:13] [electron] [2026-03-30T15:51:13.476Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[10:51:13] [electron] [2026-03-30T15:51:13.476Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[11:02:21] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[11:02:26] [electron] 
+[11:02:26] [electron] > interview-ace-electron@0.1.0 start
+[11:02:26] [electron] > electron .
+[11:02:26] [electron] 
+[11:02:27] [electron] [2026-03-30T16:02:27.391Z] [electron] Backend started silently on port 8000
+[11:02:27] [electron] [2026-03-30T16:02:27.399Z] [electron] Frontend started silently on port 5173
+[11:02:28] [electron] [2026-03-30T16:02:28.136Z] [electron] Backend exited with code 1
+[11:02:29] [electron] [2026-03-30T16:02:29.406Z] [electron] Creating main dashboard window
+[11:02:29] [electron] [2026-03-30T16:02:29.631Z] [electron] Main dashboard loading http://localhost:5173
+[11:02:29] [electron] [2026-03-30T16:02:29.631Z] [electron] Creating stealth overlay window { width: 1470, height: 861 }
+[11:02:29] [electron] [2026-03-30T16:02:29.663Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[11:02:29] [electron] [2026-03-30T16:02:29.666Z] [electron] Stealth overlay created hidden
+[11:02:29] [electron] [2026-03-30T16:02:29.666Z] [electron] Registering global shortcuts
+[11:02:29] [electron] [2026-03-30T16:02:29.677Z] [electron] InterviewAce started — all servers running silently
+[11:02:29] [electron] [2026-03-30T16:02:29.677Z] [electron] Shortcut help: Esc toggle click-through
+[11:02:29] [electron] [2026-03-30T16:02:29.677Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[11:02:29] [electron] [2026-03-30T16:02:29.677Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[11:02:29] [electron] [2026-03-30T16:02:29.677Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[11:05:55] [electron] [2026-03-30T16:05:55.990Z] [electron] IPC received: go-live — entering full stealth
+[11:05:56] [electron] [2026-03-30T16:05:56.022Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[11:08:04] [electron] [2026-03-30T16:08:04.136Z] [electron] Shortcut triggered: toggle click-through
+[11:08:04] [electron] [2026-03-30T16:08:04.142Z] [electron] Overlay click-through enabled
+[11:10:15] [electron] [2026-03-30T16:10:15.147Z] [electron] Shortcut triggered: toggle click-through
+[11:10:15] [electron] [2026-03-30T16:10:15.169Z] [electron] Overlay click-through disabled
+[11:11:42] [electron] [2026-03-30T16:11:42.807Z] [electron] Shortcut triggered: toggle click-through
+[11:11:42] [electron] [2026-03-30T16:11:42.814Z] [electron] Overlay click-through enabled
+[11:11:44] [electron] [2026-03-30T16:11:44.137Z] [electron] Shortcut triggered: toggle click-through
+[11:11:44] [electron] [2026-03-30T16:11:44.146Z] [electron] Overlay click-through disabled
+[11:11:45] [electron] [2026-03-30T16:11:45.717Z] [electron] Shortcut triggered: toggle click-through
+[11:11:45] [electron] [2026-03-30T16:11:45.718Z] [electron] Overlay click-through enabled
+[11:12:02] [electron] [2026-03-30T16:12:02.062Z] [electron] Shortcut triggered: toggle click-through
+[11:12:02] [electron] [2026-03-30T16:12:02.069Z] [electron] Overlay click-through disabled
+[11:12:14] [electron] [2026-03-30T16:12:14.795Z] [electron] Shortcut triggered: toggle click-through
+[11:12:14] [electron] [2026-03-30T16:12:14.796Z] [electron] Overlay click-through enabled
+[11:14:47] [electron] [2026-03-30T16:14:46.997Z] [electron] Shortcut triggered: toggle click-through
+[11:14:47] [electron] [2026-03-30T16:14:47.009Z] [electron] Overlay click-through disabled
+[11:14:48] [electron] [2026-03-30T16:14:48.363Z] [electron] IPC received: end-session — exiting stealth
+[11:14:48] [electron] [2026-03-30T16:14:48.467Z] [electron] Stealth mode deactivated — app restored
+[11:15:09] [electron] [2026-03-30T16:15:09.587Z] [electron] IPC received: go-live — entering full stealth
+[11:15:09] [electron] [2026-03-30T16:15:09.637Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[11:30:51] [electron] [2026-03-30T16:30:51.911Z] [electron] IPC received: hide-overlay
+[11:33:45] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[12:33:30] [electron] 
+[12:33:30] [electron] > interview-ace-electron@0.1.0 start
+[12:33:30] [electron] > electron .
+[12:33:30] [electron] 
+[12:33:31] [electron] [2026-03-30T17:33:31.790Z] [electron] Backend started silently on port 8000
+[12:33:31] [electron] [2026-03-30T17:33:31.797Z] [electron] Frontend started silently on port 5173
+[12:33:32] [electron] [2026-03-30T17:33:32.547Z] [electron] Backend exited with code 1
+[12:33:33] [electron] [2026-03-30T17:33:33.803Z] [electron] Creating main dashboard window
+[12:33:34] [electron] [2026-03-30T17:33:34.062Z] [electron] Main dashboard loading http://localhost:5173
+[12:33:34] [electron] [2026-03-30T17:33:34.062Z] [electron] Creating stealth overlay window { width: 1470, height: 861 }
+[12:33:34] [electron] [2026-03-30T17:33:34.101Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[12:33:34] [electron] [2026-03-30T17:33:34.102Z] [electron] Stealth overlay created hidden
+[12:33:34] [electron] [2026-03-30T17:33:34.102Z] [electron] Registering global shortcuts
+[12:33:34] [electron] [2026-03-30T17:33:34.118Z] [electron] InterviewAce started — all servers running silently
+[12:33:34] [electron] [2026-03-30T17:33:34.118Z] [electron] Shortcut help: Esc toggle click-through
+[12:33:34] [electron] [2026-03-30T17:33:34.118Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[12:33:34] [electron] [2026-03-30T17:33:34.118Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[12:33:34] [electron] [2026-03-30T17:33:34.118Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[12:34:24] [electron] [2026-03-30T17:34:24.331Z] [electron] IPC received: go-live — entering full stealth
+[12:34:24] [electron] [2026-03-30T17:34:24.361Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[12:39:48] [electron] [2026-03-30T17:39:48.848Z] [electron] Shortcut triggered: toggle click-through
+[12:39:48] [electron] [2026-03-30T17:39:48.858Z] [electron] Overlay click-through enabled
+[12:39:56] [electron] [2026-03-30T17:39:56.411Z] [electron] Shortcut triggered: toggle click-through
+[12:39:56] [electron] [2026-03-30T17:39:56.417Z] [electron] Overlay click-through disabled
+[12:41:35] [electron] [2026-03-30T17:41:35.385Z] [electron] Shortcut triggered: toggle click-through
+[12:41:35] [electron] [2026-03-30T17:41:35.469Z] [electron] Overlay click-through enabled
+[12:41:40] [electron] [2026-03-30T17:41:40.655Z] [electron] Shortcut triggered: toggle click-through
+[12:41:40] [electron] [2026-03-30T17:41:40.664Z] [electron] Overlay click-through disabled
+[12:42:18] [electron] [2026-03-30T17:42:18.845Z] [electron] Shortcut triggered: toggle click-through
+[12:42:18] [electron] [2026-03-30T17:42:18.845Z] [electron] Overlay click-through enabled
+[12:42:19] [electron] [2026-03-30T17:42:19.512Z] [electron] Shortcut triggered: toggle click-through
+[12:42:19] [electron] [2026-03-30T17:42:19.514Z] [electron] Overlay click-through disabled
+[12:42:32] [electron] [2026-03-30T17:42:32.356Z] [electron] IPC received: end-session — exiting stealth
+[12:42:32] [electron] [2026-03-30T17:42:32.385Z] [electron] Stealth mode deactivated — app restored
+[12:42:42] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[13:03:34] [electron] 
+[13:03:34] [electron] > interview-ace-electron@0.1.0 start
+[13:03:34] [electron] > electron .
+[13:03:34] [electron] 
+[13:03:35] [electron] [2026-03-30T18:03:35.527Z] [electron] Backend started silently on port 8000
+[13:03:35] [electron] [2026-03-30T18:03:35.536Z] [electron] Frontend started silently on port 5173
+[13:03:36] [electron] [2026-03-30T18:03:36.264Z] [electron] Backend exited with code 1
+[13:03:37] [electron] [2026-03-30T18:03:37.543Z] [electron] Creating main dashboard window
+[13:03:37] [electron] [2026-03-30T18:03:37.777Z] [electron] Main dashboard loading http://localhost:5173
+[13:03:37] [electron] [2026-03-30T18:03:37.778Z] [electron] Creating stealth overlay window { width: 1470, height: 862 }
+[13:03:37] [electron] [2026-03-30T18:03:37.813Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[13:03:37] [electron] [2026-03-30T18:03:37.815Z] [electron] Stealth overlay created hidden
+[13:03:37] [electron] [2026-03-30T18:03:37.815Z] [electron] Registering global shortcuts
+[13:03:37] [electron] [2026-03-30T18:03:37.835Z] [electron] InterviewAce started — all servers running silently
+[13:03:37] [electron] [2026-03-30T18:03:37.835Z] [electron] Shortcut help: Esc toggle click-through
+[13:03:37] [electron] [2026-03-30T18:03:37.835Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[13:03:37] [electron] [2026-03-30T18:03:37.835Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[13:03:37] [electron] [2026-03-30T18:03:37.835Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[13:05:50] [electron] [2026-03-30T18:05:50.501Z] [electron] IPC received: go-live — entering full stealth
+[13:05:50] [electron] [2026-03-30T18:05:50.525Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[13:06:28] [electron] [2026-03-30T18:06:28.765Z] [electron] IPC received: hide-overlay
+[13:06:31] [electron] [2026-03-30T18:06:31.128Z] [electron] Shortcut triggered: show overlay
+[13:06:38] [electron] [2026-03-30T18:06:38.245Z] [electron] Shortcut triggered: toggle click-through
+[13:06:38] [electron] [2026-03-30T18:06:38.246Z] [electron] Overlay click-through enabled
+[13:07:05] [electron] [2026-03-30T18:07:05.385Z] [electron] Shortcut triggered: toggle click-through
+[13:07:05] [electron] [2026-03-30T18:07:05.393Z] [electron] Overlay click-through disabled
+[13:07:06] [electron] [2026-03-30T18:07:06.587Z] [electron] IPC received: end-session — exiting stealth
+[13:07:06] [electron] [2026-03-30T18:07:06.615Z] [electron] Stealth mode deactivated — app restored
+[13:07:24] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[20:45:33] [electron] 
+[20:45:33] [electron] > interview-ace-electron@0.1.0 start
+[20:45:33] [electron] > electron .
+[20:45:33] [electron] 
+[20:45:34] [electron] [2026-03-31T01:45:34.354Z] [electron] Backend started silently on port 8000
+[20:45:34] [electron] [2026-03-31T01:45:34.362Z] [electron] Frontend started silently on port 5173
+[20:45:35] [electron] [2026-03-31T01:45:35.107Z] [electron] Backend exited with code 1
+[20:45:36] [electron] [2026-03-31T01:45:36.369Z] [electron] Creating main dashboard window
+[20:45:36] [electron] [2026-03-31T01:45:36.569Z] [electron] Main dashboard loading http://localhost:5173
+[20:45:36] [electron] [2026-03-31T01:45:36.570Z] [electron] Creating stealth overlay window { width: 1470, height: 862 }
+[20:45:36] [electron] [2026-03-31T01:45:36.603Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[20:45:36] [electron] [2026-03-31T01:45:36.604Z] [electron] Stealth overlay created hidden
+[20:45:36] [electron] [2026-03-31T01:45:36.604Z] [electron] Registering global shortcuts
+[20:45:36] [electron] [2026-03-31T01:45:36.617Z] [electron] InterviewAce started — all servers running silently
+[20:45:36] [electron] [2026-03-31T01:45:36.617Z] [electron] Shortcut help: Esc toggle click-through
+[20:45:36] [electron] [2026-03-31T01:45:36.617Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[20:45:36] [electron] [2026-03-31T01:45:36.617Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[20:45:36] [electron] [2026-03-31T01:45:36.617Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[20:48:13] [electron] [2026-03-31T01:48:13.514Z] [electron] IPC received: go-live — entering full stealth
+[20:48:13] [electron] [2026-03-31T01:48:13.562Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[20:49:34] [electron] [2026-03-31T01:49:34.472Z] [electron] Shortcut triggered: toggle click-through
+[20:49:34] [electron] [2026-03-31T01:49:34.477Z] [electron] Overlay click-through enabled
+[20:49:50] [electron] [2026-03-31T01:49:50.761Z] [electron] Shortcut triggered: toggle click-through
+[20:49:50] [electron] [2026-03-31T01:49:50.768Z] [electron] Overlay click-through disabled
+[20:50:50] [electron] [2026-03-31T01:50:50.011Z] [electron] Shortcut triggered: toggle click-through
+[20:50:50] [electron] [2026-03-31T01:50:50.016Z] [electron] Overlay click-through enabled
+[20:51:15] [electron] [2026-03-31T01:51:15.058Z] [electron] Shortcut triggered: toggle click-through
+[20:51:15] [electron] [2026-03-31T01:51:15.062Z] [electron] Overlay click-through disabled
+[20:55:43] [electron] [2026-03-31T01:55:43.835Z] [electron] Shortcut triggered: toggle click-through
+[20:55:43] [electron] [2026-03-31T01:55:43.865Z] [electron] Overlay click-through enabled
+[20:55:47] [electron] [2026-03-31T01:55:47.107Z] [electron] Shortcut triggered: toggle click-through
+[20:55:47] [electron] [2026-03-31T01:55:47.114Z] [electron] Overlay click-through disabled
+[20:57:17] [electron] [2026-03-31T01:57:17.487Z] [electron] IPC received: hide-overlay
+[20:57:26] [electron] [2026-03-31T01:57:26.593Z] [electron] Shortcut triggered: toggle click-through
+[20:57:26] [electron] [2026-03-31T01:57:26.596Z] [electron] Overlay click-through enabled
+[20:57:27] [electron] [2026-03-31T01:57:27.414Z] [electron] Shortcut triggered: toggle click-through
+[20:57:27] [electron] [2026-03-31T01:57:27.416Z] [electron] Overlay click-through disabled
+[20:57:27] [electron] [2026-03-31T01:57:27.603Z] [electron] Shortcut triggered: toggle click-through
+[20:57:27] [electron] [2026-03-31T01:57:27.603Z] [electron] Overlay click-through enabled
+[20:57:27] [electron] [2026-03-31T01:57:27.793Z] [electron] Shortcut triggered: toggle click-through
+[20:57:27] [electron] [2026-03-31T01:57:27.793Z] [electron] Overlay click-through disabled
+[20:57:27] [electron] [2026-03-31T01:57:27.985Z] [electron] Shortcut triggered: toggle click-through
+[20:57:27] [electron] [2026-03-31T01:57:27.985Z] [electron] Overlay click-through enabled
+[20:57:28] [electron] [2026-03-31T01:57:28.173Z] [electron] Shortcut triggered: toggle click-through
+[20:57:28] [electron] [2026-03-31T01:57:28.174Z] [electron] Overlay click-through disabled
+[20:57:42] [electron] [2026-03-31T01:57:42.307Z] [electron] Shortcut triggered: show overlay
+[20:57:47] [electron] [2026-03-31T01:57:47.799Z] [electron] IPC received: end-session — exiting stealth
+[20:57:47] [electron] [2026-03-31T01:57:47.832Z] [electron] Stealth mode deactivated — app restored
+[20:58:08] [electron] [2026-03-31T01:58:08.320Z] [electron] Tray clicked: showing dashboard
+[20:59:28] [electron] [2026-03-31T01:59:28.479Z] [electron] Electron activate event received
+[20:59:31] [electron] [2026-03-31T01:59:31.393Z] [electron] Electron activate event received
+[21:04:21] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[21:09:34] [electron] 
+[21:09:34] [electron] > interview-ace-electron@0.1.0 start
+[21:09:34] [electron] > electron .
+[21:09:34] [electron] 
+[21:09:35] [electron] [2026-03-31T02:09:35.364Z] [electron] Backend started silently on port 8000
+[21:09:35] [electron] [2026-03-31T02:09:35.372Z] [electron] Frontend started silently on port 5173
+[21:09:36] [electron] [2026-03-31T02:09:36.116Z] [electron] Backend exited with code 1
+[21:09:37] [electron] [2026-03-31T02:09:37.379Z] [electron] Creating main dashboard window
+[21:09:37] [electron] [2026-03-31T02:09:37.607Z] [electron] Main dashboard loading http://localhost:5173
+[21:09:37] [electron] [2026-03-31T02:09:37.608Z] [electron] Creating stealth overlay window { width: 1470, height: 863 }
+[21:09:37] [electron] [2026-03-31T02:09:37.648Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[21:09:37] [electron] [2026-03-31T02:09:37.650Z] [electron] Stealth overlay created hidden
+[21:09:37] [electron] [2026-03-31T02:09:37.650Z] [electron] Registering global shortcuts
+[21:09:37] [electron] [2026-03-31T02:09:37.670Z] [electron] InterviewAce started — all servers running silently
+[21:09:37] [electron] [2026-03-31T02:09:37.670Z] [electron] Shortcut help: Esc toggle click-through
+[21:09:37] [electron] [2026-03-31T02:09:37.670Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[21:09:37] [electron] [2026-03-31T02:09:37.670Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[21:09:37] [electron] [2026-03-31T02:09:37.670Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[21:11:13] [electron] [2026-03-31T02:11:13.164Z] [electron] IPC received: go-live — entering full stealth
+[21:11:13] [electron] [2026-03-31T02:11:13.196Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[21:11:17] [electron] [2026-03-31T02:11:17.051Z] [electron] Shortcut triggered: toggle click-through
+[21:11:17] [electron] [2026-03-31T02:11:17.052Z] [electron] Overlay click-through enabled
+[21:11:39] [electron] [2026-03-31T02:11:39.569Z] [electron] Shortcut triggered: toggle click-through
+[21:11:39] [electron] [2026-03-31T02:11:39.578Z] [electron] Overlay click-through disabled
+[21:13:22] [electron] [2026-03-31T02:13:22.304Z] [electron] IPC received: end-session — exiting stealth
+[21:13:22] [electron] [2026-03-31T02:13:22.349Z] [electron] Stealth mode deactivated — app restored
+[21:14:33] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[21:29:37] [electron] 
+[21:29:37] [electron] > interview-ace-electron@0.1.0 start
+[21:29:37] [electron] > electron .
+[21:29:37] [electron] 
+[21:29:38] [electron] [2026-03-31T02:29:38.210Z] [electron] Backend started silently on port 8000
+[21:29:38] [electron] [2026-03-31T02:29:38.218Z] [electron] Frontend started silently on port 5173
+[21:29:38] [electron] [2026-03-31T02:29:38.963Z] [electron] Backend exited with code 1
+[21:29:40] [electron] [2026-03-31T02:29:40.225Z] [electron] Creating main dashboard window
+[21:29:40] [electron] [2026-03-31T02:29:40.486Z] [electron] Main dashboard loading http://localhost:5173
+[21:29:40] [electron] [2026-03-31T02:29:40.486Z] [electron] Creating stealth overlay window { width: 1470, height: 863 }
+[21:29:40] [electron] [2026-03-31T02:29:40.525Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[21:29:40] [electron] [2026-03-31T02:29:40.527Z] [electron] Stealth overlay created hidden
+[21:29:40] [electron] [2026-03-31T02:29:40.527Z] [electron] Registering global shortcuts
+[21:29:40] [electron] [2026-03-31T02:29:40.595Z] [electron] InterviewAce started — all servers running silently
+[21:29:40] [electron] [2026-03-31T02:29:40.595Z] [electron] Shortcut help: Esc toggle click-through
+[21:29:40] [electron] [2026-03-31T02:29:40.595Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[21:29:40] [electron] [2026-03-31T02:29:40.595Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[21:29:40] [electron] [2026-03-31T02:29:40.595Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[21:31:54] [electron] [2026-03-31T02:31:54.056Z] [electron] IPC received: go-live — entering full stealth
+[21:31:54] [electron] [2026-03-31T02:31:54.083Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[22:07:17] [electron] [2026-03-31T03:07:17.099Z] [electron] IPC received: end-session — exiting stealth
+[22:07:17] [electron] [2026-03-31T03:07:17.140Z] [electron] Stealth mode deactivated — app restored
+[22:07:31] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[22:12:37] [electron] 
+[22:12:37] [electron] > interview-ace-electron@0.1.0 start
+[22:12:37] [electron] > electron .
+[22:12:37] [electron] 
+[22:12:38] [electron] [2026-03-31T03:12:38.126Z] [electron] Backend started silently on port 8000
+[22:12:38] [electron] [2026-03-31T03:12:38.134Z] [electron] Frontend started silently on port 5173
+[22:12:38] [electron] [2026-03-31T03:12:38.866Z] [electron] Backend exited with code 1
+[22:12:40] [electron] [2026-03-31T03:12:40.141Z] [electron] Creating main dashboard window
+[22:12:40] [electron] [2026-03-31T03:12:40.504Z] [electron] Main dashboard loading http://localhost:5173
+[22:12:40] [electron] [2026-03-31T03:12:40.504Z] [electron] Creating stealth overlay window { width: 1470, height: 863 }
+[22:12:40] [electron] [2026-03-31T03:12:40.549Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[22:12:40] [electron] [2026-03-31T03:12:40.553Z] [electron] Stealth overlay created hidden
+[22:12:40] [electron] [2026-03-31T03:12:40.554Z] [electron] Registering global shortcuts
+[22:12:40] [electron] [2026-03-31T03:12:40.593Z] [electron] InterviewAce started — all servers running silently
+[22:12:40] [electron] [2026-03-31T03:12:40.593Z] [electron] Shortcut help: Esc toggle click-through
+[22:12:40] [electron] [2026-03-31T03:12:40.593Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[22:12:40] [electron] [2026-03-31T03:12:40.593Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[22:12:40] [electron] [2026-03-31T03:12:40.593Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[22:13:57] [electron] [2026-03-31T03:13:57.386Z] [electron] IPC received: go-live — entering full stealth
+[22:13:57] [electron] [2026-03-31T03:13:57.422Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[22:17:51] [electron] [2026-03-31T03:17:51.648Z] [electron] IPC received: hide-overlay
+[22:26:15] [electron] [2026-03-31T03:26:15.745Z] [electron] Shortcut triggered: show overlay
+[22:30:58] [electron] [2026-03-31T03:30:58.961Z] [electron] IPC received: hide-overlay
+[22:31:17] [electron] [2026-03-31T03:31:17.721Z] [electron] Shortcut triggered: show overlay
+[22:32:08] [electron] [2026-03-31T03:32:08.345Z] [electron] IPC received: end-session — exiting stealth
+[22:32:08] [electron] [2026-03-31T03:32:08.400Z] [electron] Stealth mode deactivated — app restored
+[22:34:06] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[23:15:11] [electron] 
+[23:15:11] [electron] > interview-ace-electron@0.1.0 start
+[23:15:11] [electron] > electron .
+[23:15:11] [electron] 
+[23:15:12] [electron] [2026-03-31T04:15:12.771Z] [electron] Backend started silently on port 8000
+[23:15:12] [electron] [2026-03-31T04:15:12.780Z] [electron] Frontend started silently on port 5173
+[23:15:13] [electron] [2026-03-31T04:15:13.634Z] [electron] Backend exited with code 1
+[23:15:14] [electron] [2026-03-31T04:15:14.788Z] [electron] Creating main dashboard window
+[23:15:15] [electron] [2026-03-31T04:15:15.120Z] [electron] Main dashboard loading http://localhost:5173
+[23:15:15] [electron] [2026-03-31T04:15:15.121Z] [electron] Creating stealth overlay window { width: 1470, height: 862 }
+[23:15:15] [electron] [2026-03-31T04:15:15.228Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[23:15:15] [electron] [2026-03-31T04:15:15.235Z] [electron] Stealth overlay created hidden
+[23:15:15] [electron] [2026-03-31T04:15:15.235Z] [electron] Registering global shortcuts
+[23:15:15] [electron] [2026-03-31T04:15:15.267Z] [electron] InterviewAce started — all servers running silently
+[23:15:15] [electron] [2026-03-31T04:15:15.267Z] [electron] Shortcut help: Esc toggle click-through
+[23:15:15] [electron] [2026-03-31T04:15:15.267Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[23:15:15] [electron] [2026-03-31T04:15:15.267Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[23:15:15] [electron] [2026-03-31T04:15:15.267Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[23:16:27] [electron] [2026-03-31T04:16:27.705Z] [electron] IPC received: go-live — entering full stealth
+[23:16:27] [electron] [2026-03-31T04:16:27.750Z] [electron] FULL STEALTH MODE ACTIVE — app is completely invisible
+[23:19:08] [electron] [2026-03-31T04:19:08.710Z] [electron] Shortcut triggered: toggle click-through
+[23:19:08] [electron] [2026-03-31T04:19:08.716Z] [electron] Overlay click-through enabled
+[23:19:09] [electron] [2026-03-31T04:19:09.326Z] [electron] Shortcut triggered: toggle click-through
+[23:19:09] [electron] [2026-03-31T04:19:09.328Z] [electron] Overlay click-through disabled
+[23:23:40] [electron] [2026-03-31T04:23:40.767Z] [electron] IPC received: end-session — exiting stealth
+[23:23:40] [electron] [2026-03-31T04:23:40.809Z] [electron] Stealth mode deactivated — app restored
+[23:24:06] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT
+[11:27:30] [electron] 
+[11:27:30] [electron] > interview-ace-electron@0.1.0 start
+[11:27:30] [electron] > electron .
+[11:27:30] [electron] 
+[11:27:30] [electron] [2026-04-01T16:27:30.857Z] [electron] Backend started silently on port 8000
+[11:27:30] [electron] [2026-04-01T16:27:30.866Z] [electron] Frontend started silently on port 5173
+[11:27:31] [electron] [2026-04-01T16:27:31.624Z] [electron] Backend exited with code 1
+[11:27:32] [electron] [2026-04-01T16:27:32.872Z] [electron] Creating main dashboard window
+[11:27:33] [electron] [2026-04-01T16:27:33.114Z] [electron] Main dashboard loading http://localhost:5173
+[11:27:33] [electron] [2026-04-01T16:27:33.114Z] [electron] Creating stealth overlay window { width: 1470, height: 861 }
+[11:27:33] [electron] [2026-04-01T16:27:33.158Z] [electron] Stealth overlay loading http://localhost:5173/overlay
+[11:27:33] [electron] [2026-04-01T16:27:33.160Z] [electron] Stealth overlay created hidden
+[11:27:33] [electron] [2026-04-01T16:27:33.160Z] [electron] Registering global shortcuts
+[11:27:33] [electron] [2026-04-01T16:27:33.178Z] [electron] InterviewAce started — all servers running silently
+[11:27:33] [electron] [2026-04-01T16:27:33.178Z] [electron] Shortcut help: Esc toggle click-through
+[11:27:33] [electron] [2026-04-01T16:27:33.178Z] [electron] Shortcut help: Ctrl+Shift+A force answer now
+[11:27:33] [electron] [2026-04-01T16:27:33.178Z] [electron] Shortcut help: Ctrl+Shift+H toggle overlay
+[11:27:33] [electron] [2026-04-01T16:27:33.178Z] [electron] Shortcut help: Ctrl+Shift+P panic hide
+[09:02:34] [electron] [2026-04-02T14:02:34.789Z] [electron] Tray clicked: showing dashboard
+[09:02:41] [electron] /Users/sricharankasulnatai/Desktop/interview-ace/electron/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron exited with signal SIGINT

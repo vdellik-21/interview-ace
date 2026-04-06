@@ -15,6 +15,7 @@ from ..models.session import InterviewSession
 from .anthropic_messages_client import AnthropicMessagesClient
 from .model_registry import normalize_session_model, provider_for_model
 from .openai_responses_client import OpenAIResponsesClient
+from .question_detector import QuestionDetector
 
 logger = logging.getLogger("interviewace.ai_engine")
 
@@ -72,6 +73,54 @@ FIELD_KEYWORDS = {
     "messaging", "kafka", "redis", "graphql", "rest", "oauth", "thread", "jvm",
 }
 
+TECHNICAL_TOPIC_PATTERNS = {
+    "adjacency list": ["adjacency list", "adjacency"],
+    "graph": ["graph", "graphs"],
+    "binary tree": ["binary tree"],
+    "tree": ["tree", "trees"],
+    "heap": ["heap", "heaps"],
+    "list": ["list", "lists"],
+    "linked list": ["linked list"],
+    "array": ["array", "arrays"],
+    "stack": ["stack", "stacks"],
+    "queue": ["queue", "queues"],
+    "hash map": ["hash map", "hashmap", "map"],
+    "hash set": ["hash set", "hashset", "set"],
+    "bfs": ["bfs", "breadth first search"],
+    "dfs": ["dfs", "depth first search"],
+    "rest api": ["rest api", "restful api", "api"],
+}
+
+TECHNICAL_LANGUAGES = {
+    "java",
+    "python",
+    "javascript",
+    "typescript",
+    "react",
+    "angular",
+    "spring",
+    "springboot",
+}
+
+IMPLEMENTATION_MARKERS = {
+    "implement",
+    "implemented",
+    "implementation",
+    "build",
+    "built",
+    "design",
+    "model",
+    "using",
+    "create",
+    "created",
+    "write",
+    "wrote",
+}
+
+UNCLEAR_REPEAT_RESPONSE = (
+    '⚠️ Say: "I want to make sure I give you a solid answer on that — could you say that one more time?"'
+)
+
 
 class LiveAIEngine:
     """
@@ -89,6 +138,7 @@ class LiveAIEngine:
         """
         self.anthropic_client = AnthropicMessagesClient()
         self.openai_client = OpenAIResponsesClient()
+        self.question_detector = QuestionDetector()
         self.session = session
         self.session.model = normalize_session_model(session.model)
         self.is_processing = False
@@ -168,16 +218,35 @@ class LiveAIEngine:
         self,
         interviewer_text: str,
         candidate_text: Optional[str] = None,
+        turn_type: Optional[str] = None,
     ) -> dict[str, str]:
         """
         Build the answer that should be shown live directly from the selected model.
         The prep-created OpenAI conversation is reused so live turns benefit
         from the same conversation state and cache-friendly prompt prefix.
         """
+        metadata = self._question_metadata(interviewer_text, turn_type=turn_type)
+        effective_question = metadata["effective_question"]
+
+        if self._should_request_repeat(
+            interviewer_text,
+            effective_question,
+            follow_up_context=metadata.get("follow_up_context", ""),
+            turn_type=turn_type or metadata.get("turn_type", ""),
+        ):
+            logger.info("Low-confidence question detected; asking for repeat instead of guessing")
+            return {
+                "text": UNCLEAR_REPEAT_RESPONSE,
+                "source": "unclear",
+            }
+
         model_answer = await asyncio.wait_for(
             self._generate_fast_model_answer(
                 interviewer_text=interviewer_text,
+                effective_question=effective_question,
                 candidate_text=candidate_text,
+                follow_up_context=metadata.get("follow_up_context", ""),
+                turn_type=turn_type or "",
             ),
             timeout=self._live_model_timeout_seconds(),
         )
@@ -197,12 +266,14 @@ class LiveAIEngine:
         """Persist the live Q/A turn so regenerate stays context-aware."""
         self.last_question = interviewer_text.strip()
         self.last_answer = answer_text.strip()
-        self._append_live_turn(interviewer_text=interviewer_text, candidate_text=candidate_text)
-        self.session.conversation_history.append({
-            "role": "assistant",
-            "content": answer_text.strip(),
-        })
-        self._trim_history()
+        metadata = self._question_metadata(interviewer_text)
+        if self._should_store_turn(metadata["question_case"], metadata["question_intent"]):
+            self._append_live_turn(interviewer_text=interviewer_text, candidate_text=candidate_text)
+            self.session.conversation_history.append({
+                "role": "assistant",
+                "content": answer_text.strip(),
+            })
+            self._trim_history()
 
     async def generate_answer(
         self,
@@ -249,19 +320,42 @@ class LiveAIEngine:
         )
 
         try:
-            self._append_live_turn(interviewer_text=interviewer_text, candidate_text=candidate_text)
+            metadata = self._question_metadata(interviewer_text)
+            effective_question = metadata["effective_question"]
+            question_case = metadata["question_case"]
+            question_intent = metadata["question_intent"]
+            should_store_turn = self._should_store_turn(question_case, question_intent)
+            if should_store_turn:
+                self._append_live_turn(interviewer_text=interviewer_text, candidate_text=candidate_text)
 
             full_response = await self._run_model_prompt(
-                prompt=self._build_answer_prompt(interviewer_text),
+                prompt=self._build_answer_prompt(
+                    interviewer_text,
+                    effective_question=effective_question,
+                    question_case=question_case,
+                    question_intent=question_intent,
+                    include_history=self._should_include_recent_history(
+                        question_case=question_case,
+                        question_intent=question_intent,
+                        question=effective_question,
+                    ),
+                    follow_up_context=metadata.get("follow_up_context", ""),
+                ),
                 model=self.session.model,
+                use_shared_conversation=self._should_use_shared_conversation(
+                    question_case=question_case,
+                    question_intent=question_intent,
+                    question=effective_question,
+                ),
             )
             full_response = self._clean_model_answer(full_response)
 
-            self.session.conversation_history.append({
-                "role": "assistant",
-                "content": full_response,
-            })
-            self._trim_history()
+            if should_store_turn:
+                self.session.conversation_history.append({
+                    "role": "assistant",
+                    "content": full_response,
+                })
+                self._trim_history()
 
             self.last_answer = full_response
             logger.info("Refined answer generated successfully | chars=%s", len(full_response))
@@ -285,8 +379,8 @@ class LiveAIEngine:
         Returns:
             New response text
         """
-        if not self.session.conversation_history:
-            logger.warning("regenerate skipped because conversation history is empty")
+        if not self.session.conversation_history and not self.last_question:
+            logger.warning("regenerate skipped because there is no previous question")
             return ""
 
         # Remove the last assistant response
@@ -295,37 +389,57 @@ class LiveAIEngine:
             self.session.conversation_history.pop()
 
         # Add modifier instruction if provided
+        modifier_instruction = ""
         if modifier == "shorter":
-            self.session.conversation_history.append({
-                "role": "user",
-                "content": "[CANDIDATE INSTRUCTION]: Make the answer SHORTER — 2-3 sentences max. Keep only the most important point."
-            })
+            modifier_instruction = "[CANDIDATE INSTRUCTION]: Make the answer SHORTER — 2-3 sentences max. Keep only the most important point."
         elif modifier == "more_detail":
-            self.session.conversation_history.append({
-                "role": "user",
-                "content": "[CANDIDATE INSTRUCTION]: Give MORE DETAIL — expand with additional examples, metrics, and context from the resume."
-            })
+            modifier_instruction = "[CANDIDATE INSTRUCTION]: Give MORE DETAIL — expand with additional examples, metrics, and context from the resume."
         else:
-            self.session.conversation_history.append({
-                "role": "user",
-                "content": "[CANDIDATE INSTRUCTION]: Regenerate the answer with a different angle or approach."
-            })
+            modifier_instruction = "[CANDIDATE INSTRUCTION]: Regenerate the answer with a different angle or approach."
 
         # Stream new response
         self.is_processing = True
         logger.info("Regenerating answer | modifier=%s | model=%s", modifier or "default", self.session.model)
         try:
+            last_question = self.last_question or "Regenerate the previous answer."
+            metadata = self._question_metadata(last_question)
+            effective_question = metadata["effective_question"]
+            question_case = metadata["question_case"]
+            question_intent = metadata["question_intent"]
+            should_store_turn = self._should_store_turn(question_case, question_intent)
+            if should_store_turn:
+                self.session.conversation_history.append({
+                    "role": "user",
+                    "content": modifier_instruction,
+                })
             full_response = await self._run_model_prompt(
-                prompt=self._build_answer_prompt(self.last_question or "Regenerate the previous answer."),
+                prompt=self._build_answer_prompt(
+                    last_question,
+                    effective_question=effective_question,
+                    question_case=question_case,
+                    question_intent=question_intent,
+                    include_history=self._should_include_recent_history(
+                        question_case=question_case,
+                        question_intent=question_intent,
+                        question=effective_question,
+                    ),
+                    follow_up_context=metadata.get("follow_up_context", ""),
+                ) + (f"\n\n{modifier_instruction}" if not should_store_turn else ""),
                 model=self.session.model,
+                use_shared_conversation=self._should_use_shared_conversation(
+                    question_case=question_case,
+                    question_intent=question_intent,
+                    question=effective_question,
+                ),
             )
             full_response = self._clean_model_answer(full_response)
             await self._stream_text(full_response, on_token)
 
-            self.session.conversation_history.append({
-                "role": "assistant",
-                "content": full_response
-            })
+            if should_store_turn:
+                self.session.conversation_history.append({
+                    "role": "assistant",
+                    "content": full_response
+                })
 
             self.last_answer = full_response
             logger.info("Regenerated answer successfully | chars=%s", len(full_response))
@@ -351,103 +465,223 @@ class LiveAIEngine:
         if len(self.session.conversation_history) > max_hist:
             self.session.conversation_history = self.session.conversation_history[-max_hist:]
 
-    def _build_answer_prompt(self, interviewer_text: str) -> str:
-        prepared_match = self._pick_prepared_answer(interviewer_text)
-        predicted_match = self._pick_predicted_question(interviewer_text)
+    def _question_metadata(self, question: str, turn_type: Optional[str] = None) -> dict[str, str]:
+        follow_up_context = ""
+        normalized_question = self.question_detector.normalize_turn(question) or question.strip()
+        effective_question = self._recover_technical_question(normalized_question) or normalized_question
+        resolved_turn_type = turn_type or ("follow_up" if self._is_follow_up_question(effective_question) else "")
+        if resolved_turn_type == "follow_up" and self.last_question.strip():
+            follow_up_context = self.last_question.strip()
+        prepared_match = self._pick_prepared_answer(effective_question)
+        predicted_match = self._pick_predicted_question(effective_question)
         question_case = self._classify_question_case(
-            interviewer_text,
+            effective_question,
             prepared_match,
             predicted_match,
         )
-        question_intent = self._classify_question_intent(interviewer_text)
-        relevant_context = self._build_relevant_context(interviewer_text, question_case)
-        bridge_context = self._build_bridge_context(interviewer_text)
-        history_block = self._build_recent_history_block()
-        prepared_reference = self._build_prepared_reference(interviewer_text, question_case)
+        question_intent = self._classify_question_intent(effective_question)
+        if follow_up_context and question_intent in {"general", "unclear"}:
+            previous_question = follow_up_context
+            previous_prepared = self._pick_prepared_answer(previous_question)
+            previous_predicted = self._pick_predicted_question(previous_question)
+            question_case = self._classify_question_case(
+                previous_question,
+                previous_prepared,
+                previous_predicted,
+            )
+            previous_intent = self._classify_question_intent(previous_question)
+            if previous_intent != "unclear":
+                question_intent = previous_intent
+        turn_route = self._determine_turn_route(
+            question_case=question_case,
+            question_intent=question_intent,
+            turn_type=resolved_turn_type,
+            follow_up_context=follow_up_context,
+        )
+        return {
+            "effective_question": effective_question,
+            "question_case": question_case,
+            "question_intent": question_intent,
+            "follow_up_context": follow_up_context,
+            "turn_type": resolved_turn_type,
+            "turn_route": turn_route,
+        }
+
+    def _determine_turn_route(
+        self,
+        *,
+        question_case: str,
+        question_intent: str,
+        turn_type: str,
+        follow_up_context: str,
+    ) -> str:
+        if question_intent == "small_talk":
+            return "small_talk"
+        if question_intent == "reverse_interview":
+            return "reverse_interview"
+        if question_intent == "salary":
+            return "salary"
+        if question_intent == "logistical":
+            return "logistical"
+        if follow_up_context or turn_type == "follow_up":
+            return "follow_up"
+        if question_case == "concept_knowledge":
+            return "concept"
+        if question_case in {"personal_experience", "field_related_missing"}:
+            return "experience"
+        if turn_type == "answer_prompt":
+            return "interview_prompt"
+        if question_intent in {"behavioral", "experience", "motivational", "gap_or_weakness"}:
+            return "experience"
+        if question_intent == "general":
+            return "interview_prompt"
+        return "generic"
+
+    def _should_store_turn(self, question_case: str, question_intent: str) -> bool:
+        if question_case in {"personal_experience", "field_related_missing"}:
+            return True
+        return question_intent in {"behavioral", "gap_or_weakness"}
+
+    def _build_answer_prompt(
+        self,
+        interviewer_text: str,
+        effective_question: Optional[str] = None,
+        *,
+        question_case: Optional[str] = None,
+        question_intent: Optional[str] = None,
+        include_history: Optional[bool] = None,
+        follow_up_context: str = "",
+        turn_type: str = "",
+        turn_route: Optional[str] = None,
+    ) -> str:
+        effective_question = (effective_question or interviewer_text).strip()
+        prepared_match = self._pick_prepared_answer(effective_question)
+        predicted_match = self._pick_predicted_question(effective_question)
+        question_case = question_case or self._classify_question_case(
+            effective_question,
+            prepared_match,
+            predicted_match,
+        )
+        question_intent = question_intent or self._classify_question_intent(effective_question)
+        relevant_context = self._build_relevant_context(effective_question, question_case)
+        bridge_context = self._build_bridge_context(effective_question)
+        include_history = (
+            self._should_include_recent_history(
+                question_case=question_case,
+                question_intent=question_intent,
+                question=effective_question,
+            )
+            if include_history is None
+            else include_history
+        )
+        history_block = self._build_recent_history_block() if include_history else ""
+        prepared_reference = self._build_prepared_reference(effective_question, question_case)
 
         history_lines = []
         if history_block:
             history_lines.append(f"RECENT CONVERSATION:\n{history_block}")
 
-        return f"""You are an Interview Copilot — a real-time answer assistant for live job interviews.
-You operate during a LIVE video job interview and must generate speakable, glanceable answer prompts that the candidate reads in 2-3 seconds and delivers naturally as conversation.
+        transcript_note = ""
+        if interviewer_text.strip() != effective_question:
+            transcript_note = (
+                "TRANSCRIPT NOTE:\n"
+                "The raw transcript likely contains one or more garbled words from speech recognition. "
+                "Use the likely intended question below as the source of truth. Do not anchor on obviously garbled tokens.\n\n"
+            )
 
-KNOWLEDGE HIERARCHY (STRICT PRIORITY ORDER)
-TIER 1 — UPLOADED DOCUMENTS (Primary Source of Truth):
-Search the uploaded resume, job description, company research, and vault file FIRST for every question. Extract exact numbers, dates, company names, tools, and achievements. These are verified facts — never alter, round, or approximate them.
+        follow_up_note = ""
+        if follow_up_context:
+            follow_up_note = (
+                "FOLLOW-UP CONTEXT:\n"
+                f"The interviewer is asking a follow-up on this earlier topic: {follow_up_context}\n"
+                "Answer the latest turn in continuity with that earlier topic instead of treating it like a brand-new unrelated question.\n\n"
+            )
 
-TIER 2 — PARAPHRASE AS NATURAL SPEECH:
-Never copy resume bullets verbatim. Reframe everything as first-person conversational language, as if the candidate is speaking naturally across a table.
+        turn_route = turn_route or self._determine_turn_route(
+            question_case=question_case,
+            question_intent=question_intent,
+            turn_type=turn_type,
+            follow_up_context=follow_up_context,
+        )
 
-TIER 3 — CONSTRUCTED DEPTH (For Follow-Up & Detail Questions):
-When the interviewer asks for in-depth details about a documented project, campaign, or experience, construct a realistic and believable detailed narrative that:
-- stays fully consistent with all documented facts, metrics, tools, dates, and company names
-- uses industry-standard workflows, timelines, and terminology appropriate to the documented role and tools
-- includes specific but plausible details like team rhythms, testing choices, reporting habits, stakeholder dynamics, and challenges encountered
-- maintains internal consistency across all follow-up questions in the same conversation
-- never contradicts the uploaded documents
+        if turn_route == "concept":
+            return self._build_concept_answer_prompt(
+                interviewer_text=interviewer_text,
+                effective_question=effective_question,
+                question_intent=question_intent,
+                relevant_context=relevant_context,
+                bridge_context=bridge_context,
+                transcript_note=transcript_note + follow_up_note,
+                history_lines=history_lines,
+            )
 
-Construction rules:
-- build outward only from documented anchors
-- use real platform features, real metrics terminology, and real workflow steps
-- include one thing that did not work initially and how it was fixed
-- every constructed detail must survive a follow-up question
-- once a constructed detail is stated, treat it as canon for this conversation
+        if turn_route in {"experience", "follow_up"}:
+            return self._build_experience_answer_prompt(
+                interviewer_text=interviewer_text,
+                effective_question=effective_question,
+                question_intent=question_intent,
+                question_case=question_case,
+                relevant_context=relevant_context,
+                bridge_context=bridge_context,
+                prepared_reference=prepared_reference,
+                transcript_note=transcript_note + follow_up_note,
+                history_lines=history_lines,
+                turn_route=turn_route,
+            )
 
-TIER 4 — GENERAL AI KNOWLEDGE (Last Resort):
-Only for questions completely outside the uploaded docs and outside documented experience. Even then, anchor back to the candidate's background wherever possible.
+        return self._build_general_interview_prompt(
+            interviewer_text=interviewer_text,
+            effective_question=effective_question,
+            question_intent=question_intent,
+            question_case=question_case,
+            relevant_context=relevant_context,
+            bridge_context=bridge_context,
+            transcript_note=transcript_note + follow_up_note,
+            history_lines=history_lines,
+            turn_route=turn_route,
+        )
 
-TIER 5 — NEVER:
-Never fabricate company names, job titles, employers, time periods, certifications, or tools not in the uploaded docs. Constructed depth is only for adding realistic detail within documented experiences.
+    def _build_experience_answer_prompt(
+        self,
+        *,
+        interviewer_text: str,
+        effective_question: str,
+        question_intent: str,
+        question_case: str,
+        relevant_context: str,
+        bridge_context: str,
+        prepared_reference: str,
+        transcript_note: str,
+        history_lines: list[str],
+        turn_route: str,
+    ) -> str:
+        history_block = "\n".join(history_lines)
+        history_section = f"\n\n{history_block}" if history_block else ""
+        return f"""You are InterviewAce's live experience answer engine for a job interview.
 
-OUTPUT FORMAT (STRICT)
-Every answer must follow this 3-part structure unless a special case below says Output ONLY:
+This turn is an {turn_route} turn. Answer like a strong interview candidate speaking naturally out loud.
+Use the uploaded resume, JD, company research, and prepared dossier as source-of-truth context.
+Never fabricate employers, timelines, tools, or results. If the interviewer asks about a related area not directly documented, bridge from the closest real experience instead of pretending.
+If this is a follow-up, stay consistent with the earlier topic and deepen the answer instead of starting over.
 
-🎯 OPEN WITH:
-[One to two immediately speakable first-person sentences that frame the answer naturally. Never start with "So..." or "That's a great question..."]
+OUTPUT FORMAT
+- 🎯 OPEN WITH: 1 short first-person sentence that frames the answer clearly.
+- 💬 THE ANSWER: 3-5 conversational sentences with specific tools, systems, responsibilities, and measurable outcomes when available.
+- 🔗 BRIDGE: 1 short sentence tying the answer back to the target role or company.
 
-💬 THE ANSWER:
-[3-5 flowing conversational sentences. Weave metrics naturally into the body instead of listing them. Bold the key metrics and numbers so they stand out visually, but keep the wording natural and speakable. Use transitions, cause-and-effect, and specific tools/platforms.]
+RULES
+- Sound like a candidate in a live interview, not like a resume or textbook.
+- Use first person naturally.
+- Prefer the single best role/project/story instead of dumping every prepared fact.
+- If the interviewer asks about a company, role, project, or prior experience, stay anchored to that exact documented experience.
+- If the interviewer asks for more detail, expand only that thread and keep continuity with previous answers.
+- Never repeat the prepared reference verbatim; use it only as supporting context.
 
-🔗 BRIDGE:
-[One sentence connecting the answer specifically to the company and role by name, or by a concrete detail from the JD/company research.]
-
-CRITICAL FORMATTING RULES
-- Total output: max 8-10 lines.
-- First person always.
-- Bold every metric and number.
-- No filler phrases.
-- No hedging.
-- The answer body must sound like a real person talking, not bullet fragments.
-- The bridge must mention the company or a specific JD/research detail.
-- Return only the answer content.
-
-DEEP FOLLOW-UP HANDLING
-When the interviewer asks "tell me more," "walk me through it," "what specifically did you test," "what didn't work," "how did you report it," or similar:
-1. Anchor to documented facts first.
-2. Build with industry-realistic detail.
-3. Include a realistic struggle and resolution.
-4. Maintain absolute consistency with prior answers in the conversation history.
-5. Use specific plausible numbers that fit the documented top-level metrics.
-6. Answer the exact follow-up being asked, not a generic overview.
-
-SPECIAL QUESTION TYPES
-- Small talk / greeting: output only a short warm response.
-- Unclear / could not catch it: output only: ⚠️ Say: "I want to make sure I give you a solid answer on that — could you say that one more time?"
-- "Any questions for us?": output 3 specific company-aware questions.
-- Salary / compensation: stay professional and flexible, using a documented range only if available.
-- Experience gap: acknowledge honestly, pivot to documented transferable proof, and frame learning speed.
-
-MATCHING LOGIC
-1. Identify the question intent.
-2. Scan resume for the best matching experience, metrics, and tools.
-3. Scan JD for exact language to mirror.
-4. Scan company research / uploaded context for concrete bridge facts.
-5. Check recent conversation history for prior constructed details that must remain consistent.
-6. Never repeat a prepared answer verbatim.
-
-CURRENT QUESTION:
+{transcript_note}RAW TRANSCRIPT QUESTION:
 {interviewer_text.strip()}
+
+LIKELY INTENDED QUESTION:
+{effective_question}
 
 QUESTION INTENT:
 {question_intent}
@@ -461,23 +695,171 @@ DOCUMENT FACTS TO USE FIRST:
 ROLE / COMPANY BRIDGE CONTEXT:
 {bridge_context}
 
-NEAREST PREPARED REFERENCE (SUPPORT ONLY):
-{prepared_reference}
+PREPARED SUPPORT CONTEXT:
+{prepared_reference}{history_section}"""
 
-{chr(10).join(history_lines)}"""
+    def _build_general_interview_prompt(
+        self,
+        *,
+        interviewer_text: str,
+        effective_question: str,
+        question_intent: str,
+        question_case: str,
+        relevant_context: str,
+        bridge_context: str,
+        transcript_note: str,
+        history_lines: list[str],
+        turn_route: str,
+    ) -> str:
+        history_block = "\n".join(history_lines)
+        history_section = f"\n\n{history_block}" if history_block else ""
+        special_case_rules = {
+            "small_talk": 'Output only a short warm response the candidate can say immediately.',
+            "reverse_interview": 'Output 2-3 smart questions for the interviewer grounded in company research or the JD.',
+            "salary": 'Stay professional, concise, and flexible. Discuss range only if documented.',
+            "logistical": 'Answer directly and clearly with any documented facts available; otherwise stay practical and concise.',
+            "interview_prompt": 'Answer naturally in interview mode, even if the wording is conversational rather than a clean direct question.',
+            "generic": 'Answer in a practical, interview-ready way without forcing resume facts that do not belong.',
+        }
+        return f"""You are InterviewAce's live interview answer engine.
+
+Answer this turn in natural interview mode.
+{special_case_rules.get(turn_route, 'Answer naturally and directly.')}
+
+RULES
+- Keep the answer concise, speakable, and high-confidence.
+- Use resume/JD facts only when they genuinely belong.
+- Do not force a personal story into a generic or conceptual turn.
+- If the question is general but interview-related, answer like a strong candidate speaking in conversation.
+- If the transcript is slightly garbled, use the likely intended question rather than copying the noise.
+
+OUTPUT FORMAT
+- 🎯 OPEN WITH: 1 short opening sentence.
+- 💬 THE ANSWER: 2-4 conversational sentences.
+- 🔗 BRIDGE: 1 short line tying it back to the role when relevant.
+
+{transcript_note}RAW TRANSCRIPT QUESTION:
+{interviewer_text.strip()}
+
+LIKELY INTENDED QUESTION:
+{effective_question}
+
+TURN ROUTE:
+{turn_route}
+
+QUESTION INTENT:
+{question_intent}
+
+QUESTION CASE:
+{question_case}
+
+OPTIONAL CONTEXT:
+{relevant_context}
+
+ROLE / COMPANY BRIDGE:
+{bridge_context}{history_section}"""
+
+    def _build_concept_answer_prompt(
+        self,
+        *,
+        interviewer_text: str,
+        effective_question: str,
+        question_intent: str,
+        relevant_context: str,
+        bridge_context: str,
+        transcript_note: str,
+        history_lines: list[str],
+    ) -> str:
+        history_block = "\n".join(history_lines)
+        history_section = f"\n\n{history_block}" if history_block else ""
+        return f"""You are InterviewAce's live technical answer engine for a software interview.
+
+This question is a concept or technical knowledge question.
+Answer the likely intended question in interview mode: direct, clear, technically correct, and naturally speakable.
+Do not force an unrelated resume story, but do make the answer sound like something a candidate would actually say out loud in an interview.
+It is fine to use light first-person phrasing like "The way I think about it is..." or "In practice, I'd..." when it helps the answer sound natural.
+Do not invent experience, projects, or tools the candidate has not actually used.
+If the raw transcript contains one garbled technical token, ignore it and answer the likely intended question.
+If the intent is still unclear, output only:
+⚠️ Say: "I want to make sure I give you a solid answer on that — could you say that one more time?"
+
+OUTPUT FORMAT
+- 🎯 OPEN WITH: 1 direct sentence that frames the concept the way a strong candidate would begin answering it.
+- 💬 THE ANSWER: 3-5 conversational technical sentences with concrete terminology, examples, implementation details, or tradeoffs.
+- 🔗 BRIDGE: 1 short sentence connecting the concept to practical engineering work or the target role.
+
+RULES
+- Be technically correct first.
+- Keep the tone interview-ready, not textbook-only and not resume-bullet style.
+- Use first person only when it makes the answer sound more natural; never use it to fake experience.
+- No fabricated experience.
+- Keep the answer concise, natural, and easy to speak.
+- If the question is about implementation, explain the data structure, core steps, tradeoffs, and time/space complexity when relevant.
+- If the question is a simple concept question, answer it directly first, then briefly make it practical.
+
+{transcript_note}RAW TRANSCRIPT QUESTION:
+{interviewer_text.strip()}
+
+LIKELY INTENDED QUESTION:
+{effective_question}
+
+QUESTION INTENT:
+{question_intent}
+
+TECHNICAL CONTEXT:
+{relevant_context}
+
+ROLE / PRACTICAL BRIDGE:
+{bridge_context}{history_section}"""
 
     async def _generate_fast_model_answer(
         self,
         interviewer_text: str,
+        effective_question: Optional[str],
         candidate_text: Optional[str],
+        follow_up_context: str = "",
+        turn_type: str = "",
     ) -> str:
-        prompt = self._build_answer_prompt(interviewer_text)
+        effective_question = (effective_question or interviewer_text).strip()
+        metadata = self._question_metadata(interviewer_text, turn_type=turn_type or None)
+        question_case = metadata["question_case"]
+        question_intent = metadata["question_intent"]
+        follow_up_context = follow_up_context or metadata.get("follow_up_context", "")
+        turn_route = metadata.get("turn_route", "")
+        prompt = self._build_answer_prompt(
+            interviewer_text=interviewer_text,
+            effective_question=effective_question,
+            question_case=question_case,
+            question_intent=question_intent,
+            include_history=self._should_include_recent_history(
+                question_case=question_case,
+                question_intent=question_intent,
+                question=effective_question,
+            ),
+            follow_up_context=follow_up_context,
+            turn_type=turn_type or metadata.get("turn_type", ""),
+            turn_route=turn_route,
+        )
         if candidate_text and candidate_text.strip():
             prompt += f"\n\nLATEST CANDIDATE CONTEXT:\n{candidate_text.strip()}"
-        result = await self._run_model_prompt(prompt=prompt, model=self.session.model)
+        result = await self._run_model_prompt(
+            prompt=prompt,
+            model=self.session.model,
+            use_shared_conversation=self._should_use_shared_conversation(
+                question_case=question_case,
+                question_intent=question_intent,
+                question=effective_question,
+            ),
+        )
         return self._clean_model_answer(result)
 
-    async def _run_model_prompt(self, prompt: str, model: str) -> str:
+    async def _run_model_prompt(
+        self,
+        prompt: str,
+        model: str,
+        *,
+        use_shared_conversation: bool = True,
+    ) -> str:
         normalized_model = normalize_session_model(model, fallback=self.session.model)
         provider = provider_for_model(normalized_model, fallback=self.session.model)
 
@@ -495,7 +877,7 @@ NEAREST PREPARED REFERENCE (SUPPORT ONLY):
         return await self.openai_client.run_prompt(
             prompt=prompt,
             model=normalized_openai_model,
-            conversation_id=self.session.openai_conversation_id or None,
+            conversation_id=(self.session.openai_conversation_id or None) if use_shared_conversation else None,
             prompt_cache_key=self.session.openai_prompt_cache_key or None,
         )
 
@@ -530,6 +912,57 @@ NEAREST PREPARED REFERENCE (SUPPORT ONLY):
                 lines.append(f"{role}: {content}")
         return "\n".join(lines)
 
+    def _is_follow_up_question(self, question: str) -> bool:
+        question_lower = question.lower().strip()
+        follow_up_markers = [
+            "tell me more",
+            "can you elaborate",
+            "elaborate",
+            "walk me through that",
+            "walk me through it",
+            "more detail",
+            "what specifically",
+            "what did you mean",
+            "why did",
+            "why was",
+            "what happened next",
+            "how did that",
+            "what didn't work",
+            "what would you do differently",
+            "in more detail",
+        ]
+        return any(marker in question_lower for marker in follow_up_markers)
+
+    def _should_include_recent_history(
+        self,
+        *,
+        question_case: str,
+        question_intent: str,
+        question: str,
+    ) -> bool:
+        if self._is_follow_up_question(question):
+            return True
+        if question_case == "concept_knowledge":
+            return False
+        return question_intent in {"behavioral", "experience", "motivational", "gap_or_weakness"}
+
+    def _should_use_shared_conversation(
+        self,
+        *,
+        question_case: str,
+        question_intent: str,
+        question: str,
+    ) -> bool:
+        if not self._uses_openai_model():
+            return False
+        if question_case == "concept_knowledge" and not self._is_follow_up_question(question):
+            return False
+        if question_intent == "unclear":
+            return False
+        if self._is_follow_up_question(question):
+            return True
+        return question_intent in {"behavioral", "experience", "motivational", "gap_or_weakness", "reverse_interview", "salary"}
+
     def _classify_question_intent(self, question: str) -> str:
         question_lower = question.lower().strip()
 
@@ -550,6 +983,9 @@ NEAREST PREPARED REFERENCE (SUPPORT ONLY):
 
         if self._is_behavioral_question(question_lower):
             return "behavioral"
+
+        if self._is_personal_experience_question(question_lower):
+            return "experience"
 
         if self._matches_any(
             question_lower,
@@ -618,7 +1054,7 @@ NEAREST PREPARED REFERENCE (SUPPORT ONLY):
 
         lines = []
         summary = self._clean_sentence(resume.get("summary", ""))
-        if summary:
+        if summary and question_case != "concept_knowledge":
             lines.append(f"Candidate summary: {summary}")
 
         title = self._clean_sentence(jd.get("title", ""))
@@ -632,6 +1068,15 @@ NEAREST PREPARED REFERENCE (SUPPORT ONLY):
         relevant_skills = self._collect_skills()[:8]
         if relevant_skills:
             lines.append(f"Core skills: {', '.join(relevant_skills)}")
+
+        if question_case == "concept_knowledge":
+            knowledge_reference = self._knowledge_reference(interviewer_text, skill)
+            if knowledge_reference:
+                lines.append(f"Technical reference: {knowledge_reference}")
+            lines.append(
+                "This is a concept or technical knowledge question. Answer directly, accurately, and clearly. Do not frame it as personal experience unless the interviewer explicitly asks about your experience."
+            )
+            return "\n".join(lines)
 
         if role:
             role_title = self._clean_sentence(role.get("title", "Relevant role"))
@@ -687,11 +1132,7 @@ NEAREST PREPARED REFERENCE (SUPPORT ONLY):
             for snippet in context_snippets:
                 lines.append(f"- {snippet}")
 
-        if question_case == "concept_knowledge":
-            lines.append(
-                "This is a concept or knowledge question. Answer directly and clearly with no first person unless the interviewer explicitly asks about experience."
-            )
-        elif question_case == "unrelated":
+        if question_case == "unrelated":
             lines.append(
                 "This is not grounded in the resume or JD. Answer generically and confidently, but use the target role/company in the bridge when relevant."
             )
@@ -861,6 +1302,11 @@ NEAREST PREPARED REFERENCE (SUPPORT ONLY):
             "tell me about yourself",
             "walk me through your background",
             "introduce yourself",
+            "tell me about your experience",
+            "tell me about your previous experience",
+            "tell me about your past experience",
+            "your experience previously",
+            "experience previously",
             "describe a project",
             "tell me about a project",
             "walk me through a project",
@@ -873,11 +1319,20 @@ NEAREST PREPARED REFERENCE (SUPPORT ONLY):
             "what's your experience",
             "your experience with",
             "your experience in",
+            "your previous experience",
+            "your past experience",
             "experience working with",
             "experience with",
             "experience in",
+            "work using",
+            "your work",
+            "your work there",
+            "work there",
+            "work with",
             "background with",
             "background in",
+            "walk me through your",
+            "tell me about your work",
             "how did you handle",
             "how have you handled",
             "how did you deal",
@@ -886,16 +1341,113 @@ NEAREST PREPARED REFERENCE (SUPPORT ONLY):
             "where have you used",
             "have you worked with",
             "have you used",
+            "did you use",
+            "did you work with",
+            "did you work on",
             "when did you use",
             "have you ever",
             "what challenges did you face",
             "what did you do",
         ]
+        if self._has_resume_named_anchor(question_lower):
+            anchored_markers = [
+                "experience",
+                "role",
+                "worked",
+                "work",
+                "used",
+                "using",
+                "project",
+                "projects",
+                "previous",
+                "previously",
+                "background",
+                "tell me about",
+                "walk me through",
+                "explain",
+                "describe",
+                "have you",
+                "did you",
+                "can you tell me",
+            ]
+            if any(marker in question_lower for marker in anchored_markers):
+                return True
         return self._is_profile_question(question_lower) or any(
             marker in question_lower for marker in experience_markers
         )
 
+    def _is_resume_story_question(self, question_lower: str) -> bool:
+        story_markers = [
+            "tell me about a project",
+            "describe a project",
+            "walk me through a project",
+            "project you worked on",
+            "project you've worked on",
+            "what did you work on",
+            "what was your role",
+            "tell me about yourself",
+            "walk me through your background",
+            "introduce yourself",
+            "previous experience",
+            "past experience",
+            "tell me about your experience",
+            "tell me about your previous experience",
+            "experience previously",
+            "tell me more about",
+            "tell me about a time",
+            "describe a time",
+            "give me an example",
+            "how did you handle",
+            "how did you solve",
+            "what challenges did you face",
+            "what did you do",
+        ]
+        return any(marker in question_lower for marker in story_markers)
+
     def _is_technical_knowledge_question(self, question_lower: str) -> bool:
+        if self._has_resume_named_anchor(question_lower):
+            anchored_experience_markers = [
+                "experience",
+                "role",
+                "worked",
+                "work",
+                "used",
+                "using",
+                "project",
+                "projects",
+                "previous",
+                "previously",
+                "background",
+                "at ",
+                "in ",
+                "there",
+            ]
+            if any(marker in question_lower for marker in anchored_experience_markers):
+                return False
+
+        experience_context_markers = [
+            "your role",
+            "your background",
+            "your experience",
+            "your work",
+            "your work there",
+            "work there",
+            "experience at",
+            "worked on",
+            "project",
+            "company",
+            "walk me through your",
+            "at morgan stanley",
+            "at illinois state university",
+            "at marketing dollar",
+            "tell me about your",
+            "tell me about the project",
+            "tell me about the work",
+            "tell me about your experience",
+        ]
+        if any(marker in question_lower for marker in experience_context_markers):
+            return False
+
         technical_markers = [
             "what is ",
             "what's ",
@@ -935,8 +1487,238 @@ NEAREST PREPARED REFERENCE (SUPPORT ONLY):
             "jenkins",
             "sql",
             "database",
+            "encapsulation",
+            "inheritance",
+            "polymorphism",
+            "abstraction",
+            "constructor",
+            "graph",
+            "adjacency",
+            "arraylist",
+            "linked list",
+            "hashmap",
+            "hash map",
+            "queue",
+            "stack",
+            "tree",
+            "bfs",
+            "dfs",
         ]
-        return any(marker in question_lower for marker in technical_markers)
+        if any(marker in question_lower for marker in technical_markers):
+            return True
+
+        for aliases in TECHNICAL_TOPIC_PATTERNS.values():
+            if any(alias in question_lower for alias in aliases):
+                return True
+
+        return False
+
+    def _resume_anchor_phrases(self) -> list[str]:
+        phrases: list[str] = []
+        for role in self._roles():
+            for raw_value in [role.get("company", ""), role.get("title", "")]:
+                cleaned = self._clean_sentence(raw_value).lower()
+                if cleaned:
+                    phrases.append(cleaned)
+                simplified = re.sub(r"\([^)]*\)", "", cleaned).strip()
+                if simplified and simplified != cleaned:
+                    phrases.append(simplified)
+
+        for project in self._projects():
+            name = self._clean_sentence(project.get("name", "")).lower()
+            if name:
+                phrases.append(name)
+
+        deduped = []
+        seen = set()
+        for phrase in phrases:
+            normalized = " ".join(phrase.split()).strip()
+            if len(normalized) < 3:
+                continue
+            if normalized not in seen:
+                deduped.append(normalized)
+                seen.add(normalized)
+        return deduped
+
+    def _has_resume_named_anchor(self, question_lower: str) -> bool:
+        return any(phrase in question_lower for phrase in self._resume_anchor_phrases())
+
+    def _looks_like_interview_prompt(self, question_lower: str) -> bool:
+        prompt_markers = [
+            "can you",
+            "could you",
+            "would you",
+            "will you",
+            "do you",
+            "did you",
+            "have you",
+            "are you",
+            "tell me",
+            "walk me through",
+            "walk us through",
+            "explain",
+            "help me understand",
+            "talk to me about",
+            "describe",
+            "what is",
+            "what are",
+            "what's",
+            "how do",
+            "how did",
+            "how would",
+            "why",
+            "where",
+            "when",
+        ]
+        return any(marker in question_lower for marker in prompt_markers)
+
+    def _question_lexicon(self) -> set[str]:
+        lexicon = set(STOPWORDS)
+        lexicon.update(FIELD_KEYWORDS)
+        lexicon.update(TECHNICAL_LANGUAGES)
+        lexicon.update(IMPLEMENTATION_MARKERS)
+        lexicon.update({"tell", "walk", "through", "about", "using", "used", "with", "java", "python"})
+
+        for canonical, aliases in TECHNICAL_TOPIC_PATTERNS.items():
+            lexicon.update(self._normalize_tokens(canonical))
+            for alias in aliases:
+                lexicon.update(self._normalize_tokens(alias))
+
+        for skill in self._collect_skills():
+            lexicon.update(self._normalize_tokens(skill))
+
+        lexicon.update(self._normalize_tokens(self._resume_reference_text()))
+        lexicon.update(self._normalize_tokens(" ".join(self.session.context_texts)))
+        return lexicon
+
+    def _should_request_repeat(
+        self,
+        raw_question: str,
+        effective_question: str,
+        *,
+        follow_up_context: str = "",
+        turn_type: str = "",
+    ) -> bool:
+        if follow_up_context or turn_type in {"follow_up", "answer_prompt"}:
+            return False
+
+        question_lower = effective_question.lower()
+
+        if self._looks_like_interview_prompt(question_lower):
+            return False
+
+        if self._has_resume_named_anchor(question_lower):
+            return False
+
+        question_intent = self._classify_question_intent(effective_question)
+        if question_intent == "unclear":
+            raw_tokens = list(self._normalize_tokens(raw_question))
+            if len(raw_tokens) <= 1:
+                return True
+            if not self._looks_like_interview_prompt(raw_question.lower()):
+                return True
+            return False
+
+        prepared_match = self._pick_prepared_answer(effective_question)
+        predicted_match = self._pick_predicted_question(effective_question)
+        question_case = self._classify_question_case(
+            effective_question,
+            prepared_match,
+            predicted_match,
+        )
+
+        # If the app has already identified a plausible interview question shape,
+        # prefer answering instead of forcing a repeat.
+        if question_case in {"personal_experience", "field_related_missing", "concept_knowledge"}:
+            return False
+
+        if question_intent in {"behavioral", "experience", "motivational", "salary", "gap_or_weakness", "logistical"}:
+            return False
+
+        if self._is_profile_question(question_lower) or self._is_personal_experience_question(question_lower):
+            return False
+
+        if self._question_has_resume_anchor(effective_question, prepared_match, predicted_match):
+            return False
+
+        raw_tokens = list(self._normalize_tokens(raw_question))
+        if question_intent == "technical_or_knowledge":
+            skill = self._pick_skill(effective_question)
+            if self._knowledge_reference(effective_question, skill):
+                return False
+            if self._recover_technical_question(raw_question):
+                return False
+            if len(self._normalize_tokens(effective_question)) >= 1:
+                return False
+
+        if len(raw_tokens) < 2:
+            return True
+
+        lexicon = self._question_lexicon()
+        known = [token for token in raw_tokens if token in lexicon]
+        unknown = [token for token in raw_tokens if token not in lexicon]
+
+        if len(raw_tokens) >= 5 and len(unknown) >= 3 and len(known) <= 2:
+            return True
+
+        if len(raw_tokens) >= 6 and (len(unknown) / max(len(raw_tokens), 1)) >= 0.5:
+            return True
+
+        if (
+            question_intent == "technical_or_knowledge"
+            and len(raw_tokens) <= 6
+            and unknown
+            and len(known) <= 3
+            and effective_question == raw_question
+        ):
+            return True
+
+        return False
+
+    def _recover_technical_question(self, question: str) -> str:
+        question_lower = question.lower()
+        tokens = self._normalize_tokens(question)
+        if not tokens:
+            return ""
+
+        language = ""
+        for item in TECHNICAL_LANGUAGES:
+            if item in tokens or item in question_lower:
+                language = item
+                break
+
+        topic = ""
+        for canonical, aliases in TECHNICAL_TOPIC_PATTERNS.items():
+            if canonical in question_lower:
+                topic = canonical
+                break
+            if any(alias in question_lower for alias in aliases):
+                topic = canonical
+                break
+
+        has_impl_marker = bool(tokens & IMPLEMENTATION_MARKERS) or any(
+            phrase in question_lower
+            for phrase in [
+                "how would you implement",
+                "explain how you would implement",
+                "built a",
+                "implemented a",
+                "implemented an",
+                "using java",
+                "using python",
+            ]
+        )
+
+        if topic and language and has_impl_marker:
+            return f"Explain how to implement a {topic} in {language}."
+
+        if topic and has_impl_marker:
+            return f"Explain how to implement a {topic}."
+
+        if topic and language and self._is_technical_knowledge_question(question_lower):
+            return f"Explain {topic} in {language}."
+
+        return ""
 
     def _question_has_resume_anchor(
         self,
@@ -1281,6 +2063,9 @@ NEAREST PREPARED REFERENCE (SUPPORT ONLY):
 
         if is_experience_question and self._asks_about_missing_field_topic(question):
             return "field_related_missing"
+
+        if is_experience_question and self._is_resume_story_question(question_lower):
+            return "personal_experience"
 
         if is_experience_question and has_resume_anchor:
             return "personal_experience"
@@ -1722,6 +2507,23 @@ NEAREST PREPARED REFERENCE (SUPPORT ONLY):
                 topic = self._clean_sentence(match.group(1))
                 if topic:
                     return topic
+        return ""
+
+    def _knowledge_reference(self, question: str, skill: str) -> str:
+        question_lower = question.lower()
+
+        for key, snippet in KNOWLEDGE_SNIPPETS.items():
+            if key in question_lower:
+                return snippet
+
+        topic = skill or self._extract_topic_from_question(question)
+        recovered = self._recover_technical_question(question)
+        if recovered and recovered != question:
+            return f"Likely intended technical question: {recovered}"
+
+        if topic:
+            return f"Explain {topic} directly with correct terminology, a short implementation/framework if needed, and no invented personal experience."
+
         return ""
 
     def _clean_model_answer(self, text: str) -> str:

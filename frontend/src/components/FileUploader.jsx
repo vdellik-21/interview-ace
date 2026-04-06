@@ -7,7 +7,7 @@
 
 import { useState, useRef } from 'react';
 
-export default function FileUploader({ accept, label, onFile, file, multiple = false }) {
+export default function FileUploader({ accept, label, onFile, file, multiple = false, theme = 'dark' }) {
     const [isDragging, setIsDragging] = useState(false);
     const inputRef = useRef(null);
 
@@ -26,14 +26,30 @@ export default function FileUploader({ accept, label, onFile, file, multiple = f
         }
     };
 
+    const idleClasses =
+        theme === 'light'
+            ? 'border-slate-300 hover:border-slate-400 bg-white/75'
+            : 'border-white/10 hover:border-white/20 bg-black/20';
+    const successClasses =
+        theme === 'light'
+            ? 'border-emerald-500/40 bg-emerald-500/10'
+            : 'border-emerald-500/40 bg-emerald-500/8';
+    const draggingClasses =
+        theme === 'light'
+            ? 'border-cyan-500/70 bg-cyan-500/12 shadow-[0_0_0_1px_rgba(6,182,212,0.12)]'
+            : 'border-cyan-400/70 bg-cyan-500/10 shadow-[0_0_0_1px_rgba(34,211,238,0.15)]';
+    const textClasses = theme === 'light' ? 'text-slate-600' : 'text-gray-400';
+    const fileTextClasses = theme === 'light' ? 'text-emerald-700' : 'text-emerald-300';
+    const metaTextClasses = theme === 'light' ? 'text-slate-500' : 'text-gray-500';
+
     return (
         <div
             className={`rounded-2xl border border-dashed p-6 text-center cursor-pointer transition
                 ${isDragging
-                    ? 'border-cyan-400/70 bg-cyan-500/10 shadow-[0_0_0_1px_rgba(34,211,238,0.15)]'
+                    ? draggingClasses
                     : file
-                    ? 'border-emerald-500/40 bg-emerald-500/8'
-                    : 'border-white/10 hover:border-white/20 bg-black/20'
+                    ? successClasses
+                    : idleClasses
                 }`}
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={() => setIsDragging(false)}
@@ -49,14 +65,14 @@ export default function FileUploader({ accept, label, onFile, file, multiple = f
                 onChange={handleChange}
             />
             {file ? (
-                <div className="text-emerald-300 text-sm">
+                <div className={`${fileTextClasses} text-sm`}>
                     ✅ {file.name}
-                    <span className="text-gray-500 ml-2">
+                    <span className={`${metaTextClasses} ml-2`}>
                         ({(file.size / 1024).toFixed(1)} KB)
                     </span>
                 </div>
             ) : (
-                <div className="text-gray-400 text-sm">{label}</div>
+                <div className={`${textClasses} text-sm`}>{label}</div>
             )}
         </div>
     );

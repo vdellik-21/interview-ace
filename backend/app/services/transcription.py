@@ -33,6 +33,7 @@ class TranscriptionService:
         self,
         model_size: str = None,
         device: str = None,
+        vocabulary_hints: list[str] | None = None,
     ):
         """
         Args:
@@ -56,7 +57,24 @@ class TranscriptionService:
             device=device,
             compute_type=compute_type,
         )
-        logger.info("Whisper model loaded successfully")
+        cleaned_hints = [
+            hint.strip()
+            for hint in (vocabulary_hints or [])
+            if isinstance(hint, str) and hint.strip()
+        ]
+        if cleaned_hints:
+            prompt_terms = ", ".join(cleaned_hints[:40])
+            self.initial_prompt = (
+                "Technical interview terms, tools, and names that may appear: "
+                f"{prompt_terms}."
+            )
+        else:
+            self.initial_prompt = None
+        self._transcribe_lock = asyncio.Lock()
+        logger.info(
+            "Whisper model loaded successfully | hint_terms=%s",
+            len(cleaned_hints),
+        )
 
     async def transcribe(self, audio: np.ndarray) -> str:
         """
@@ -78,28 +96,29 @@ class TranscriptionService:
 
         started_at = time.perf_counter()
 
-        # Whisper inference is CPU-heavy, so keep it off the event loop.
-        def _transcribe_sync():
-            return self.model.transcribe(
+        # Keep the full Whisper decode off the event loop and avoid running
+        # multiple CPU-heavy transcriptions in parallel on the same model.
+        def _transcribe_sync() -> str:
+            segments, _info = self.model.transcribe(
                 audio,
                 beam_size=1,             # Fastest decoding
                 language="en",           # English only (faster than auto-detect)
-                vad_filter=True,         # Filter non-speech segments
-                vad_parameters=dict(
-                    min_silence_duration_ms=250,
-                ),
+                temperature=0.0,
+                initial_prompt=self.initial_prompt,
+                condition_on_previous_text=False,
+                vad_filter=False,
             )
 
-        segments, info = await asyncio.to_thread(_transcribe_sync)
+            text_parts = []
+            for segment in segments:
+                text = segment.text.strip()
+                if text:
+                    text_parts.append(text)
 
-        # Collect all segment texts
-        text_parts = []
-        for segment in segments:
-            text = segment.text.strip()
-            if text:
-                text_parts.append(text)
+            return " ".join(text_parts).strip()
 
-        result = " ".join(text_parts).strip()
+        async with self._transcribe_lock:
+            result = await asyncio.to_thread(_transcribe_sync)
 
         # Filter out tiny fragments (noise, breathing, etc.)
         if len(result) < 3:

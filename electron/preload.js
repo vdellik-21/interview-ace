@@ -9,9 +9,13 @@ const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('electronAPI', {
     // Overlay controls
     showOverlay: (sessionId) => ipcRenderer.send('show-overlay', sessionId),
+    goLive: (sessionId) => ipcRenderer.send('go-live', sessionId),
+    endSession: () => ipcRenderer.send('end-session'),
     hideOverlay: () => ipcRenderer.send('hide-overlay'),
     getOverlayBounds: () => ipcRenderer.invoke('overlay:get-bounds'),
     setOverlayBounds: (bounds) => ipcRenderer.invoke('overlay:set-bounds', bounds),
+    getOverlayClickThrough: () => ipcRenderer.invoke('overlay:get-click-through'),
+    setOverlayClickThrough: (enabled) => ipcRenderer.invoke('overlay:set-click-through', enabled),
 
     // Listen for actions from keyboard shortcuts
     onAction: (callback) => {
@@ -21,6 +25,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
     // Listen for font size changes
     onFontSize: (callback) => {
         ipcRenderer.on('font-size', (_event, direction) => callback(direction));
+    },
+
+    onOverlayClickThrough: (callback) => {
+        ipcRenderer.on('overlay-click-through', (_event, enabled) => callback(enabled));
+    },
+
+    onSessionStatusChanged: (callback) => {
+        ipcRenderer.on('session-status-changed', (_event, payload) => callback(payload));
     },
 
     // Check if running inside Electron

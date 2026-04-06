@@ -76,6 +76,27 @@ export default function PrepDashboard() {
             });
     }, []);
 
+    useEffect(() => {
+        if (!window.electronAPI?.onSessionStatusChanged) {
+            return undefined;
+        }
+
+        const handler = (payload) => {
+            if (!payload?.status) {
+                return;
+            }
+
+            if (payload.status === 'ready') {
+                setError('');
+            }
+
+            setSessionStatus(payload.status);
+        };
+
+        window.electronAPI.onSessionStatusChanged(handler);
+        return undefined;
+    }, []);
+
     // ─── Start Session ──────────────────────────
     const handleStartPrep = async () => {
         if (!resumeFile) {
@@ -159,34 +180,65 @@ export default function PrepDashboard() {
         setSessionStatus('live');
         // Tell Electron to show the stealth overlay
         if (window.electronAPI) {
-            window.electronAPI.showOverlay(sessionId);
+            if (window.electronAPI.goLive) {
+                window.electronAPI.goLive(sessionId);
+            } else {
+                window.electronAPI.showOverlay(sessionId);
+            }
         } else {
             // If not in Electron, open overlay in new tab
             window.open(`/overlay?session=${encodeURIComponent(sessionId)}`, '_blank');
         }
     };
 
+    const pageBackground =
+        'linear-gradient(180deg, rgba(3,7,18,0.08) 0%, rgba(2,6,23,0.06) 100%)';
+    const pageTextClass = 'text-white';
+    const headerCardClass = 'border-white/8';
+    const shellClass = 'border-white/8 shadow-[0_24px_80px_rgba(0,0,0,0.35)]';
+    const sectionClass = 'border-white/10 shadow-[0_18px_60px_rgba(0,0,0,0.28)]';
+    const configSectionClass = 'border-white/10 shadow-[0_18px_60px_rgba(0,0,0,0.32)]';
+    const textareaClass =
+        'border-white/10 bg-slate-950/75 text-gray-200 placeholder-gray-500 focus:border-cyan-400/60';
+    const mutedTextClass = 'text-gray-500';
+    const bodyTextClass = 'text-gray-300';
+    const panelClass = 'border-white/8 bg-black/20';
+
     return (
-        <div className="min-h-screen text-white">
+        <div
+            className={`min-h-screen ${pageTextClass}`}
+            style={{
+                background: pageBackground,
+                transition: 'background 200ms ease',
+            }}
+        >
             {/* Header */}
             <header className="px-6 py-5">
-                <div className="mx-auto flex max-w-5xl items-center justify-between rounded-[24px] border border-white/8 bg-black/25 px-5 py-4 backdrop-blur-xl">
+                <div
+                    className={`mx-auto flex max-w-5xl items-center justify-between rounded-[24px] border px-5 py-4 backdrop-blur-xl ${headerCardClass}`}
+                    style={{ backgroundColor: 'rgba(2,6,23,0.18)' }}
+                >
                     <div className="flex items-center gap-3">
                         <AppIcon className="h-10 w-10" />
                         <div>
-                            <div className="text-[11px] uppercase tracking-[0.22em] text-gray-500">
+                            <div className={`text-[11px] uppercase tracking-[0.22em] ${mutedTextClass}`}>
                                 Stealth Workspace
                             </div>
                             <h1 className="text-lg font-medium text-gray-100">InterviewAce</h1>
                         </div>
                     </div>
-                    <StatusIndicator status={sessionStatus} />
+                    <div className="flex items-center gap-3">
+                        <StatusIndicator status={sessionStatus} />
+                    </div>
                 </div>
             </header>
 
             {/* Main Content */}
             <main className="mx-auto max-w-5xl px-6 pb-10">
-                <div className="space-y-8 rounded-[32px] border border-white/8 bg-black/20 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+                <div
+                    className={`space-y-8 rounded-[32px] border p-6 backdrop-blur-xl ${shellClass}`}
+                    style={{ backgroundColor: 'rgba(2,6,23,0.16)' }}
+                >
 
                 {/* Error Banner */}
                 {error && (
@@ -202,7 +254,10 @@ export default function PrepDashboard() {
                 )}
 
                 {/* Step 1: Upload Resume */}
-                <section className="rounded-[28px] border border-white/10 bg-white/[0.025] px-5 py-5 shadow-[0_18px_60px_rgba(0,0,0,0.28)]">
+                <section
+                    className={`rounded-[28px] border px-5 py-5 ${sectionClass}`}
+                    style={{ backgroundColor: 'rgba(255,255,255,0.12)' }}
+                >
                     <h2 className="mb-3 flex items-center gap-2 text-lg font-medium">
                         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-sm text-white">1</span>
                         Upload Resume
@@ -216,15 +271,16 @@ export default function PrepDashboard() {
                 </section>
 
                 {/* Step 2: Job Description */}
-                <section className="rounded-[28px] border border-white/10 bg-white/[0.025] px-5 py-5 shadow-[0_18px_60px_rgba(0,0,0,0.28)]">
+                <section
+                    className={`rounded-[28px] border px-5 py-5 ${sectionClass}`}
+                    style={{ backgroundColor: 'rgba(255,255,255,0.12)' }}
+                >
                     <h2 className="mb-3 flex items-center gap-2 text-lg font-medium">
                         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-sm text-white">2</span>
                         Paste Job Description
                     </h2>
                     <textarea
-                        className="h-40 w-full resize-y rounded-2xl border border-white/10 bg-slate-950/75 p-4 text-sm
-                                   text-gray-200 placeholder-gray-500
-                                   focus:outline-none focus:border-cyan-400/60 transition"
+                        className={`h-40 w-full resize-y rounded-2xl border p-4 text-sm transition focus:outline-none ${textareaClass}`}
                         placeholder="Paste the full job description here..."
                         value={jdText}
                         onChange={(e) => setJdText(e.target.value)}
@@ -232,14 +288,17 @@ export default function PrepDashboard() {
                 </section>
 
                 {/* Step 3: Context Files (Optional) */}
-                <section className="rounded-[28px] border border-white/10 bg-white/[0.025] px-5 py-5 shadow-[0_18px_60px_rgba(0,0,0,0.28)]">
+                <section
+                    className={`rounded-[28px] border px-5 py-5 ${sectionClass}`}
+                    style={{ backgroundColor: 'rgba(255,255,255,0.12)' }}
+                >
                     <div className="mb-4 flex items-center justify-between gap-3">
                         <h2 className="text-lg font-medium flex items-center gap-2">
-                            <span className="bg-white/10 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
+                            <span className="w-8 h-8 rounded-full flex items-center justify-center bg-white/10 text-sm text-white">3</span>
                             Context Files
-                            <span className="text-xs text-gray-500 font-normal">(optional)</span>
+                            <span className={`text-xs font-normal ${mutedTextClass}`}>(optional)</span>
                         </h2>
-                        <span className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-gray-500">
+                        <span className={`rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.22em] ${panelClass} ${mutedTextClass}`}>
                             Stealth Context
                         </span>
                     </div>
@@ -255,7 +314,7 @@ export default function PrepDashboard() {
                                 <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
                                     <span>📄 {f.name}</span>
                                     <button
-                                        className="text-red-400 hover:text-red-300 text-xs"
+                                        className="text-xs text-red-400 hover:text-red-300"
                                         onClick={() =>
                                             setContextFiles((prev) => prev.filter((_, j) => j !== i))
                                         }
@@ -269,14 +328,17 @@ export default function PrepDashboard() {
                 </section>
 
                 {/* Step 4: Configuration */}
-                <section className="rounded-[28px] border border-white/10 bg-gradient-to-b from-white/[0.03] to-white/[0.015] px-5 py-5 shadow-[0_18px_60px_rgba(0,0,0,0.32)]">
+                <section
+                    className={`rounded-[28px] border px-5 py-5 ${configSectionClass}`}
+                    style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.1) 100%)' }}
+                >
                     <div className="mb-4 flex items-center justify-between gap-3">
                         <div>
                             <h2 className="text-lg font-medium flex items-center gap-2">
                                 <span className="bg-cyan-500/20 text-cyan-200 w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
                                 Configure
                             </h2>
-                            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-gray-500">
+                            <p className={`mt-1 text-xs uppercase tracking-[0.18em] ${mutedTextClass}`}>
                                 Low-visibility live setup
                             </p>
                         </div>
@@ -289,7 +351,10 @@ export default function PrepDashboard() {
                             {devices.warnings.join(' ')}
                         </div>
                     )}
-                    <div className="rounded-[24px] border border-white/8 bg-black/20 p-4">
+                    <div
+                        className={`rounded-[24px] border p-4 ${panelClass}`}
+                        style={{ backgroundColor: 'rgba(2,6,23,0.18)' }}
+                    >
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <ModelSelector value={model} onChange={setModel} />
                             <AudioDevicePicker
@@ -312,11 +377,11 @@ export default function PrepDashboard() {
                             />
                         </div>
                     </div>
-                    <p className="mt-4 text-xs text-gray-500 leading-relaxed">
+                    <p className={`mt-4 text-xs leading-relaxed ${mutedTextClass}`}>
                         The selected interview model now powers both preparation and live answers, so the
                         same model builds the dossier and answers questions during the interview.
                     </p>
-                    <p className="mt-2 text-xs text-gray-500 leading-relaxed">
+                    <p className={`mt-2 text-xs leading-relaxed ${mutedTextClass}`}>
                         `Interviewer Capture` should be a loopback input like `BlackHole 2ch`.
                         `Playback Output` is where you hear the call, such as your MacBook Air speakers,
                         headphones, or a Multi-Output Device that includes both your speakers and BlackHole.
@@ -326,8 +391,11 @@ export default function PrepDashboard() {
 
                 {/* Prep Progress */}
                 {sessionStatus === 'preparing' && (
-                    <section className="rounded-[24px] border border-white/10 bg-white/[0.025] p-6">
-                        <h3 className="mb-3 text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">
+                    <section
+                        className={`rounded-[24px] border p-6 ${sectionClass}`}
+                        style={{ backgroundColor: 'rgba(255,255,255,0.12)' }}
+                    >
+                        <h3 className={`mb-3 text-[11px] font-medium uppercase tracking-[0.2em] ${mutedTextClass}`}>
                             Preparing session
                         </h3>
                         <div className="mb-2 h-2 w-full rounded-full bg-gray-800">
@@ -336,7 +404,7 @@ export default function PrepDashboard() {
                                 style={{ width: `${prepProgress}%` }}
                             />
                         </div>
-                        <p className="text-sm text-gray-300">{prepStep}</p>
+                        <p className={`text-sm ${bodyTextClass}`}>{prepStep}</p>
                     </section>
                 )}
 
@@ -348,13 +416,13 @@ export default function PrepDashboard() {
                         </h3>
                         <div className="max-h-48 space-y-2 overflow-y-auto">
                             {predictedQuestions.slice(0, 5).map((q, i) => (
-                                <div key={i} className="text-sm text-gray-300 flex gap-2">
-                                    <span className="text-gray-500 shrink-0">{i + 1}.</span>
+                                <div key={i} className={`flex gap-2 text-sm ${bodyTextClass}`}>
+                                    <span className={`${mutedTextClass} shrink-0`}>{i + 1}.</span>
                                     <span>{q.question || q}</span>
                                 </div>
                             ))}
                             {predictedQuestions.length > 5 && (
-                                <p className="text-xs text-gray-500">
+                                <p className={`text-xs ${mutedTextClass}`}>
                                     + {predictedQuestions.length - 5} more questions prepared
                                 </p>
                             )}

@@ -26,6 +26,17 @@ export default function App() {
         return () => window.removeEventListener('popstate', handleRoute);
     }, []);
 
+    useEffect(() => {
+        const isOverlayRoute = route === '/overlay';
+        document.documentElement.classList.toggle('overlay-mode', isOverlayRoute);
+        document.body.classList.toggle('overlay-mode', isOverlayRoute);
+
+        return () => {
+            document.documentElement.classList.remove('overlay-mode');
+            document.body.classList.remove('overlay-mode');
+        };
+    }, [route]);
+
     if (route === '/overlay') {
         return <StealthOverlay />;
     }

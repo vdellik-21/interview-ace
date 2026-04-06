@@ -17,12 +17,13 @@ let tray = null;
 let backendProcess = null;   // Python backend — runs silently, no terminal
 let frontendProcess = null;  // Vite dev server — runs silently, no terminal
 let isLive = false;          // Track if we're in full stealth mode
+let overlayClickThrough = false;
 
 const FRONTEND_URL = 'http://localhost:5173';
 const BACKEND_PORT = 8000;
 const OVERLAY_MIN_WIDTH = 340;
 const OVERLAY_MIN_HEIGHT = 420;
-const APP_ICON_PATH = path.join(__dirname, 'assets', 'interviewace-health-icon.png');
+const APP_ICON_PATH = path.join(__dirname, 'assets', 'interviewace-interview-lens.png');
 
 function log(message, extra) {
     const timestamp = new Date().toISOString();
@@ -37,6 +38,42 @@ function applyAppIcon() {
     if (process.platform === 'darwin' && app.dock) {
         app.dock.setIcon(APP_ICON_PATH);
     }
+}
+
+function applyMacGlassEffect(windowInstance, { vibrancy = 'under-window' } = {}) {
+    if (process.platform !== 'darwin' || !windowInstance) {
+        return;
+    }
+
+    try {
+        if (typeof windowInstance.setVibrancy === 'function') {
+            windowInstance.setVibrancy(vibrancy);
+        }
+        if (typeof windowInstance.setVisualEffectState === 'function') {
+            windowInstance.setVisualEffectState('active');
+        }
+    } catch (error) {
+        log('Unable to apply macOS glass effect', error?.message || error);
+    }
+}
+
+function setOverlayClickThrough(enabled) {
+    overlayClickThrough = Boolean(enabled);
+
+    if (!stealthWindow) {
+        return overlayClickThrough;
+    }
+
+    stealthWindow.setIgnoreMouseEvents(overlayClickThrough, { forward: true });
+    stealthWindow.setFocusable(!overlayClickThrough);
+
+    if (!overlayClickThrough) {
+        stealthWindow.focus();
+    }
+
+    stealthWindow.webContents.send('overlay-click-through', overlayClickThrough);
+    log(`Overlay click-through ${overlayClickThrough ? 'enabled' : 'disabled'}`);
+    return overlayClickThrough;
 }
 
 // ─── SILENT SERVER LAUNCHERS ─────────────────────
@@ -131,6 +168,8 @@ function createMainWindow() {
         height: 700,
         title: 'InterviewAce',
         icon: APP_ICON_PATH,
+        transparent: true,
+        backgroundColor: '#00000000',
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -140,6 +179,7 @@ function createMainWindow() {
 
     // Dashboard is ALSO invisible to screen share
     mainWindow.setContentProtection(true);
+    applyMacGlassEffect(mainWindow);
 
     mainWindow.loadURL(FRONTEND_URL);
     log(`Main dashboard loading ${FRONTEND_URL}`);
@@ -165,6 +205,7 @@ function createStealthWindow() {
         // ═══ STEALTH PROPERTIES ═══
         frame: false,              // No window chrome / title bar
         transparent: true,         // Transparent background
+        backgroundColor: '#00000000',
         alwaysOnTop: true,         // Stays above Zoom/Meet/Teams
         skipTaskbar: true,         // Not visible in taskbar / dock
         hasShadow: false,          // No window shadow
@@ -187,6 +228,8 @@ function createStealthWindow() {
     // to screen share, screenshots, and screen recording
     // ═══════════════════════════════════════════════════
     stealthWindow.setContentProtection(true);
+    // Keep the overlay visually clear instead of using tinted macOS vibrancy.
+    applyMacGlassEffect(stealthWindow, { vibrancy: null });
 
     // Not visible in Mission Control / Alt-Tab / App Switcher
     stealthWindow.setVisibleOnAllWorkspaces(true, {
@@ -266,6 +309,7 @@ function exitFullStealth() {
     }
     if (mainWindow) {
         mainWindow.show();
+        mainWindow.webContents.send('session-status-changed', { status: 'ready' });
     }
 
     log('Stealth mode deactivated — app restored');
@@ -382,6 +426,12 @@ function registerShortcuts() {
             stealthWindow.webContents.send('action', 'more_detail');
         }
     });
+
+    globalShortcut.register('Escape', () => {
+        if (!stealthWindow) return;
+        log('Shortcut triggered: toggle click-through');
+        setOverlayClickThrough(!overlayClickThrough);
+    });
 }
 
 // ─── System Tray ────────────────────────────────
@@ -489,6 +539,12 @@ function setupIPC() {
         stealthWindow.setBounds(clampedBounds);
         return stealthWindow.getBounds();
     });
+
+    ipcMain.handle('overlay:get-click-through', () => overlayClickThrough);
+
+    ipcMain.handle('overlay:set-click-through', (_event, enabled) => {
+        return setOverlayClickThrough(enabled);
+    });
 }
 
 // ─── App Lifecycle ──────────────────────────────
@@ -508,6 +564,7 @@ app.whenReady().then(() => {
         setupIPC();
 
         log('InterviewAce started — all servers running silently');
+        log('Shortcut help: Esc toggle click-through');
         log('Shortcut help: Ctrl+Shift+A force answer now');
         log('Shortcut help: Ctrl+Shift+H toggle overlay');
         log('Shortcut help: Ctrl+Shift+P panic hide');

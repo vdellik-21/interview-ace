@@ -14,12 +14,22 @@ IMPORTANT: This module requires platform-specific audio routing:
 """
 
 import asyncio
+from collections import deque
+import logging
 from typing import Callable, Awaitable, Optional
 
 import numpy as np
 import sounddevice as sd
 
 from ..config import settings
+
+try:
+    import webrtcvad
+except ImportError:  # pragma: no cover - fallback path when dependency isn't installed yet
+    webrtcvad = None
+
+
+logger = logging.getLogger("interviewace.audio_capture")
 
 
 class DualAudioCapture:
@@ -55,8 +65,20 @@ class DualAudioCapture:
         self.silence_duration = (
             settings.silence_duration if silence_duration is None else silence_duration
         )
-        self.chunk_duration = 0.25  # 250ms chunks for faster segment detection
+        self.vad_frame_ms = 20
+        self.vad_frame_size = int(self.sample_rate * self.vad_frame_ms / 1000)
+        self.vad_enabled = webrtcvad is not None and self.sample_rate in {8000, 16000, 32000, 48000}
+        self.vad = webrtcvad.Vad(2) if self.vad_enabled else None
+        self.pre_roll_frames = max(1, int(0.18 / (self.vad_frame_ms / 1000)))
+        self.max_silence_frames = max(4, int(min(self.silence_duration, 0.42) / (self.vad_frame_ms / 1000)))
+        self.chunk_duration = 0.1 if self.vad_enabled else 0.25
         self.is_running = False
+        logger.info(
+            "Audio capture initialized | sample_rate=%s | chunk_duration=%.2f | vad_enabled=%s",
+            self.sample_rate,
+            self.chunk_duration,
+            self.vad_enabled,
+        )
 
     def _find_device(self, name: str) -> int:
         """
@@ -124,6 +146,11 @@ class DualAudioCapture:
         - silence_duration: shorter values improve responsiveness
         - chunk_duration: 0.25s keeps latency lower for live use
         """
+        if self.vad_enabled:
+            await self._capture_stream_with_vad(speaker, device_idx, callback)
+            return
+
+        logger.warning("WebRTC VAD unavailable; falling back to RMS speech detection | speaker=%s", speaker)
         speech_started = False
         silence_time = 0.0
         audio_chunks: list[np.ndarray] = []
@@ -178,6 +205,101 @@ class DualAudioCapture:
         except Exception as e:
             print(f"[AudioCapture] Error on {speaker} stream: {e}")
             # Don't crash — just log and stop this stream
+
+    async def _capture_stream_with_vad(
+        self,
+        speaker: str,
+        device_idx: int,
+        callback: Callable[[str, np.ndarray], Awaitable[None]],
+    ):
+        """
+        Capture loop using WebRTC VAD for cleaner/faster utterance boundaries.
+
+        This is tuned for quiet-room live interview use:
+        - 20ms frames for low latency
+        - small pre-roll so we don't clip the first word
+        - short silence hangover for faster question pickup
+        """
+        loop = asyncio.get_event_loop()
+        pre_roll: deque[np.ndarray] = deque(maxlen=self.pre_roll_frames)
+        speech_started = False
+        silence_frames = 0
+        utterance_frames: list[np.ndarray] = []
+        pending = np.empty(0, dtype=np.float32)
+
+        def finalize_utterance() -> None:
+            nonlocal speech_started, silence_frames, utterance_frames
+            if not utterance_frames:
+                speech_started = False
+                silence_frames = 0
+                return
+
+            full_audio = np.concatenate(utterance_frames)
+            utterance_frames = []
+            speech_started = False
+            silence_frames = 0
+
+            loop.call_soon_threadsafe(
+                asyncio.ensure_future,
+                callback(speaker, full_audio),
+            )
+
+        def audio_callback(indata, frames, time_info, status):
+            nonlocal pending, speech_started, silence_frames, utterance_frames
+
+            if status:
+                logger.warning("Audio stream status | speaker=%s | status=%s", speaker, status)
+
+            audio_data = indata[:, 0].copy().astype(np.float32)
+            if pending.size:
+                audio_data = np.concatenate((pending, audio_data))
+
+            total_frames = len(audio_data) // self.vad_frame_size
+            if total_frames <= 0:
+                pending = audio_data
+                return
+
+            consumed = total_frames * self.vad_frame_size
+            pending = audio_data[consumed:]
+
+            for start in range(0, consumed, self.vad_frame_size):
+                frame = audio_data[start:start + self.vad_frame_size]
+                pcm_frame = np.clip(frame, -1.0, 1.0)
+                pcm_bytes = (pcm_frame * 32767).astype(np.int16).tobytes()
+                is_speech = self.vad.is_speech(pcm_bytes, self.sample_rate)
+
+                if is_speech:
+                    if not speech_started:
+                        speech_started = True
+                        utterance_frames = list(pre_roll)
+                    utterance_frames.append(frame.copy())
+                    silence_frames = 0
+                    continue
+
+                if speech_started:
+                    utterance_frames.append(frame.copy())
+                    silence_frames += 1
+                    if silence_frames >= self.max_silence_frames:
+                        finalize_utterance()
+                else:
+                    pre_roll.append(frame.copy())
+
+        blocksize = int(self.sample_rate * self.chunk_duration)
+
+        try:
+            with sd.InputStream(
+                device=device_idx,
+                channels=1,
+                samplerate=self.sample_rate,
+                blocksize=blocksize,
+                dtype="float32",
+                callback=audio_callback,
+            ):
+                while self.is_running:
+                    await asyncio.sleep(0.05)
+        except Exception as e:
+            logger.exception("Audio capture failed on VAD stream | speaker=%s", speaker)
+            print(f"[AudioCapture] Error on {speaker} stream: {e}")
 
     async def stop(self):
         """Stop both capture streams."""
